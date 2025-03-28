@@ -1,33 +1,38 @@
-<h2 align="center"><b><h3>When Babies Teach Babies: Can student knowledge sharing outperform Teacher-Guided Distillation on small datasets?</h3></b></h2><br>
-
-
-<p align="center">
-  <b>Srikrishna Iyer</b>
-</p>
-
-<p align="center">
-  <i>
-    AI.DA STC, Group Technology Office<br>
-    ST Engineering<br>
-  </i>
-</p>
+<h2 align="center"><b><h3>GPT-BERT with Modified Pre-Training and Curriculum Learning</h3></b></h2>
 <br>
 
 <p align="center">
-  <a href="https://drive.google.com/file/d/1RD2IQJ-0Y0NmtC-wzxn_CW1jpM9rQjdp/view?usp=sharing"><b>Paper</b></a><br>
-  <a href="https://huggingface.co/AI-DA-STC"><b>HuggingFace models</b></a>
+  <b>Authors: Ethan Rodgers-Gates, Brian Ma, Damien Liebov</b>
 </p>
 
 <p align="center">
-  <img src="assets/overview.png" alt="Illustration of our model." width="720"/>  
+  <i>CMSC395: Natural Language Processing, University of Richmond</i>
 </p>
-
-_______
-
 <br>
 
-This is the official repository for our paper about pre-training sample-efficient language models on a representative 10M and 100M text corpus. Our method builds upon deep mutual learning, introducing a student model search for diverse initialization. We address the limitation of treating students equally by formulating weighted mutual learning as a bi-level optimization problem. The inner loop learns compact students through online distillation, while the outer loop optimizes weights for better knowledge distillation from diverse students. This dynamic weighting strategy eliminates the need for a teacher model, reducing computational requirements. Our evaluations show that teacherless methods can match or surpass teacher-supervised
-approaches.
+---
+
+## Overview
+
+This repository contains the codebase and documentation for our project:
+**GPT-BERT with Modified Pre-Training and Curriculum Learning.**  
+Building upon the GPT-BERT combined model (Charpentier et al., 2024), our work integrates curriculum learning via two preprocessing methods pseudo-labeling with a dependency parser and readability scoring using the FKGL formula. Our goal is to enhance sample efficiency and improve performance across syntactic, reasoning, and world knowledge tasks.
+
+---
+
+## Planned Modifications
+
+1. **Curriculum Learning Integration:**  
+  We are implementing two pipelines for curriculum learning:
+    - Pseudo-labeling using SpaCy to compute syntactic complexity
+    - Readability Scores using textstat to compute FKGL scores.  
+    The selected method will be integrated into the training loop via a curriculum scheduler that feeds data in progressively increasing difficulty.
+
+2. **Experimental Evaluation:**  
+  We will run experiments using the strict-small dataset and evaluate performance improvements on BLiMP, GLUE, and EWOK benchmarks.
+
+3. **Documentation and Reproducibility:**  
+  The repository will include instructions for environment setup, data preprocessing, and running experiments, ensuring that our work is fully reproducible.
 
 _______
 
@@ -101,6 +106,11 @@ $ python scripts/run_tokenizer.py
 $ python scripts/train_WML.py
 ```
 
-## Please cite the following publication 
+## Citation
+<!-- Informal Version:
 
-```coming soon```
+[When Babies Teach Babies: Can student knowledge sharing outperform Teacher-Guided Distillation on small datasets?](https://aclanthology.org/2024.conll-babylm.17/) (Iyer, CoNLL-BabyLM 2024) -->
+
+<!-- ACM Version: -->
+
+Srikrishna Iyer. 2024. [When Babies Teach Babies: Can student knowledge sharing outperform Teacher-Guided Distillation on small datasets?](https://aclanthology.org/2024.conll-babylm.17/). In *The 2nd BabyLM Challenge at the 28th Conference on Computational Natural Language Learning*, pages 197–211, Miami, FL, USA. Association for Computational Linguistics.
