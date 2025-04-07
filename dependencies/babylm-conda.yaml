@@ -1,8 +1,0 @@
-name: baby-lm
-channels:
-  - conda-forge
-dependencies:
-  - pip=23.3.2
-  - python=3.10.13
-  - pip:
-      - -r requirements.txt
