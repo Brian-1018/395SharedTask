@@ -14,9 +14,13 @@
 
 ## Overview
 
-This repository contains the codebase and documentation for our project:
-**GPT-BERT with Modified Pre-Training and Curriculum Learning.**  
-Building upon the GPT-BERT combined model (Charpentier et al., 2024), our work integrates curriculum learning via two preprocessing methods pseudo-labeling with a dependency parser and readability scoring using the FKGL formula. Our goal is to enhance sample efficiency and improve performance across syntactic, reasoning, and world knowledge tasks.
+This repository contains the codebase and documentation for our project. Our model builds upon GPT-BERT (BabyLM 10M) and is pretrained on the Baby-cosmo-fine-10M dataset. It unifies causal and masked language modeling in a single transformer, allowing it to be used seamlessly as either a generative (causal) or a bidirectional (masked) model.
+
+## Model Information
+- Pretrained Model Name: ltg/gpt-bert-babylm-small
+- Hugging Face URL: https://huggingface.co/ltg/gpt-bert-babylm-small
+- Baseline Implementation: Cloned from ltgoslo/gpt-bert and extended with our modifications.
+
 
 ---
 
@@ -38,44 +42,44 @@ _______
 
 ## Setup
 
-**Virtual Environment manager** <br>
-This project uses mamba as the package and virtual environment manager. To install mamba, here are some quick steps to doing so:
+**Set Up Your Environment**
+> python -m venv venv \
+source venv/bin/activate \
+pip install -r requirements.txt
 
-For macOS/Linux : 
-```bash
-$ curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" 
+**Pretraining the Baseline Model**
+> python pretraining/train_baseline.py --config configs/baseline_config.json
 
-$ bash Miniforge3-$(uname)-$(uname -m).sh
+This script uses our modified pre-training methods on the Baby-cosmo-fine-10M dataset.
+
+**Running the Evaluation Pipeline**
+Once the model is pretrained, run the evaluation pipeline via:
+> sbatch group4.slurm
+
+**Test Case**
 ```
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-For Windows :<br>
-refer [here](https://github.com/conda-forge/miniforge?tab=readme-ov-file#windows)
+# Load the tokenizer and model from Hugging Face
+tokenizer = AutoTokenizer.from_pretrained("ltg/gpt-bert-babylm-small")
+model = AutoModelForCausalLM.from_pretrained("ltg/gpt-bert-babylm-small")
 
-**Create environment and install dependencies**
+# Example text for tokenization and generation
+text = "The quick brown fox jumps over the lazy dog."
 
-For macOS (Apple Chip):
-```bash
-$ mamba env create -f dependencies/babylm-conda-metal.yaml
-```
+# Tokenize the input text
+inputs = tokenizer(text, return_tensors="pt")
 
-For Linux :
-```bash
-$ mamba env create -f dependencies/babylm-conda.yaml
+# Generate text output from the model
+outputs = model.generate(inputs["input_ids"], max_length=20)
+
+# Decode the generated tokens and print the output
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
 **Download data**
 
 [Click here to download dataset](https://osf.io/ad7qg/) and save the dev, text, train_10M and train_100M to the `data/raw` folder
-
-## Data pre-processing
-
-Assuming you're already on root folder
-
-Run preprocessing shell script:
-```
-$ bash ./scripts/preprocess.sh
-```
-This should create and save preprocesed training, test and dev babylm datasets a folder under data called ```preprocessed```. 
 
 ## Configure
 
@@ -96,7 +100,7 @@ Configure the following config parameters in conf/config.yaml :
 | WML.model_type | MLM/CLM | MLM (Masked language models eg. RoBERTa) or CLM (Causal language models eg. GPT2) |
 | WML.num_peers | 1/2/4 | Works best for num_peer = 4 | 
 
-**Train custom tokenizer**
+<!-- **Train custom tokenizer**
 ```
 $ python scripts/run_tokenizer.py
 ```
@@ -104,7 +108,7 @@ $ python scripts/run_tokenizer.py
 **Run Weighted deep mutual learning (WDML) training script for num_peers = 4**
 ```
 $ python scripts/train_WML.py
-```
+``` -->
 
 ## Citation
 <!-- Informal Version:
@@ -113,4 +117,4 @@ $ python scripts/train_WML.py
 
 <!-- ACM Version: -->
 
-Srikrishna Iyer. 2024. [When Babies Teach Babies: Can student knowledge sharing outperform Teacher-Guided Distillation on small datasets?](https://aclanthology.org/2024.conll-babylm.17/). In *The 2nd BabyLM Challenge at the 28th Conference on Computational Natural Language Learning*, pages 197–211, Miami, FL, USA. Association for Computational Linguistics.
+Lucas Georges Gabriel Charpentier and David Samuel. 2024. [BERT or GPT: why not both?](https://aclanthology.org/2024.conll-babylm.24/). In *The 2nd BabyLM Challenge at the 28th Conference on Computational Natural Language Learning*, pages 262–283, Miami, FL, USA. Association for Computational Linguistics.
