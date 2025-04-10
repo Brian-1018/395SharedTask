@@ -1,0 +1,242 @@
+Thu Apr 10 17:49:31 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr16
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/cfinegan/.bashrc
+No action taken.
+/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/utils/_pytree.py:185: FutureWarning: optree is installed but the version is too old to support PyTorch Dynamo in C++ pytree. C++ pytree support is disabled. Please consider upgrading optree using `python3 -m pip install --upgrade 'optree>=0.13.0'`.
+  warnings.warn(
+2025-04-10 17:49:34,563 - INFO - Number of GPUs available: 1
+2025-04-10 17:49:34,568 - INFO - GPU 0: NVIDIA A100-PCIE-40GB
+Hello from rank 0 of 2 on spdr16.cluster where there are 1 allocated GPUs per node.
+Dataset type: masked
+2025-04-10 17:49:34,568 - INFO - Right before seed everything
+2025-04-10 17:49:34,570 - INFO - After seed everything
+RCCL started on device cuda:0
+host: spdr16.cluster, rank: 0, local_rank: 0
+Training for 7,812 steps with 1 GPUs
+In total, the model will be trained on 'steps'(7,812) x 'GPUs'(1) x 'batch_size'(256) x 'seq_len'(128) = 255,983,616 subword instances
+Bert(
+  (embedding): Embedding(
+    (word_embedding): Embedding(8192, 384)
+    (word_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+    (dropout): Dropout(p=0.1, inplace=False)
+    (relative_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Encoder(
+    (attention_layers): ModuleList(
+      (0-11): 12 x Attention(
+        (in_proj_qk): Linear(in_features=384, out_features=768, bias=True)
+        (in_proj_vg): Linear(in_features=384, out_features=768, bias=True)
+        (out_proj): Linear(in_features=384, out_features=384, bias=True)
+        (pre_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (post_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (mlp_layers): ModuleList(
+      (0-11): 12 x FeedForward(
+        (mlp): Sequential(
+          (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+          (1): Linear(in_features=384, out_features=2560, bias=False)
+          (2): GeGLU()
+          (3): LayerNorm((1280,), eps=1e-05, elementwise_affine=False)
+          (4): Linear(in_features=1280, out_features=384, bias=False)
+          (5): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (dwa_modules): DWAModules(
+      (alphas): ParameterList(
+          (0): Parameter containing: [torch.float32 of size 2]
+          (1): Parameter containing: [torch.float32 of size 3]
+          (2): Parameter containing: [torch.float32 of size 4]
+          (3): Parameter containing: [torch.float32 of size 5]
+          (4): Parameter containing: [torch.float32 of size 6]
+          (5): Parameter containing: [torch.float32 of size 7]
+          (6): Parameter containing: [torch.float32 of size 8]
+          (7): Parameter containing: [torch.float32 of size 9]
+          (8): Parameter containing: [torch.float32 of size 10]
+          (9): Parameter containing: [torch.float32 of size 11]
+          (10): Parameter containing: [torch.float32 of size 12]
+          (11): Parameter containing: [torch.float32 of size 13]
+          (12): Parameter containing: [torch.float32 of size 14]
+          (13): Parameter containing: [torch.float32 of size 15]
+          (14): Parameter containing: [torch.float32 of size 16]
+          (15): Parameter containing: [torch.float32 of size 17]
+          (16): Parameter containing: [torch.float32 of size 18]
+          (17): Parameter containing: [torch.float32 of size 19]
+          (18): Parameter containing: [torch.float32 of size 20]
+          (19): Parameter containing: [torch.float32 of size 21]
+          (20): Parameter containing: [torch.float32 of size 22]
+          (21): Parameter containing: [torch.float32 of size 23]
+          (22): Parameter containing: [torch.float32 of size 24]
+          (23): Parameter containing: [torch.float32 of size 25]
+      )
+    )
+  )
+  (classifier): MaskClassifier(
+    (nonlinearity): Sequential(
+      (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (1): Linear(in_features=384, out_features=384, bias=True)
+      (2): GELU(approximate='none')
+      (3): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (4): Dropout(p=0.1, inplace=False)
+      (5): Linear(in_features=384, out_features=8192, bias=True)
+    )
+  )
+)
+NUMBER OF PARAMETERS: 29892164
+
+Parameters without weight decay:
+embedding.relative_layer_norm.weight
+embedding.relative_layer_norm.bias
+transformer.attention_layers.0.in_proj_qk.bias
+transformer.attention_layers.0.in_proj_vg.bias
+transformer.attention_layers.0.out_proj.bias
+transformer.attention_layers.1.in_proj_qk.bias
+transformer.attention_layers.1.in_proj_vg.bias
+transformer.attention_layers.1.out_proj.bias
+transformer.attention_layers.2.in_proj_qk.bias
+transformer.attention_layers.2.in_proj_vg.bias
+transformer.attention_layers.2.out_proj.bias
+transformer.attention_layers.3.in_proj_qk.bias
+transformer.attention_layers.3.in_proj_vg.bias
+transformer.attention_layers.3.out_proj.bias
+transformer.attention_layers.4.in_proj_qk.bias
+transformer.attention_layers.4.in_proj_vg.bias
+transformer.attention_layers.4.out_proj.bias
+transformer.attention_layers.5.in_proj_qk.bias
+transformer.attention_layers.5.in_proj_vg.bias
+transformer.attention_layers.5.out_proj.bias
+transformer.attention_layers.6.in_proj_qk.bias
+transformer.attention_layers.6.in_proj_vg.bias
+transformer.attention_layers.6.out_proj.bias
+transformer.attention_layers.7.in_proj_qk.bias
+transformer.attention_layers.7.in_proj_vg.bias
+transformer.attention_layers.7.out_proj.bias
+transformer.attention_layers.8.in_proj_qk.bias
+transformer.attention_layers.8.in_proj_vg.bias
+transformer.attention_layers.8.out_proj.bias
+transformer.attention_layers.9.in_proj_qk.bias
+transformer.attention_layers.9.in_proj_vg.bias
+transformer.attention_layers.9.out_proj.bias
+transformer.attention_layers.10.in_proj_qk.bias
+transformer.attention_layers.10.in_proj_vg.bias
+transformer.attention_layers.10.out_proj.bias
+transformer.attention_layers.11.in_proj_qk.bias
+transformer.attention_layers.11.in_proj_vg.bias
+transformer.attention_layers.11.out_proj.bias
+classifier.nonlinearity.1.bias
+classifier.nonlinearity.5.bias
+
+Parameters with weight decay:
+embedding.relative_embedding
+embedding.word_embedding.weight
+transformer.attention_layers.0.in_proj_qk.weight
+transformer.attention_layers.0.in_proj_vg.weight
+transformer.attention_layers.0.out_proj.weight
+transformer.attention_layers.1.in_proj_qk.weight
+transformer.attention_layers.1.in_proj_vg.weight
+transformer.attention_layers.1.out_proj.weight
+transformer.attention_layers.2.in_proj_qk.weight
+transformer.attention_layers.2.in_proj_vg.weight
+transformer.attention_layers.2.out_proj.weight
+transformer.attention_layers.3.in_proj_qk.weight
+transformer.attention_layers.3.in_proj_vg.weight
+transformer.attention_layers.3.out_proj.weight
+transformer.attention_layers.4.in_proj_qk.weight
+transformer.attention_layers.4.in_proj_vg.weight
+transformer.attention_layers.4.out_proj.weight
+transformer.attention_layers.5.in_proj_qk.weight
+transformer.attention_layers.5.in_proj_vg.weight
+transformer.attention_layers.5.out_proj.weight
+transformer.attention_layers.6.in_proj_qk.weight
+transformer.attention_layers.6.in_proj_vg.weight
+transformer.attention_layers.6.out_proj.weight
+transformer.attention_layers.7.in_proj_qk.weight
+transformer.attention_layers.7.in_proj_vg.weight
+transformer.attention_layers.7.out_proj.weight
+transformer.attention_layers.8.in_proj_qk.weight
+transformer.attention_layers.8.in_proj_vg.weight
+transformer.attention_layers.8.out_proj.weight
+transformer.attention_layers.9.in_proj_qk.weight
+transformer.attention_layers.9.in_proj_vg.weight
+transformer.attention_layers.9.out_proj.weight
+transformer.attention_layers.10.in_proj_qk.weight
+transformer.attention_layers.10.in_proj_vg.weight
+transformer.attention_layers.10.out_proj.weight
+transformer.attention_layers.11.in_proj_qk.weight
+transformer.attention_layers.11.in_proj_vg.weight
+transformer.attention_layers.11.out_proj.weight
+transformer.mlp_layers.0.mlp.1.weight
+transformer.mlp_layers.0.mlp.4.weight
+transformer.mlp_layers.1.mlp.1.weight
+transformer.mlp_layers.1.mlp.4.weight
+transformer.mlp_layers.2.mlp.1.weight
+transformer.mlp_layers.2.mlp.4.weight
+transformer.mlp_layers.3.mlp.1.weight
+transformer.mlp_layers.3.mlp.4.weight
+transformer.mlp_layers.4.mlp.1.weight
+transformer.mlp_layers.4.mlp.4.weight
+transformer.mlp_layers.5.mlp.1.weight
+transformer.mlp_layers.5.mlp.4.weight
+transformer.mlp_layers.6.mlp.1.weight
+transformer.mlp_layers.6.mlp.4.weight
+transformer.mlp_layers.7.mlp.1.weight
+transformer.mlp_layers.7.mlp.4.weight
+transformer.mlp_layers.8.mlp.1.weight
+transformer.mlp_layers.8.mlp.4.weight
+transformer.mlp_layers.9.mlp.1.weight
+transformer.mlp_layers.9.mlp.4.weight
+transformer.mlp_layers.10.mlp.1.weight
+transformer.mlp_layers.10.mlp.4.weight
+transformer.mlp_layers.11.mlp.1.weight
+transformer.mlp_layers.11.mlp.4.weight
+transformer.dwa_modules.alphas.0
+transformer.dwa_modules.alphas.1
+transformer.dwa_modules.alphas.2
+transformer.dwa_modules.alphas.3
+transformer.dwa_modules.alphas.4
+transformer.dwa_modules.alphas.5
+transformer.dwa_modules.alphas.6
+transformer.dwa_modules.alphas.7
+transformer.dwa_modules.alphas.8
+transformer.dwa_modules.alphas.9
+transformer.dwa_modules.alphas.10
+transformer.dwa_modules.alphas.11
+transformer.dwa_modules.alphas.12
+transformer.dwa_modules.alphas.13
+transformer.dwa_modules.alphas.14
+transformer.dwa_modules.alphas.15
+transformer.dwa_modules.alphas.16
+transformer.dwa_modules.alphas.17
+transformer.dwa_modules.alphas.18
+transformer.dwa_modules.alphas.19
+transformer.dwa_modules.alphas.20
+transformer.dwa_modules.alphas.21
+transformer.dwa_modules.alphas.22
+transformer.dwa_modules.alphas.23
+classifier.nonlinearity.1.weight
+
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/cfd_train_10m.py", line 490, in <module>
+    model, ema_model, optimizer, scheduler, global_step, start_epoch = prepare_model_and_optimizer(args)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/cfd_train_10m.py", line 205, in prepare_model_and_optimizer
+    model = DistributedDataParallel(
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 663, in __init__
+    self.process_group = _get_default_group()
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py", line 1302, in _get_default_group
+    raise ValueError(
+ValueError: Default process group has not been initialized, please make sure to call init_process_group.

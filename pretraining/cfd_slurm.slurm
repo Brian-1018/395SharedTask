@@ -14,11 +14,11 @@
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=24:00:30
 
-#SBATCH --gres=gpu:tesla_a40:1
+#SBATCH --gres=gpu:1
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
-#SBATCH --partition=NLP
+#SBATCH --partition=ML
 
 # Memory requests are in megabytes by default. This is 24 GB.
 #SBATCH --mem=24000
@@ -26,11 +26,11 @@
 # This figure means cores not CPUs. 
 #SBATCH --cpus-per-task=7
 
-export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
-export MASTER_PORT=9988
-export WORLD_SIZE=2
-export RANK=0
-export WANDB_MODE=disabled
+# export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
+# export MASTER_PORT=9988
+# export WORLD_SIZE=2
+# export RANK=0
+# export WANDB_MODE=disabled
 
 # Print the start date/time
 date
@@ -56,11 +56,12 @@ conda init bash
 
 cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
-python cfd_train_10m.py \
-    --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
-    --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-    --name="run_001_4_10_2025_babylm_10M" \
-    --hybrid_denominator=1
+python cfd_min_replica.py
+# python cfd_train_10m.py \
+#     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
+#     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
+#     --name="run_001_4_10_2025_babylm_10M" \
+#     --hybrid_denominator=1
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
