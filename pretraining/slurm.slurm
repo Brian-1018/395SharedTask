@@ -36,7 +36,7 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-#SBATCH --gres=gpu:tesla_a40:2
+# SBATCH --gres=gpu:tesla_a40:2
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
