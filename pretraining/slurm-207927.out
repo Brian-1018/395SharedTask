@@ -1,0 +1,39 @@
+Thu Apr 10 15:16:09 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Hello from rank 0 of 1 on spdr18.cluster where there are 2 allocated GPUs per node.
+Dataset type: masked
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py", line 466, in <module>
+    setup_training(args, tokenizer)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py", line 100, in setup_training
+    torch.distributed.init_process_group(backend="nccl", rank=args.rank, world_size=args.world_size)
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/c10d_logger.py", line 81, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/c10d_logger.py", line 95, in wrapper
+    func_return = func(*args, **kwargs)
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py", line 1714, in init_process_group
+    store, rank, world_size = next(rendezvous_iterator)
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/rendezvous.py", line 274, in _env_rendezvous_handler
+    store = _create_c10d_store(
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/distributed/rendezvous.py", line 194, in _create_c10d_store
+    return TCPStore(
+RuntimeError: The server socket has failed to listen on any local network address. port: 9999, useIpv6: 0, code: -98, name: EADDRINUSE, message: address already in use

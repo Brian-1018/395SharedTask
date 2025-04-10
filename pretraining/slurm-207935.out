@@ -1,0 +1,51 @@
+Thu Apr 10 15:37:17 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+usage: train_10m.py [-h] [--train_path TRAIN_PATH] [--valid_path VALID_PATH]
+                    [--name NAME] [--config_file CONFIG_FILE]
+                    [--tokenizer_path TOKENIZER_PATH]
+                    [--output_dir OUTPUT_DIR]
+                    [--checkpoint_filename CHECKPOINT_FILENAME]
+                    [--optimizer OPTIMIZER]
+                    [--hybrid_numerator HYBRID_NUMERATOR]
+                    [--hybrid_denominator HYBRID_DENOMINATOR]
+                    [--seq_length SEQ_LENGTH]
+                    [--local_batch_size LOCAL_BATCH_SIZE]
+                    [--global_batch_size GLOBAL_BATCH_SIZE]
+                    [--batch_reduction BATCH_REDUCTION]
+                    [--learning_rate LEARNING_RATE] [--max_steps MAX_STEPS]
+                    [--ema_decay EMA_DECAY] [--validate_every VALIDATE_EVERY]
+                    [--validation_steps VALIDATION_STEPS]
+                    [--log_stats_every LOG_STATS_EVERY]
+                    [--warmup_proportion WARMUP_PROPORTION]
+                    [--cooldown_proportion COOLDOWN_PROPORTION] [--seed SEED]
+                    [--save_every SAVE_EVERY] [--mask_p_start MASK_P_START]
+                    [--mask_p_end MASK_P_END] [--mask_random_p MASK_RANDOM_P]
+                    [--mask_keep_p MASK_KEEP_P] [--weight_decay WEIGHT_DECAY]
+                    [--optimizer_eps OPTIMIZER_EPS]
+                    [--optimizer_beta1 OPTIMIZER_BETA1]
+                    [--optimizer_beta2 OPTIMIZER_BETA2]
+                    [--max_gradient MAX_GRADIENT]
+                    [--mixed_precision | --no-mixed_precision]
+                    [--n_special_tokens N_SPECIAL_TOKENS]
+                    [--z_loss_weight Z_LOSS_WEIGHT]
+                    [--token_weighted_loss | --no-token_weighted_loss]
+train_10m.py: error: unrecognized arguments: --distributed

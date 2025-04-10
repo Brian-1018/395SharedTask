@@ -18,7 +18,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.nn.parallel import DistributedDataParallel
 
-from lamb import Lamb 
+from lamb import Lamb
 from model_extra import Bert
 from utils import cosine_schedule_with_warmup_cooldown, is_main_process, get_rank, seed_everything, get_world_size
 from dataset import MaskedDataset, CausalDataset, ValidationDataset
@@ -32,8 +32,8 @@ if int(os.environ["SLURM_PROCID"]) == 0:
 def parse_arguments():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--train_path", default="../data/train_100M_tokenized.bin", type=Path, help="Path to the training data.")
-    parser.add_argument("--valid_path", default="../data/dev_100M_tokenized.bin", type=Path, help="Path to the validation data.")
+    parser.add_argument("--train_path", default="../data/train_10M_tokenized.bin", type=Path, help="Path to the training data.")
+    parser.add_argument("--valid_path", default="../data/dev_10M_tokenized.bin", type=Path, help="Path to the validation data.")
     parser.add_argument("--name", default="hybrid_100M", type=str, help="Name of the run.")
     parser.add_argument("--wandb_project", default="YOUR_WANDB_PROJECT_NAME", type=str, help="Name of the WandB project to log into.")
     parser.add_argument("--wandb_entity", default="YOUR_WANDB_ENTITY", type=str, help="The entity to log to on WandB (typically your wandb username).")

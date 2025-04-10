@@ -1,0 +1,243 @@
+Thu Apr 10 15:35:00 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Hello from rank 0 of 1 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Group initialized? True
+RCCL started on device cuda:0
+host: spdr18.cluster, rank: 0, local_rank: 0
+Training for 7,812 steps with 1 GPUs
+In total, the model will be trained on 'steps'(7,812) x 'GPUs'(1) x 'batch_size'(256) x 'seq_len'(128) = 255,983,616 subword instances
+Bert(
+  (embedding): Embedding(
+    (word_embedding): Embedding(8192, 384)
+    (word_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+    (dropout): Dropout(p=0.1, inplace=False)
+    (relative_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Encoder(
+    (attention_layers): ModuleList(
+      (0-11): 12 x Attention(
+        (in_proj_qk): Linear(in_features=384, out_features=768, bias=True)
+        (in_proj_vg): Linear(in_features=384, out_features=768, bias=True)
+        (out_proj): Linear(in_features=384, out_features=384, bias=True)
+        (pre_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (post_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (mlp_layers): ModuleList(
+      (0-11): 12 x FeedForward(
+        (mlp): Sequential(
+          (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+          (1): Linear(in_features=384, out_features=2560, bias=False)
+          (2): GeGLU()
+          (3): LayerNorm((1280,), eps=1e-05, elementwise_affine=False)
+          (4): Linear(in_features=1280, out_features=384, bias=False)
+          (5): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (dwa_modules): DWAModules(
+      (alphas): ParameterList(
+          (0): Parameter containing: [torch.float32 of size 2]
+          (1): Parameter containing: [torch.float32 of size 3]
+          (2): Parameter containing: [torch.float32 of size 4]
+          (3): Parameter containing: [torch.float32 of size 5]
+          (4): Parameter containing: [torch.float32 of size 6]
+          (5): Parameter containing: [torch.float32 of size 7]
+          (6): Parameter containing: [torch.float32 of size 8]
+          (7): Parameter containing: [torch.float32 of size 9]
+          (8): Parameter containing: [torch.float32 of size 10]
+          (9): Parameter containing: [torch.float32 of size 11]
+          (10): Parameter containing: [torch.float32 of size 12]
+          (11): Parameter containing: [torch.float32 of size 13]
+          (12): Parameter containing: [torch.float32 of size 14]
+          (13): Parameter containing: [torch.float32 of size 15]
+          (14): Parameter containing: [torch.float32 of size 16]
+          (15): Parameter containing: [torch.float32 of size 17]
+          (16): Parameter containing: [torch.float32 of size 18]
+          (17): Parameter containing: [torch.float32 of size 19]
+          (18): Parameter containing: [torch.float32 of size 20]
+          (19): Parameter containing: [torch.float32 of size 21]
+          (20): Parameter containing: [torch.float32 of size 22]
+          (21): Parameter containing: [torch.float32 of size 23]
+          (22): Parameter containing: [torch.float32 of size 24]
+          (23): Parameter containing: [torch.float32 of size 25]
+      )
+    )
+  )
+  (classifier): MaskClassifier(
+    (nonlinearity): Sequential(
+      (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (1): Linear(in_features=384, out_features=384, bias=True)
+      (2): GELU(approximate='none')
+      (3): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (4): Dropout(p=0.1, inplace=False)
+      (5): Linear(in_features=384, out_features=8192, bias=True)
+    )
+  )
+)
+NUMBER OF PARAMETERS: 29892164
+
+Parameters without weight decay:
+embedding.relative_layer_norm.weight
+embedding.relative_layer_norm.bias
+transformer.attention_layers.0.in_proj_qk.bias
+transformer.attention_layers.0.in_proj_vg.bias
+transformer.attention_layers.0.out_proj.bias
+transformer.attention_layers.1.in_proj_qk.bias
+transformer.attention_layers.1.in_proj_vg.bias
+transformer.attention_layers.1.out_proj.bias
+transformer.attention_layers.2.in_proj_qk.bias
+transformer.attention_layers.2.in_proj_vg.bias
+transformer.attention_layers.2.out_proj.bias
+transformer.attention_layers.3.in_proj_qk.bias
+transformer.attention_layers.3.in_proj_vg.bias
+transformer.attention_layers.3.out_proj.bias
+transformer.attention_layers.4.in_proj_qk.bias
+transformer.attention_layers.4.in_proj_vg.bias
+transformer.attention_layers.4.out_proj.bias
+transformer.attention_layers.5.in_proj_qk.bias
+transformer.attention_layers.5.in_proj_vg.bias
+transformer.attention_layers.5.out_proj.bias
+transformer.attention_layers.6.in_proj_qk.bias
+transformer.attention_layers.6.in_proj_vg.bias
+transformer.attention_layers.6.out_proj.bias
+transformer.attention_layers.7.in_proj_qk.bias
+transformer.attention_layers.7.in_proj_vg.bias
+transformer.attention_layers.7.out_proj.bias
+transformer.attention_layers.8.in_proj_qk.bias
+transformer.attention_layers.8.in_proj_vg.bias
+transformer.attention_layers.8.out_proj.bias
+transformer.attention_layers.9.in_proj_qk.bias
+transformer.attention_layers.9.in_proj_vg.bias
+transformer.attention_layers.9.out_proj.bias
+transformer.attention_layers.10.in_proj_qk.bias
+transformer.attention_layers.10.in_proj_vg.bias
+transformer.attention_layers.10.out_proj.bias
+transformer.attention_layers.11.in_proj_qk.bias
+transformer.attention_layers.11.in_proj_vg.bias
+transformer.attention_layers.11.out_proj.bias
+classifier.nonlinearity.1.bias
+classifier.nonlinearity.5.bias
+
+Parameters with weight decay:
+embedding.relative_embedding
+embedding.word_embedding.weight
+transformer.attention_layers.0.in_proj_qk.weight
+transformer.attention_layers.0.in_proj_vg.weight
+transformer.attention_layers.0.out_proj.weight
+transformer.attention_layers.1.in_proj_qk.weight
+transformer.attention_layers.1.in_proj_vg.weight
+transformer.attention_layers.1.out_proj.weight
+transformer.attention_layers.2.in_proj_qk.weight
+transformer.attention_layers.2.in_proj_vg.weight
+transformer.attention_layers.2.out_proj.weight
+transformer.attention_layers.3.in_proj_qk.weight
+transformer.attention_layers.3.in_proj_vg.weight
+transformer.attention_layers.3.out_proj.weight
+transformer.attention_layers.4.in_proj_qk.weight
+transformer.attention_layers.4.in_proj_vg.weight
+transformer.attention_layers.4.out_proj.weight
+transformer.attention_layers.5.in_proj_qk.weight
+transformer.attention_layers.5.in_proj_vg.weight
+transformer.attention_layers.5.out_proj.weight
+transformer.attention_layers.6.in_proj_qk.weight
+transformer.attention_layers.6.in_proj_vg.weight
+transformer.attention_layers.6.out_proj.weight
+transformer.attention_layers.7.in_proj_qk.weight
+transformer.attention_layers.7.in_proj_vg.weight
+transformer.attention_layers.7.out_proj.weight
+transformer.attention_layers.8.in_proj_qk.weight
+transformer.attention_layers.8.in_proj_vg.weight
+transformer.attention_layers.8.out_proj.weight
+transformer.attention_layers.9.in_proj_qk.weight
+transformer.attention_layers.9.in_proj_vg.weight
+transformer.attention_layers.9.out_proj.weight
+transformer.attention_layers.10.in_proj_qk.weight
+transformer.attention_layers.10.in_proj_vg.weight
+transformer.attention_layers.10.out_proj.weight
+transformer.attention_layers.11.in_proj_qk.weight
+transformer.attention_layers.11.in_proj_vg.weight
+transformer.attention_layers.11.out_proj.weight
+transformer.mlp_layers.0.mlp.1.weight
+transformer.mlp_layers.0.mlp.4.weight
+transformer.mlp_layers.1.mlp.1.weight
+transformer.mlp_layers.1.mlp.4.weight
+transformer.mlp_layers.2.mlp.1.weight
+transformer.mlp_layers.2.mlp.4.weight
+transformer.mlp_layers.3.mlp.1.weight
+transformer.mlp_layers.3.mlp.4.weight
+transformer.mlp_layers.4.mlp.1.weight
+transformer.mlp_layers.4.mlp.4.weight
+transformer.mlp_layers.5.mlp.1.weight
+transformer.mlp_layers.5.mlp.4.weight
+transformer.mlp_layers.6.mlp.1.weight
+transformer.mlp_layers.6.mlp.4.weight
+transformer.mlp_layers.7.mlp.1.weight
+transformer.mlp_layers.7.mlp.4.weight
+transformer.mlp_layers.8.mlp.1.weight
+transformer.mlp_layers.8.mlp.4.weight
+transformer.mlp_layers.9.mlp.1.weight
+transformer.mlp_layers.9.mlp.4.weight
+transformer.mlp_layers.10.mlp.1.weight
+transformer.mlp_layers.10.mlp.4.weight
+transformer.mlp_layers.11.mlp.1.weight
+transformer.mlp_layers.11.mlp.4.weight
+transformer.dwa_modules.alphas.0
+transformer.dwa_modules.alphas.1
+transformer.dwa_modules.alphas.2
+transformer.dwa_modules.alphas.3
+transformer.dwa_modules.alphas.4
+transformer.dwa_modules.alphas.5
+transformer.dwa_modules.alphas.6
+transformer.dwa_modules.alphas.7
+transformer.dwa_modules.alphas.8
+transformer.dwa_modules.alphas.9
+transformer.dwa_modules.alphas.10
+transformer.dwa_modules.alphas.11
+transformer.dwa_modules.alphas.12
+transformer.dwa_modules.alphas.13
+transformer.dwa_modules.alphas.14
+transformer.dwa_modules.alphas.15
+transformer.dwa_modules.alphas.16
+transformer.dwa_modules.alphas.17
+transformer.dwa_modules.alphas.18
+transformer.dwa_modules.alphas.19
+transformer.dwa_modules.alphas.20
+transformer.dwa_modules.alphas.21
+transformer.dwa_modules.alphas.22
+transformer.dwa_modules.alphas.23
+classifier.nonlinearity.1.weight
+
+<s> Ċ <mask> 'm Ġan Ġarchae ologist , Ġnot Ġa Ġreligious Ġfan atic . Ċ Ġ" Even Ġnow , Ġalready <mask> <mask> <mask> Ġthe Ġworld ... Ċ <mask> <mask> <mask> <mask> <mask> <mask> y , Ġand Ġhe Ġshall Ġpros per , Ġand Ġpractice , Ġand Ġshall Ġdestroy Ġthe Ġmight y Ġmanufact Ġregular Ġh oly . " Ċ ĠI Ġappreciate Ġthis Ġs rodu Ġmanaged <mask> Ġbut Ġwhat Ġpossible Ġfacts ... ĠGrand ĠHis Ġown Ġfather Ġimportant Ġoriginally Ċ ĠA Ġweek Ġago , Ġhe Ġtried Ġto <mask> <mask> <mask> Ċ ĠThat 's Ġa Ġminor Ġdetail Ġthese Ġnewsp apers Ġwine Ġto Ġhave Ġo mitted . Ċ <mask> <mask> <mask> <mask> <mask> Ġhope Ġson ers Ġmyself . Ċ ĠHe Ġis Ġin ĠChic ago <mask> Ġrenewable Ġwith Ġhis Ġfather 's <mask> . Ċ <pad>
+
+1 214 4 671 373 7512 4988 27 452 273 4520 7196 2155 29 214 562 4475 794 27 1925 4 4 4 278 887 867 214 4 4 4 4 4 4 104 27 304 336 3207 7713 553 27 304 2414 27 304 3207 5104 278 860 104 4514 2697 305 4098 29 17 214 331 3599 446 277 2154 4590 4 530 510 1960 4273 867 4631 2518 942 2011 1068 7238 214 363 2055 1873 27 336 2836 300 4 4 4 214 1099 352 273 5783 2321 661 6166 4490 5592 300 451 297 6193 29 214 4 4 4 4 4 2176 2602 410 2548 29 214 778 353 306 6010 6030 4 7865 374 556 2011 352 4 29 214 3
+
+-100 ĠI -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġis Ġhe Ġin -100 -100 -100 -100 Ġand Ġhis Ġpower Ġshall Ġbe Ġmight -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġpractice , Ġand -100 -100 -100 Ġmight y Ġand Ġthe Ġh oly -100 -100 -100 -100 -100 -100 -100 erm on , -100 -100 -100 -100 -100 Ċ -100 -100 -100 Ġknew . -100 -100 -100 -100 -100 -100 -100 -100 Ġdestroy Ġhim . -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġseem -100 -100 -100 -100 -100 -100 ĠI Ġgave Ġhim Ġthe Ġd ag g -100 -100 -100 -100 -100 -100 -100 -100 -100 , Ġliving -100 -100 -100 -100 Ġbrother -100 -100 -100 -100
+
+tensor(0.3095)
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py:241: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/model_logging.py:51: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"activations_std/{self.id_to_name[m_id]}": a.std().item()
+Train iteration:   0%|          | 1/7812 [00:14<31:01:20, 14.30s/it]Train iteration:   0%|          | 2/7812 [00:26<28:39:53, 13.21s/it]Train iteration:   0%|          | 3/7812 [00:39<28:20:01, 13.06s/it]Train iteration:   0%|          | 4/7812 [00:51<26:57:20, 12.43s/it]Train iteration:   0%|          | 5/7812 [01:04<27:31:07, 12.69s/it]Train iteration:   0%|          | 6/7812 [01:16<27:03:08, 12.48s/it]Train iteration:   0%|          | 7/7812 [01:28<26:47:22, 12.36s/it]Train iteration:   0%|          | 8/7812 [01:39<25:43:07, 11.86s/it]Train iteration:   0%|          | 9/7812 [01:48<23:47:48, 10.98s/it]Train iteration:   0%|          | 10/7812 [01:59<23:42:57, 10.94s/it]slurmstepd: error: *** JOB 207934 ON spdr18 CANCELLED AT 2025-04-10T15:37:14 ***
