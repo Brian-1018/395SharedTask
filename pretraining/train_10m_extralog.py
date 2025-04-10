@@ -23,19 +23,6 @@ from utils import cosine_schedule_with_warmup_cooldown, is_main_process, get_ran
 from dataset import MaskedDataset, CausalDataset, ValidationDataset
 from model_logging import ModelLogger
 
-# Set up logging
-import logging
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
-
-
 
 if int(os.environ["SLURM_PROCID"]) == 0:
     import wandb
@@ -91,12 +78,6 @@ def parse_arguments():
 def setup_training(args, tokenizer):
     assert torch.cuda.is_available()
     args.n_gpu = torch.cuda.device_count()
-    # Print info about GPUs:
-    logger.info(f"Number of GPUs available: {args.n_gpu}")
-    for device_id in range(args.n_gpu):
-        gpu_name = torch.cuda.get_device_name(device_id)
-        logger.info(f"GPU {device_id}: {gpu_name}")
-    
 
     args.world_size = int(os.environ["WORLD_SIZE"])
     args.rank = int(os.environ["SLURM_PROCID"])
@@ -113,13 +94,12 @@ def setup_training(args, tokenizer):
         args.dataset_type = "causal"
 
     print(f"Dataset type: {args.dataset_type}", flush=True)
-    logger.info("Right before seed everything")
-    seed_everything(args.seed + args.rank)
-    logger.info("After seed everything")
-    torch.distributed.init_process_group(device_id=torch.device('cuda'))
-    logger.info("Survived torch.distributed.init_process_group")
-    logger.info(f"Group initialized? {torch.distributed.is_initialized()}", flush=True)
 
+    seed_everything(args.seed + args.rank)
+
+    torch.distributed.init_process_group(backend="nccl", rank=args.rank, world_size=args.world_size)
+    if args.rank == 0:
+        print(f"Group initialized? {torch.distributed.is_initialized()}", flush=True)
 
     args.local_rank = args.rank - args.gpus_per_node * (args.rank // args.gpus_per_node)
     torch.cuda.set_device(args.local_rank)
@@ -240,7 +220,6 @@ def get_batch(dataloader, device, global_step):
 
 
 def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimizer, scheduler, global_step, epoch, args):
-    logger.info("Running training epoch.")
     model = model.train()
     optimizer.zero_grad(set_to_none=True)
 
@@ -256,8 +235,11 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
 
     # iterate over the steps
     for local_step in tqdm(range(num_steps), desc="Train iteration", initial=global_step, total=args.max_steps, disable=not is_main_process()):
+        if is_main_process():
+            print(f"[Epoch {epoch}] Global step: {global_step}, Local step: {local_step}/{num_steps}", flush=True)
         input_ids, attention_mask, target_ids, mask_p = input_ids_, attention_mask_, target_ids_, mask_p_
-
+        if is_main_process():
+            print(f"[Epoch {epoch}] Fetched batch with mask_p: {mask_p.item():.4f}", flush=True)
         # forward pass, do a more detailed check of the model every 100 steps
         with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
             with ModelLogger(enable=global_step % 100 == 0, module=model):
@@ -277,6 +259,8 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
 
         # backward pass through both losses
         ((loss + args.z_loss_weight * z_loss) * weight).backward()
+        if is_main_process():
+            print(f"[Epoch {epoch}] Backward done - Loss: {loss.item():.4f}, Accuracy: {accuracy:.4f}, Z-Loss: {z_loss.item():.4f}", flush=True)
 
         # add the tracked metrics (for gradient accumulation)
         total_loss += loss.detach() * weight
@@ -286,11 +270,15 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
 
         # gradient accumulation -- if we have accumulated enough gradients, we can perform the optimizer step; otherwise, we just continue and backpropagate through the next batch
         if (local_step + 1) % args.accumulate_steps != 0:
+            if is_main_process():
+                print(f"[Epoch {epoch}] Accumulating gradients... (Step {local_step + 1}/{num_steps})", flush=True)
             continue
 
         # clip the gradients
         total_grad_norm += nn.utils.clip_grad_norm_(model.parameters(), args.max_gradient) * weight
 
+        if is_main_process():
+            print(f"[Epoch {epoch}] Performing optimizer step", flush=True)
         # optimizer step
         optimizer.step()
         scheduler.step()
@@ -361,9 +349,6 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
         if global_step >= args.max_steps:
             return global_step
 
-    logger.info("Finished running epoch.")
-    import sys
-    sys.exit(0)
     return global_step
 
 
