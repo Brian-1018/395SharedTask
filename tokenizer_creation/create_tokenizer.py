@@ -76,7 +76,7 @@ def calculate_stats(tokenizer, args):
     counter, n_words = Counter(), 0
     all_tokens = []
     for i, document in enumerate(args.validation_path.open("r")):
-        text = json.loads(document).strip()
+        text = json.loads(document)["text"].strip() # MODIFIED - Needed to add ["text"] to work
         if len(text) > 0:
             n_words += len(text.split())
             encoding = tokenizer.encode(text)
@@ -110,9 +110,9 @@ def calculate_stats(tokenizer, args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Tokenizer creation')
-    parser.add_argument('--input_path', type=Path, default="../data/babycosmofine_100M.jsonl", help='Specify the input filename')
-    parser.add_argument('--validation_path', type=Path, default="../data/babycosmofine_100M.jsonl", help='Specify the validation filename')
-    parser.add_argument('--vocab_path', type=Path, default="../tokenizers/tokenizer_100M.json", help='Specify the output filename')
+    parser.add_argument('--input_path', type=Path, default="../data/babycosmofine_10M.jsonl", help='Specify the input filename')
+    parser.add_argument('--validation_path', type=Path, default="../data/babycosmofine_10M.jsonl", help='Specify the validation filename')
+    parser.add_argument('--vocab_path', type=Path, default="../tokenizers/tokenizer_10M.json", help='Specify the output filename')
     parser.add_argument('--vocab_size', type=int, default=2**14, help='Number of subwords in the trained tokenizer')
     parser.add_argument('--min_frequency', type=int, default=10, help='Minimal number of occurences of every candidate subword')
     args = parser.parse_args()
