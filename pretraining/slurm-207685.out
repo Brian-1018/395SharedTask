@@ -1,0 +1,33 @@
+Wed Apr  9 21:15:43 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Initializing a BPE tokenizer
+Training the tokenizer
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+
+
+
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 131, in <module>
+    tokenizer.train_from_iterator(iterator(args.input_path), trainer)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 126, in iterator
+    text = json.loads(line).strip()
+AttributeError: 'dict' object has no attribute 'strip'

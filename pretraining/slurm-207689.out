@@ -1,0 +1,37 @@
+Wed Apr  9 21:28:18 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Initializing a BPE tokenizer
+Training the tokenizer
+0it [00:00, ?it/s]768it [00:00, 5405.62it/s]1536it [00:00, 5249.40it/s]2062it [00:00, 4777.52it/s]2560it [00:00, 4708.69it/s]3328it [00:00, 5097.70it/s]4096it [00:00, 5282.07it/s]4864it [00:00, 5484.96it/s]5411it [00:01, 5444.28it/s]5954it [00:01, 5143.14it/s]6467it [00:01, 5040.18it/s]7168it [00:01, 5178.93it/s]7684it [00:01, 4954.26it/s]8448it [00:01, 5172.07it/s]9216it [00:01, 5356.35it/s]9984it [00:01, 5354.95it/s]10518it [00:02, 4967.19it/s]11014it [00:02, 4501.25it/s]11592it [00:02, 4809.90it/s]12288it [00:02, 4860.46it/s]13056it [00:02, 5196.09it/s]13824it [00:02, 5309.29it/s]14592it [00:02, 5289.97it/s]15123it [00:02, 5235.07it/s]15872it [00:03, 5274.22it/s]16640it [00:03, 5389.14it/s]17408it [00:03, 5139.34it/s]17926it [00:03, 4814.69it/s]18432it [00:03, 4584.05it/s]18944it [00:03, 4488.64it/s]19456it [00:03, 4447.66it/s]19968it [00:03, 4491.47it/s]20736it [00:04, 4863.97it/s]21248it [00:04, 4678.55it/s]21760it [00:04, 4557.06it/s]21933it [00:04, 5015.31it/s]
+
+
+
+Saving the tokenizer
+TEST
+Trying to load the tokenizer...
+Success!
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 147, in <module>
+    calculate_stats(tokenizer, args)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 79, in calculate_stats
+    if len(text) > 0:
+NameError: name 'text' is not defined

@@ -1,0 +1,37 @@
+Wed Apr  9 21:28:52 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Initializing a BPE tokenizer
+Training the tokenizer
+0it [00:00, ?it/s]768it [00:00, 5506.84it/s]1536it [00:00, 5316.44it/s]2069it [00:00, 4767.39it/s]2560it [00:00, 4738.29it/s]3328it [00:00, 5083.20it/s]4096it [00:00, 5360.76it/s]4864it [00:00, 5652.42it/s]5632it [00:01, 5319.25it/s]6169it [00:01, 5169.15it/s]6912it [00:01, 5230.91it/s]7680it [00:01, 5110.97it/s]8448it [00:01, 5248.19it/s]9216it [00:01, 5376.56it/s]9984it [00:01, 5357.17it/s]10521it [00:02, 5029.31it/s]11023it [00:02, 4542.25it/s]11776it [00:02, 4877.03it/s]12544it [00:02, 5044.92it/s]13312it [00:02, 5178.69it/s]14080it [00:02, 5400.09it/s]14622it [00:02, 5339.07it/s]15156it [00:02, 5289.12it/s]15872it [00:03, 5283.31it/s]16640it [00:03, 5410.93it/s]17180it [00:03, 5299.80it/s]17708it [00:03, 4862.60it/s]18196it [00:03, 4659.89it/s]18688it [00:03, 4281.90it/s]19200it [00:03, 4286.07it/s]19712it [00:03, 4195.37it/s]20224it [00:04, 4394.98it/s]20992it [00:04, 4606.06it/s]21504it [00:04, 4493.30it/s]21933it [00:04, 5017.18it/s]
+
+
+
+Saving the tokenizer
+TEST
+Trying to load the tokenizer...
+Success!
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 148, in <module>
+    calculate_stats(tokenizer, args)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 81, in calculate_stats
+    n_words += len(text.split())
+AttributeError: 'dict' object has no attribute 'split'

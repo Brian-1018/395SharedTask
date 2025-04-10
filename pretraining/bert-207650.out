@@ -1,0 +1,7 @@
+Wed Apr  9 14:10:17 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+train_multi_gpu.py
+START 207650: Wed Apr  9 14:10:17 EDT 2025
+0: FATAL:   While checking image: could not open image /home/cfinegan/shared/group4_work/395SharedTask/pretraining/CONTAINER_LOCATION: failed to retrieve path for /home/cfinegan/shared/group4_work/395SharedTask/pretraining/CONTAINER_LOCATION: lstat /home/cfinegan/shared/group4_work/395SharedTask/pretraining/CONTAINER_LOCATION: no such file or directory
+srun: error: spdr18: task 0: Exited with exit code 255

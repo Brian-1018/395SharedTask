@@ -22,7 +22,8 @@ def parse_args():
 
 
 def tokenize_text(tokenizer, text):
-    text = text.strip()
+    # text = text.strip() # NOT WORKING, 
+    text = text["text"].strip()
     ids = tokenizer.encode(text, add_special_tokens=False).ids
     ids = torch.tensor(ids, dtype=torch.int16)
     return ids
@@ -68,3 +69,6 @@ if __name__ == "__main__":
         input_valid_path = args.data_folder / args.valid_file
         output_valid_path = input_valid_path.with_name(f"{input_valid_path.stem}{name}_tokenized.bin")
         tokenize_file(input_valid_path, output_valid_path, tokenizer)
+
+
+

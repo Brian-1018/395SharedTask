@@ -1,0 +1,688 @@
+Wed Apr  9 21:31:40 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Initializing a BPE tokenizer
+Training the tokenizer
+0it [00:00, ?it/s]768it [00:00, 5527.62it/s]1536it [00:00, 5431.44it/s]2080it [00:00, 4963.65it/s]2574it [00:00, 4896.32it/s]3328it [00:00, 5118.29it/s]4096it [00:00, 5304.05it/s]4864it [00:00, 5535.15it/s]5416it [00:01, 5505.61it/s]5965it [00:01, 5230.37it/s]6487it [00:01, 5185.09it/s]7168it [00:01, 5249.54it/s]7692it [00:01, 5045.81it/s]8448it [00:01, 5196.14it/s]9216it [00:01, 5401.00it/s]9984it [00:01, 5395.83it/s]10522it [00:02, 5100.73it/s]11030it [00:02, 4653.13it/s]11776it [00:02, 4950.42it/s]12544it [00:02, 5123.79it/s]13312it [00:02, 5283.02it/s]14080it [00:02, 5522.97it/s]14634it [00:02, 5503.37it/s]15185it [00:02, 5456.08it/s]15872it [00:03, 5395.69it/s]16640it [00:03, 5512.09it/s]17408it [00:03, 5326.39it/s]17943it [00:03, 5009.99it/s]18445it [00:03, 4731.32it/s]18944it [00:03, 4617.68it/s]19456it [00:03, 4646.38it/s]19968it [00:03, 4650.05it/s]20736it [00:04, 4970.09it/s]21248it [00:04, 4788.90it/s]21933it [00:04, 5166.80it/s]
+
+
+
+Saving the tokenizer
+TEST
+Trying to load the tokenizer...
+Success!
+Example of tokenization:
+In the bustling coastal town of Blackpool, nestled between the Irish Sea and the picturesque hills of Lancashire, two pillars of English football stood tall - A.F.C. Blackpool and Blackpool F.C. And at the heart of these institutions was a man who wore many hats; Stuart Parker, a seasoned footballer, found himself juggling dual responsibilities as a manager for A.FC. Blackpool and an influential figure at Blackpool F.C.
+
+One sunny afternoon, while engrossed in his tactical board markings, a knock echoed through the modest A.F.C. Blackpool headquarters. Stuart looked up from his scribbled formations to find the eager face of Jamie, a young striker with dreams bigger than his boots.
+
+"Coach Parker," panted Jamie, breathless from excitement rather than exertion, "I've heard about your work here and at Blackpool FC. Could you teach me how to become a better player?"
+
+Ah, thought Stuart, recognizing an opportunity to impart wisdom earned over years spent on pitches just like this one. He smiled warmly, gesturing towards a chair near his desk.
+
+"Jamie, becoming a great player isn't only about skills or strength; it's about understanding the game, respecting your teammates, and constantly learning."
+
+As they spoke, news arrived that A.F.C. Blackpool had secured victory against a fierce rival. This success could be traced back to Stuart's emphasis on collaboration and communication amongst his squad – principles gleaned during his tenure at Blackpool F.C. However, triumph came with its own challenges. Media attention escalated rapidly, leading some parents to question whether such focus might detract from Stuart's commitment to A.F.C. Blackpool.
+
+Meanwhile, tensions simmered within Blackpool F.C. 's ranks due to internal politics and unrest. Despite being removed from direct involvement, whispers reached Stuart suggesting that perhaps his influence was needed more there now than ever before. Torn between loyalty and duty, he faced difficult choices ahead.
+
+In response to growing concerns regarding divided attentions, Stuart called a meeting with key stakeholders at A.F.C. Blackpool. Open dialogue ensued where fears were addressed calmly and honestly. By acknowledging apprehensions and outlining clear plans for balancing commitments, Stuart quelled disquietude, solidifying trust instead.
+
+Simultaneously, Stuart initiated discreet conversations with figures high up in Blackpool F.C. 's hierarchy. Together, they strategized ways to stabilize the larger club without compromising Stuart's dedication to A.F.C. Blackpool. Through diplomacy and cooperation, both parties agreed upon terms beneficial for all involved.
+<s> In the bustling coastal town of Blackpool, nestled between the Irish Sea and the picturesque hills of Lancashire, two pillars of English football stood tall - A.F.C. Blackpool and Blackpool F.C. And at the heart of these institutions was a man who wore many hats; Stuart Parker, a seasoned footballer, found himself juggling dual responsibilities as a manager for A.FC. Blackpool and an influential figure at Blackpool F.C.
+
+One sunny afternoon, while engrossed in his tactical board markings, a knock echoed through the modest A.F.C. Blackpool headquarters. Stuart looked up from his scribbled formations to find the eager face of Jamie, a young striker with dreams bigger than his boots.
+
+"Coach Parker," panted Jamie, breathless from excitement rather than exertion, "I've heard about your work here and at Blackpool FC. Could you teach me how to become a better player?"
+
+Ah, thought Stuart, recognizing an opportunity to impart wisdom earned over years spent on pitches just like this one. He smiled warmly, gesturing towards a chair near his desk.
+
+"Jamie, becoming a great player isn't only about skills or strength; it's about understanding the game, respecting your teammates, and constantly learning."
+
+As they spoke, news arrived that A.F.C. Blackpool had secured victory against a fierce rival. This success could be traced back to Stuart's emphasis on collaboration and communication amongst his squad – principles gleaned during his tenure at Blackpool F.C. However, triumph came with its own challenges. Media attention escalated rapidly, leading some parents to question whether such focus might detract from Stuart's commitment to A.F.C. Blackpool.
+
+Meanwhile, tensions simmered within Blackpool F.C. 's ranks due to internal politics and unrest. Despite being removed from direct involvement, whispers reached Stuart suggesting that perhaps his influence was needed more there now than ever before. Torn between loyalty and duty, he faced difficult choices ahead.
+
+In response to growing concerns regarding divided attentions, Stuart called a meeting with key stakeholders at A.F.C. Blackpool. Open dialogue ensued where fears were addressed calmly and honestly. By acknowledging apprehensions and outlining clear plans for balancing commitments, Stuart quelled disquietude, solidifying trust instead.
+
+Simultaneously, Stuart initiated discreet conversations with figures high up in Blackpool F.C. 's hierarchy. Together, they strategized ways to stabilize the larger club without compromising Stuart's dedication to A.F.C. Blackpool. Through diplomacy and cooperation, both parties agreed upon terms beneficial for all involved.
+1 <s>
+717 ĠIn
+278 Ġthe
+3819 Ġbustling
+8851 Ġcoastal
+1443 Ġtown
+307 Ġof
+4783 ĠBlack
+14718 pool
+27 ,
+10698 Ġnestled
+981 Ġbetween
+278 Ġthe
+7437 ĠIrish
+6526 ĠSea
+304 Ġand
+278 Ġthe
+3200 Ġpictures
+4202 que
+7569 Ġhills
+307 Ġof
+499 ĠL
+1128 anc
+1798 ash
+722 ire
+27 ,
+749 Ġtwo
+8379 Ġpill
+1022 ars
+307 Ġof
+2598 ĠEnglish
+6830 Ġfootball
+4492 Ġstood
+3788 Ġtall
+811 Ġ-
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+304 Ġand
+4783 ĠBlack
+14718 pool
+500 ĠF
+5518 .C
+29 .
+987 ĠAnd
+435 Ġat
+278 Ġthe
+1444 Ġheart
+307 Ġof
+661 Ġthese
+7005 Ġinstitutions
+388 Ġwas
+273 Ġa
+576 Ġman
+567 Ġwho
+8596 Ġwore
+815 Ġmany
+11458 Ġhats
+42 ;
+827 ĠSt
+14272 uart
+4395 ĠPark
+282 er
+27 ,
+273 Ġa
+11169 Ġseasoned
+6830 Ġfootball
+282 er
+27 ,
+972 Ġfound
+2469 Ġhimself
+467 Ġj
+9120 ugg
+1174 ling
+14203 Ġdual
+8725 Ġresponsibilities
+376 Ġas
+273 Ġa
+7642 Ġmanager
+358 Ġfor
+363 ĠA
+29 .
+11495 FC
+29 .
+4783 ĠBlack
+14718 pool
+304 Ġand
+373 Ġan
+11056 Ġinfluential
+2947 Ġfigure
+435 Ġat
+4783 ĠBlack
+14718 pool
+500 ĠF
+5518 .C
+29 .
+214 Ċ
+214 Ċ
+1453 ĠOne
+2825 Ġsunny
+3377 Ġafternoon
+27 ,
+850 Ġwhile
+14308 Ġengrossed
+306 Ġin
+556 Ġhis
+8775 Ġtact
+598 ical
+3840 Ġboard
+1340 Ġmar
+12128 kings
+27 ,
+273 Ġa
+9558 Ġknock
+12381 Ġechoed
+739 Ġthrough
+278 Ġthe
+1272 Ġmod
+443 est
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+15326 Ġheadquarters
+29 .
+827 ĠSt
+14272 uart
+1929 Ġlooked
+501 Ġup
+469 Ġfrom
+556 Ġhis
+781 Ġsc
+1106 rib
+12995 bled
+1054 Ġform
+612 ations
+300 Ġto
+856 Ġfind
+278 Ġthe
+3737 Ġeager
+1895 Ġface
+307 Ġof
+3850 ĠJamie
+27 ,
+273 Ġa
+1415 Ġyoung
+3060 Ġstri
+6937 ker
+374 Ġwith
+5128 Ġdreams
+4503 Ġbigger
+698 Ġthan
+556 Ġhis
+12287 Ġboots
+29 .
+214 Ċ
+214 Ċ
+562 Ġ"
+9756 Co
+601 ach
+4395 ĠPark
+282 er
+27 ,
+17 "
+298 Ġp
+5092 anted
+3850 ĠJamie
+27 ,
+4579 Ġbreath
+1294 less
+469 Ġfrom
+4006 Ġexcitement
+2109 Ġrather
+698 Ġthan
+386 Ġex
+1714 ert
+316 ion
+27 ,
+562 Ġ"
+56 I
+776 've
+1447 Ġheard
+459 Ġabout
+444 Ġyour
+804 Ġwork
+737 Ġhere
+304 Ġand
+435 Ġat
+4783 ĠBlack
+14718 pool
+500 ĠF
+50 C
+29 .
+10112 ĠCould
+319 Ġyou
+3290 Ġteach
+387 Ġme
+565 Ġhow
+300 Ġto
+1432 Ġbecome
+273 Ġa
+1014 Ġbetter
+6639 Ġplayer
+46 ?
+17 "
+214 Ċ
+214 Ċ
+5464 ĠAh
+27 ,
+971 Ġthought
+827 ĠSt
+14272 uart
+27 ,
+9153 Ġrecognizing
+373 Ġan
+3608 Ġopportunity
+300 Ġto
+657 Ġimp
+458 art
+4665 Ġwisdom
+10236 Ġearned
+678 Ġover
+976 Ġyears
+3209 Ġspent
+341 Ġon
+7633 Ġpit
+2541 ches
+591 Ġjust
+489 Ġlike
+446 Ġthis
+537 Ġone
+29 .
+778 ĠHe
+3480 Ġsmiled
+6282 Ġwarmly
+27 ,
+8735 Ġgest
+784 uring
+1706 Ġtowards
+273 Ġa
+6020 Ġchair
+1298 Ġnear
+556 Ġhis
+8434 Ġdesk
+29 .
+214 Ċ
+214 Ċ
+562 Ġ"
+12108 Jamie
+27 ,
+4077 Ġbecoming
+273 Ġa
+1056 Ġgreat
+6639 Ġplayer
+1582 Ġisn
+396 't
+821 Ġonly
+459 Ġabout
+1993 Ġskills
+391 Ġor
+3965 Ġstrength
+42 ;
+344 Ġit
+352 's
+459 Ġabout
+1433 Ġunderstanding
+278 Ġthe
+2117 Ġgame
+27 ,
+9512 Ġrespecting
+444 Ġyour
+1721 Ġteam
+7207 mates
+27 ,
+304 Ġand
+7411 Ġconstantly
+1234 Ġlearning
+29 .
+17 "
+214 Ċ
+214 Ċ
+1086 ĠAs
+407 Ġthey
+4509 Ġspoke
+27 ,
+2286 Ġnews
+3640 Ġarrived
+339 Ġthat
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+582 Ġhad
+1076 Ġsec
+1909 ured
+8974 Ġvictory
+1542 Ġagainst
+273 Ġa
+11273 Ġfierce
+12518 Ġrival
+29 .
+779 ĠThis
+1972 Ġsuccess
+654 Ġcould
+332 Ġbe
+518 Ġtr
+2533 aced
+751 Ġback
+300 Ġto
+827 ĠSt
+14272 uart
+352 's
+11389 Ġemphasis
+341 Ġon
+5436 Ġcollaboration
+304 Ġand
+3102 Ġcommunication
+8495 Ġamongst
+556 Ġhis
+2453 Ġsqu
+346 ad
+236 Ġ
+174 â
+238 Ģ
+257 ĵ
+4430 Ġprinciples
+13003 Ġgle
+299 an
+293 ed
+989 Ġduring
+556 Ġhis
+2645 Ġten
+412 ure
+435 Ġat
+4783 ĠBlack
+14718 pool
+500 ĠF
+5518 .C
+29 .
+1530 ĠHowever
+27 ,
+9715 Ġtriumph
+1237 Ġcame
+374 Ġwith
+774 Ġits
+942 Ġown
+2244 Ġchallenges
+29 .
+10051 ĠMedia
+2624 Ġattention
+13317 Ġescal
+640 ated
+6476 Ġrapidly
+27 ,
+3178 Ġleading
+544 Ġsome
+2334 Ġparents
+300 Ġto
+1605 Ġquestion
+1941 Ġwhether
+836 Ġsuch
+1656 Ġfocus
+860 Ġmight
+1104 Ġdet
+924 ract
+469 Ġfrom
+827 ĠSt
+14272 uart
+352 's
+7950 Ġcommitment
+300 Ġto
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+29 .
+214 Ċ
+214 Ċ
+8169 ĠMeanwhile
+27 ,
+10947 Ġtensions
+1020 Ġsim
+92 m
+1348 ered
+1317 Ġwithin
+4783 ĠBlack
+14718 pool
+500 ĠF
+5518 .C
+29 .
+1034 Ġ'
+98 s
+15852 Ġranks
+1560 Ġdue
+300 Ġto
+6275 Ġinternal
+7011 Ġpolitics
+304 Ġand
+580 Ġun
+1084 rest
+29 .
+5024 ĠDespite
+964 Ġbeing
+6602 Ġremoved
+469 Ġfrom
+1866 Ġdirect
+13787 Ġinvolvement
+27 ,
+14252 Ġwhispers
+4090 Ġreached
+827 ĠSt
+14272 uart
+9540 Ġsuggesting
+339 Ġthat
+3019 Ġperhaps
+556 Ġhis
+4155 Ġinfluence
+388 Ġwas
+1986 Ġneeded
+573 Ġmore
+536 Ġthere
+794 Ġnow
+698 Ġthan
+1178 Ġever
+861 Ġbefore
+29 .
+342 ĠT
+1165 orn
+981 Ġbetween
+13795 Ġloyalty
+304 Ġand
+8328 Ġduty
+27 ,
+336 Ġhe
+3628 Ġfaced
+1977 Ġdifficult
+4075 Ġchoices
+3384 Ġahead
+29 .
+214 Ċ
+214 Ċ
+717 ĠIn
+3994 Ġresponse
+300 Ġto
+2936 Ġgrowing
+4379 Ġconcerns
+4269 Ġregarding
+6154 Ġdivided
+11982 Ġattent
+528 ions
+27 ,
+827 ĠSt
+14272 uart
+840 Ġcalled
+273 Ġa
+3049 Ġmeeting
+374 Ġwith
+2493 Ġkey
+13263 Ġstakeholders
+435 Ġat
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+29 .
+9594 ĠOpen
+10172 Ġdialogue
+1641 Ġens
+1494 ued
+748 Ġwhere
+8646 Ġfears
+549 Ġwere
+10135 Ġaddressed
+13386 Ġcalmly
+304 Ġand
+11606 Ġhonestly
+29 .
+1357 ĠBy
+11575 Ġacknowledging
+777 Ġapp
+276 re
+3813 hens
+528 ions
+304 Ġand
+9623 Ġoutl
+2121 ining
+1821 Ġclear
+4157 Ġplans
+358 Ġfor
+11877 Ġbalancing
+3960 Ġcommit
+951 ments
+27 ,
+827 ĠSt
+14272 uart
+616 Ġqu
+13550 elled
+566 Ġdis
+425 qu
+2104 iet
+2487 ude
+27 ,
+4805 Ġsolid
+4133 ifying
+2652 Ġtrust
+1633 Ġinstead
+29 .
+214 Ċ
+214 Ċ
+3416 ĠSim
+8575 ultaneously
+27 ,
+827 ĠSt
+14272 uart
+15912 Ġinitiated
+844 Ġdisc
+3605 reet
+5455 Ġconversations
+374 Ġwith
+4726 Ġfigures
+1126 Ġhigh
+501 Ġup
+306 Ġin
+4783 ĠBlack
+14718 pool
+500 ĠF
+5518 .C
+29 .
+1034 Ġ'
+98 s
+13472 Ġhier
+11100 archy
+29 .
+3900 ĠTogether
+27 ,
+407 Ġthey
+2561 Ġstrateg
+1058 ized
+1584 Ġways
+300 Ġto
+13214 Ġstabil
+1131 ize
+278 Ġthe
+3963 Ġlarger
+4152 Ġclub
+1205 Ġwithout
+16376 Ġcompromising
+827 ĠSt
+14272 uart
+352 's
+8951 Ġdedication
+300 Ġto
+363 ĠA
+29 .
+53 F
+5518 .C
+29 .
+4783 ĠBlack
+14718 pool
+29 .
+3736 ĠThrough
+11897 Ġdiplom
+2134 acy
+304 Ġand
+8066 Ġcooperation
+27 ,
+1059 Ġboth
+5757 Ġparties
+3368 Ġagreed
+1227 Ġupon
+3214 Ġterms
+9345 Ġbeneficial
+358 Ġfor
+483 Ġall
+2833 Ġinvolved
+29 .
+Average splits per word: 1.462
+F_{95%} is 24
+
+Samples from the tokenizer:
+INPUT:  One of the most impressive long term hobby projects is Robert's Rocket Project. He started building a 100 lbf liquid engine in 2001, fired a regeneratively cooled version in 2007, started building a regen 250 lbf in 2008.
+TOKENS: <s> ĠOne Ġof Ġthe Ġmost Ġimpressive Ġlong Ġterm Ġhobby Ġprojects Ġis ĠRobert 's ĠRock et ĠProject . ĠHe Ġstarted Ġbuilding Ġa Ġ1 0 0 Ġl bf Ġliquid Ġengine Ġin Ġ2 0 0 1 , Ġfired Ġa Ġreg en er atively Ġcool ed Ġversion Ġin Ġ2 0 0 7 , Ġstarted Ġbuilding Ġa Ġreg en Ġ2 5 0 Ġl bf Ġin Ġ2 0 0 8 .
+
+INPUT:  what are examples of interfaces that allow you to manage sets of queries (SQL, splunk, lucene/elastic, xpath, whatever other language)?
+TOKENS: <s> Ġwhat Ġare Ġexamples Ġof Ġinter f aces Ġthat Ġallow Ġyou Ġto Ġmanage Ġsets Ġof Ġqu eries Ġ( S QL , Ġspl unk , Ġl uc ene / el astic , Ġx path , Ġwhatever Ġother Ġlanguage ) ?
+
+INPUT:  ### Increasingly seeing a big schism between what I think my research is & what others think it is. I don't do qualitative work and I'm not trained in anthro or theories of race or gender. I can't supervise students with these interests! I'm a sociophonetician who works on prosody!
+TOKENS: <s> Ġ ### ĠInc re asing ly Ġseeing Ġa Ġbig Ġsch ism Ġbetween Ġwhat ĠI Ġthink Ġmy Ġresearch Ġis Ġ& Ġwhat Ġothers Ġthink Ġit Ġis . ĠI Ġdon 't Ġdo Ġqual itative Ġwork Ġand ĠI 'm Ġnot Ġtrained Ġin Ġan th ro Ġor Ġtheories Ġof Ġrace Ġor Ġgender . ĠI Ġcan 't Ġsuper v ise Ġstudents Ġwith Ġthese Ġinterests ! ĠI 'm Ġa Ġsoci oph on etic ian Ġwho Ġworks Ġon Ġpros ody !
+
+INPUT:  The Northern Lights season is here... Taking these pictures is an art itself and requires preparation, so The Local spoke to an expert to find out how to take awe-inspiring snaps of the Northern Lights.
+TOKENS: <s> ĠThe ĠNorthern ĠL ights Ġseason Ġis Ġhere ... ĠTaking Ġthese Ġpictures Ġis Ġan Ġart Ġitself Ġand Ġrequires Ġpreparation , Ġso ĠThe ĠLocal Ġspoke Ġto Ġan Ġexpert Ġto Ġfind Ġout Ġhow Ġto Ġtake Ġa we -ins p iring Ġsn aps Ġof Ġthe ĠNorthern ĠL ights .
+
+INPUT:  Some people have SOTA facial recognition abilities: "At the very upper end of the performance scale, a cohort of just 1-2% of the population are 'super-recognisers'-people who can memorise and recall unfamiliar faces, even after the briefest glimpse."
+TOKENS: <s> ĠSome Ġpeople Ġhave ĠS OT A Ġfacial Ġrecognition Ġabilities : Ġ" At Ġthe Ġvery Ġupper Ġend Ġof Ġthe Ġperformance Ġscale , Ġa Ġco h ort Ġof Ġjust Ġ1 - 2 % Ġof Ġthe Ġpopulation Ġare Ġ' s uper -re c ogn is ers ' - people Ġwho Ġcan Ġmemor ise Ġand Ġrecall Ġunfamiliar Ġfaces , Ġeven Ġafter Ġthe Ġbrief est Ġgl impse . "
+
+/usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/torch/utils/_pytree.py:185: FutureWarning: optree is installed but the version is too old to support PyTorch Dynamo in C++ pytree. C++ pytree support is disabled. Please consider upgrading optree using `python3 -m pip install --upgrade 'optree>=0.13.0'`.
+  warnings.warn(
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/corpus_tokenization/tokenize_corpus.py", line 65, in <module>
+    tokenize_file(input_train_path, output_train_path, tokenizer)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/corpus_tokenization/tokenize_corpus.py", line 37, in tokenize_file
+    tokenized_document = tokenize_text(tokenizer, document)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/corpus_tokenization/tokenize_corpus.py", line 25, in tokenize_text
+    text = text.strip()
+AttributeError: 'dict' object has no attribute 'strip'

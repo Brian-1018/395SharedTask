@@ -75,7 +75,7 @@ def calculate_stats(tokenizer, args):
     counter, n_words = Counter(), 0
     all_tokens = []
     for i, document in enumerate(open(f"{args.validation_path}")):
-        text = json.loads(document).strip()
+        text = json.loads(document)["text"].strip()
         if len(text) > 0:
             n_words += len(text.split())
             encoding = tokenizer.encode(text)

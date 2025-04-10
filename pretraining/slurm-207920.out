@@ -1,0 +1,29 @@
+Thu Apr 10 12:27:57 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py", line 466, in <module>
+    setup_training(args, tokenizer)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py", line 82, in setup_training
+    args.world_size = int(os.environ["WORLD_SIZE"])
+  File "/usr/local/sw/anaconda/anaconda3/lib/python3.9/os.py", line 679, in __getitem__
+    raise KeyError(key) from None
+KeyError: 'WORLD_SIZE'

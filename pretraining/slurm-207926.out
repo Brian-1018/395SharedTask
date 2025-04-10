@@ -1,0 +1,248 @@
+Thu Apr 10 12:56:12 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Hello from rank 0 of 1 on spdr18.cluster where there are 2 allocated GPUs per node.
+Dataset type: masked
+Group initialized? True
+RCCL started on device cuda:0
+host: spdr18.cluster, rank: 0, local_rank: 0
+Training for 7,812 steps with 1 GPUs
+In total, the model will be trained on 'steps'(7,812) x 'GPUs'(1) x 'batch_size'(256) x 'seq_len'(128) = 255,983,616 subword instances
+Bert(
+  (embedding): Embedding(
+    (word_embedding): Embedding(8192, 384)
+    (word_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+    (dropout): Dropout(p=0.1, inplace=False)
+    (relative_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Encoder(
+    (attention_layers): ModuleList(
+      (0-11): 12 x Attention(
+        (in_proj_qk): Linear(in_features=384, out_features=768, bias=True)
+        (in_proj_vg): Linear(in_features=384, out_features=768, bias=True)
+        (out_proj): Linear(in_features=384, out_features=384, bias=True)
+        (pre_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (post_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (mlp_layers): ModuleList(
+      (0-11): 12 x FeedForward(
+        (mlp): Sequential(
+          (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+          (1): Linear(in_features=384, out_features=2560, bias=False)
+          (2): GeGLU()
+          (3): LayerNorm((1280,), eps=1e-05, elementwise_affine=False)
+          (4): Linear(in_features=1280, out_features=384, bias=False)
+          (5): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (dwa_modules): DWAModules(
+      (alphas): ParameterList(
+          (0): Parameter containing: [torch.float32 of size 2]
+          (1): Parameter containing: [torch.float32 of size 3]
+          (2): Parameter containing: [torch.float32 of size 4]
+          (3): Parameter containing: [torch.float32 of size 5]
+          (4): Parameter containing: [torch.float32 of size 6]
+          (5): Parameter containing: [torch.float32 of size 7]
+          (6): Parameter containing: [torch.float32 of size 8]
+          (7): Parameter containing: [torch.float32 of size 9]
+          (8): Parameter containing: [torch.float32 of size 10]
+          (9): Parameter containing: [torch.float32 of size 11]
+          (10): Parameter containing: [torch.float32 of size 12]
+          (11): Parameter containing: [torch.float32 of size 13]
+          (12): Parameter containing: [torch.float32 of size 14]
+          (13): Parameter containing: [torch.float32 of size 15]
+          (14): Parameter containing: [torch.float32 of size 16]
+          (15): Parameter containing: [torch.float32 of size 17]
+          (16): Parameter containing: [torch.float32 of size 18]
+          (17): Parameter containing: [torch.float32 of size 19]
+          (18): Parameter containing: [torch.float32 of size 20]
+          (19): Parameter containing: [torch.float32 of size 21]
+          (20): Parameter containing: [torch.float32 of size 22]
+          (21): Parameter containing: [torch.float32 of size 23]
+          (22): Parameter containing: [torch.float32 of size 24]
+          (23): Parameter containing: [torch.float32 of size 25]
+      )
+    )
+  )
+  (classifier): MaskClassifier(
+    (nonlinearity): Sequential(
+      (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (1): Linear(in_features=384, out_features=384, bias=True)
+      (2): GELU(approximate='none')
+      (3): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (4): Dropout(p=0.1, inplace=False)
+      (5): Linear(in_features=384, out_features=8192, bias=True)
+    )
+  )
+)
+NUMBER OF PARAMETERS: 29892164
+
+Parameters without weight decay:
+embedding.relative_layer_norm.weight
+embedding.relative_layer_norm.bias
+transformer.attention_layers.0.in_proj_qk.bias
+transformer.attention_layers.0.in_proj_vg.bias
+transformer.attention_layers.0.out_proj.bias
+transformer.attention_layers.1.in_proj_qk.bias
+transformer.attention_layers.1.in_proj_vg.bias
+transformer.attention_layers.1.out_proj.bias
+transformer.attention_layers.2.in_proj_qk.bias
+transformer.attention_layers.2.in_proj_vg.bias
+transformer.attention_layers.2.out_proj.bias
+transformer.attention_layers.3.in_proj_qk.bias
+transformer.attention_layers.3.in_proj_vg.bias
+transformer.attention_layers.3.out_proj.bias
+transformer.attention_layers.4.in_proj_qk.bias
+transformer.attention_layers.4.in_proj_vg.bias
+transformer.attention_layers.4.out_proj.bias
+transformer.attention_layers.5.in_proj_qk.bias
+transformer.attention_layers.5.in_proj_vg.bias
+transformer.attention_layers.5.out_proj.bias
+transformer.attention_layers.6.in_proj_qk.bias
+transformer.attention_layers.6.in_proj_vg.bias
+transformer.attention_layers.6.out_proj.bias
+transformer.attention_layers.7.in_proj_qk.bias
+transformer.attention_layers.7.in_proj_vg.bias
+transformer.attention_layers.7.out_proj.bias
+transformer.attention_layers.8.in_proj_qk.bias
+transformer.attention_layers.8.in_proj_vg.bias
+transformer.attention_layers.8.out_proj.bias
+transformer.attention_layers.9.in_proj_qk.bias
+transformer.attention_layers.9.in_proj_vg.bias
+transformer.attention_layers.9.out_proj.bias
+transformer.attention_layers.10.in_proj_qk.bias
+transformer.attention_layers.10.in_proj_vg.bias
+transformer.attention_layers.10.out_proj.bias
+transformer.attention_layers.11.in_proj_qk.bias
+transformer.attention_layers.11.in_proj_vg.bias
+transformer.attention_layers.11.out_proj.bias
+classifier.nonlinearity.1.bias
+classifier.nonlinearity.5.bias
+
+Parameters with weight decay:
+embedding.relative_embedding
+embedding.word_embedding.weight
+transformer.attention_layers.0.in_proj_qk.weight
+transformer.attention_layers.0.in_proj_vg.weight
+transformer.attention_layers.0.out_proj.weight
+transformer.attention_layers.1.in_proj_qk.weight
+transformer.attention_layers.1.in_proj_vg.weight
+transformer.attention_layers.1.out_proj.weight
+transformer.attention_layers.2.in_proj_qk.weight
+transformer.attention_layers.2.in_proj_vg.weight
+transformer.attention_layers.2.out_proj.weight
+transformer.attention_layers.3.in_proj_qk.weight
+transformer.attention_layers.3.in_proj_vg.weight
+transformer.attention_layers.3.out_proj.weight
+transformer.attention_layers.4.in_proj_qk.weight
+transformer.attention_layers.4.in_proj_vg.weight
+transformer.attention_layers.4.out_proj.weight
+transformer.attention_layers.5.in_proj_qk.weight
+transformer.attention_layers.5.in_proj_vg.weight
+transformer.attention_layers.5.out_proj.weight
+transformer.attention_layers.6.in_proj_qk.weight
+transformer.attention_layers.6.in_proj_vg.weight
+transformer.attention_layers.6.out_proj.weight
+transformer.attention_layers.7.in_proj_qk.weight
+transformer.attention_layers.7.in_proj_vg.weight
+transformer.attention_layers.7.out_proj.weight
+transformer.attention_layers.8.in_proj_qk.weight
+transformer.attention_layers.8.in_proj_vg.weight
+transformer.attention_layers.8.out_proj.weight
+transformer.attention_layers.9.in_proj_qk.weight
+transformer.attention_layers.9.in_proj_vg.weight
+transformer.attention_layers.9.out_proj.weight
+transformer.attention_layers.10.in_proj_qk.weight
+transformer.attention_layers.10.in_proj_vg.weight
+transformer.attention_layers.10.out_proj.weight
+transformer.attention_layers.11.in_proj_qk.weight
+transformer.attention_layers.11.in_proj_vg.weight
+transformer.attention_layers.11.out_proj.weight
+transformer.mlp_layers.0.mlp.1.weight
+transformer.mlp_layers.0.mlp.4.weight
+transformer.mlp_layers.1.mlp.1.weight
+transformer.mlp_layers.1.mlp.4.weight
+transformer.mlp_layers.2.mlp.1.weight
+transformer.mlp_layers.2.mlp.4.weight
+transformer.mlp_layers.3.mlp.1.weight
+transformer.mlp_layers.3.mlp.4.weight
+transformer.mlp_layers.4.mlp.1.weight
+transformer.mlp_layers.4.mlp.4.weight
+transformer.mlp_layers.5.mlp.1.weight
+transformer.mlp_layers.5.mlp.4.weight
+transformer.mlp_layers.6.mlp.1.weight
+transformer.mlp_layers.6.mlp.4.weight
+transformer.mlp_layers.7.mlp.1.weight
+transformer.mlp_layers.7.mlp.4.weight
+transformer.mlp_layers.8.mlp.1.weight
+transformer.mlp_layers.8.mlp.4.weight
+transformer.mlp_layers.9.mlp.1.weight
+transformer.mlp_layers.9.mlp.4.weight
+transformer.mlp_layers.10.mlp.1.weight
+transformer.mlp_layers.10.mlp.4.weight
+transformer.mlp_layers.11.mlp.1.weight
+transformer.mlp_layers.11.mlp.4.weight
+transformer.dwa_modules.alphas.0
+transformer.dwa_modules.alphas.1
+transformer.dwa_modules.alphas.2
+transformer.dwa_modules.alphas.3
+transformer.dwa_modules.alphas.4
+transformer.dwa_modules.alphas.5
+transformer.dwa_modules.alphas.6
+transformer.dwa_modules.alphas.7
+transformer.dwa_modules.alphas.8
+transformer.dwa_modules.alphas.9
+transformer.dwa_modules.alphas.10
+transformer.dwa_modules.alphas.11
+transformer.dwa_modules.alphas.12
+transformer.dwa_modules.alphas.13
+transformer.dwa_modules.alphas.14
+transformer.dwa_modules.alphas.15
+transformer.dwa_modules.alphas.16
+transformer.dwa_modules.alphas.17
+transformer.dwa_modules.alphas.18
+transformer.dwa_modules.alphas.19
+transformer.dwa_modules.alphas.20
+transformer.dwa_modules.alphas.21
+transformer.dwa_modules.alphas.22
+transformer.dwa_modules.alphas.23
+classifier.nonlinearity.1.weight
+
+<s> Ċ <mask> 'm Ġan Ġarchae ologist , Ġnot Ġa Ġreligious Ġfan atic . Ċ Ġ" Even Ġnow , Ġalready <mask> <mask> <mask> Ġthe Ġworld ... Ċ <mask> <mask> <mask> <mask> <mask> <mask> y , Ġand Ġhe Ġshall Ġpros per , Ġand Ġpractice , Ġand Ġshall Ġdestroy Ġthe Ġmight y Ġmanufact Ġregular Ġh oly . " Ċ ĠI Ġappreciate Ġthis Ġs rodu Ġmanaged <mask> Ġbut Ġwhat Ġpossible Ġfacts ... ĠGrand ĠHis Ġown Ġfather Ġimportant Ġoriginally Ċ ĠA Ġweek Ġago , Ġhe Ġtried Ġto <mask> <mask> <mask> Ċ ĠThat 's Ġa Ġminor Ġdetail Ġthese Ġnewsp apers Ġwine Ġto Ġhave Ġo mitted . Ċ <mask> <mask> <mask> <mask> <mask> Ġhope Ġson ers Ġmyself . Ċ ĠHe Ġis Ġin ĠChic ago <mask> Ġrenewable Ġwith Ġhis Ġfather 's <mask> . Ċ <pad>
+
+1 214 4 671 373 7512 4988 27 452 273 4520 7196 2155 29 214 562 4475 794 27 1925 4 4 4 278 887 867 214 4 4 4 4 4 4 104 27 304 336 3207 7713 553 27 304 2414 27 304 3207 5104 278 860 104 4514 2697 305 4098 29 17 214 331 3599 446 277 2154 4590 4 530 510 1960 4273 867 4631 2518 942 2011 1068 7238 214 363 2055 1873 27 336 2836 300 4 4 4 214 1099 352 273 5783 2321 661 6166 4490 5592 300 451 297 6193 29 214 4 4 4 4 4 2176 2602 410 2548 29 214 778 353 306 6010 6030 4 7865 374 556 2011 352 4 29 214 3
+
+-100 ĠI -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġis Ġhe Ġin -100 -100 -100 -100 Ġand Ġhis Ġpower Ġshall Ġbe Ġmight -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġpractice , Ġand -100 -100 -100 Ġmight y Ġand Ġthe Ġh oly -100 -100 -100 -100 -100 -100 -100 erm on , -100 -100 -100 -100 -100 Ċ -100 -100 -100 Ġknew . -100 -100 -100 -100 -100 -100 -100 -100 Ġdestroy Ġhim . -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġseem -100 -100 -100 -100 -100 -100 ĠI Ġgave Ġhim Ġthe Ġd ag g -100 -100 -100 -100 -100 -100 -100 -100 -100 , Ġliving -100 -100 -100 -100 Ġbrother -100 -100 -100 -100
+
+tensor(0.3095)
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m.py:241: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/model_logging.py:51: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"activations_std/{self.id_to_name[m_id]}": a.std().item()
+Train iteration:   0%|          | 1/7812 [00:30<66:19:34, 30.57s/it]Train iteration:   0%|          | 2/7812 [01:00<65:46:33, 30.32s/it]Train iteration:   0%|          | 3/7812 [01:31<65:54:44, 30.39s/it]Train iteration:   0%|          | 4/7812 [02:01<65:51:37, 30.37s/it]Train iteration:   0%|          | 5/7812 [02:31<65:18:36, 30.12s/it]Train iteration:   0%|          | 6/7812 [03:01<65:07:49, 30.04s/it]Train iteration:   0%|          | 7/7812 [03:30<64:56:30, 29.95s/it]Train iteration:   0%|          | 8/7812 [04:00<64:48:34, 29.90s/it]Train iteration:   0%|          | 9/7812 [04:30<64:59:05, 29.98s/it]Train iteration:   0%|          | 10/7812 [05:00<65:04:28, 30.03s/it]Train iteration:   0%|          | 11/7812 [05:31<65:10:18, 30.08s/it]Train iteration:   0%|          | 12/7812 [06:01<65:12:46, 30.10s/it]Train iteration:   0%|          | 13/7812 [06:31<65:16:24, 30.13s/it]Train iteration:   0%|          | 14/7812 [07:01<65:18:15, 30.15s/it]Train iteration:   0%|          | 15/7812 [07:32<65:25:46, 30.21s/it]Train iteration:   0%|          | 16/7812 [08:02<65:38:57, 30.32s/it]Train iteration:   0%|          | 17/7812 [08:32<65:34:17, 30.28s/it]Train iteration:   0%|          | 18/7812 [09:03<65:33:18, 30.28s/it]Train iteration:   0%|          | 19/7812 [09:33<65:40:27, 30.34s/it]Train iteration:   0%|          | 20/7812 [10:03<65:36:01, 30.31s/it]Train iteration:   0%|          | 21/7812 [10:34<66:02:29, 30.52s/it]Train iteration:   0%|          | 22/7812 [11:07<67:42:55, 31.29s/it]Train iteration:   0%|          | 23/7812 [11:38<67:14:57, 31.08s/it]Train iteration:   0%|          | 24/7812 [12:08<66:43:48, 30.85s/it]Train iteration:   0%|          | 25/7812 [12:40<67:07:25, 31.03s/it]Train iteration:   0%|          | 26/7812 [13:14<69:27:08, 32.11s/it]Train iteration:   0%|          | 27/7812 [13:49<71:09:03, 32.90s/it]Train iteration:   0%|          | 28/7812 [14:24<72:17:16, 33.43s/it]Train iteration:   0%|          | 28/7812 [14:24<66:44:25, 30.87s/it]
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 1/7812 [00:31<67:49:34, 31.26s/it]Train iteration:   0%|          | 2/7812 [01:00<64:41:30, 29.82s/it]Train iteration:   0%|          | 3/7812 [01:29<64:09:38, 29.58s/it]Train iteration:   0%|          | 4/7812 [02:01<66:21:14, 30.59s/it]Train iteration:   0%|          | 5/7812 [02:33<67:28:05, 31.11s/it]Train iteration:   0%|          | 6/7812 [03:05<68:25:32, 31.56s/it]Train iteration:   0%|          | 7/7812 [03:35<66:53:44, 30.86s/it]Train iteration:   0%|          | 8/7812 [04:05<66:31:02, 30.68s/it]Train iteration:   0%|          | 9/7812 [04:37<66:56:51, 30.89s/it]Train iteration:   0%|          | 10/7812 [05:09<68:04:50, 31.41s/it]Train iteration:   0%|          | 11/7812 [05:41<68:30:54, 31.62s/it]Train iteration:   0%|          | 12/7812 [06:12<68:10:58, 31.47s/it]Train iteration:   0%|          | 13/7812 [06:46<69:32:31, 32.10s/it]Train iteration:   0%|          | 14/7812 [07:20<70:38:00, 32.61s/it]Train iteration:   0%|          | 15/7812 [07:50<68:51:24, 31.79s/it]Train iteration:   0%|          | 16/7812 [08:23<70:04:32, 32.36s/it]Train iteration:   0%|          | 17/7812 [08:55<69:33:13, 32.12s/it]Train iteration:   0%|          | 18/7812 [09:24<67:46:56, 31.31s/it]Train iteration:   0%|          | 19/7812 [09:56<68:23:28, 31.59s/it]Train iteration:   0%|          | 20/7812 [10:27<67:38:44, 31.25s/it]Train iteration:   0%|          | 21/7812 [10:57<67:06:22, 31.01s/it]Train iteration:   0%|          | 22/7812 [11:27<66:29:37, 30.73s/it]Train iteration:   0%|          | 23/7812 [12:01<68:05:15, 31.47s/it]Train iteration:   0%|          | 24/7812 [12:30<66:49:44, 30.89s/it]Train iteration:   0%|          | 25/7812 [13:00<66:07:16, 30.57s/it]Train iteration:   0%|          | 26/7812 [13:33<67:59:22, 31.44s/it]Train iteration:   0%|          | 27/7812 [14:05<68:09:42, 31.52s/it]Train iteration:   0%|          | 28/7812 [14:40<70:14:35, 32.49s/it]Train iteration:   0%|          | 28/7812 [14:40<67:59:19, 31.44s/it]
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 1/7812 [00:28<62:14:47, 28.69s/it]Train iteration:   0%|          | 2/7812 [01:00<66:31:42, 30.67s/it]Train iteration:   0%|          | 3/7812 [01:33<68:43:26, 31.68s/it]Train iteration:   0%|          | 4/7812 [02:07<70:44:54, 32.62s/it]Train iteration:   0%|          | 5/7812 [02:41<71:17:24, 32.87s/it]Train iteration:   0%|          | 6/7812 [03:10<68:38:35, 31.66s/it]Train iteration:   0%|          | 7/7812 [03:40<67:40:00, 31.21s/it]Train iteration:   0%|          | 8/7812 [04:12<68:21:46, 31.54s/it]Train iteration:   0%|          | 9/7812 [04:45<69:03:47, 31.86s/it]Train iteration:   0%|          | 10/7812 [05:18<69:37:31, 32.13s/it]Train iteration:   0%|          | 11/7812 [05:48<68:10:26, 31.46s/it]Train iteration:   0%|          | 12/7812 [06:20<68:55:01, 31.81s/it]Train iteration:   0%|          | 13/7812 [06:52<68:43:01, 31.72s/it]Train iteration:   0%|          | 14/7812 [07:25<69:32:01, 32.10s/it]Train iteration:   0%|          | 15/7812 [07:55<68:07:41, 31.46s/it]Train iteration:   0%|          | 16/7812 [08:26<68:02:20, 31.42s/it]Train iteration:   0%|          | 17/7812 [08:58<68:40:00, 31.71s/it]Train iteration:   0%|          | 18/7812 [09:31<69:06:40, 31.92s/it]Train iteration:   0%|          | 19/7812 [10:03<69:02:41, 31.90s/it]Train iteration:   0%|          | 20/7812 [10:32<67:32:53, 31.21s/it]Train iteration:   0%|          | 21/7812 [11:04<67:50:39, 31.35s/it]Train iteration:   0%|          | 22/7812 [11:35<67:33:06, 31.22s/it]Train iteration:   0%|          | 23/7812 [12:07<68:27:45, 31.64s/it]Train iteration:   0%|          | 24/7812 [12:37<66:55:46, 30.94s/it]Train iteration:   0%|          | 25/7812 [13:09<67:48:39, 31.35s/it]Train iteration:   0%|          | 26/7812 [13:40<67:38:49, 31.28s/it]Train iteration:   0%|          | 27/7812 [14:14<69:15:22, 32.03s/it]Train iteration:   0%|          | 28/7812 [14:46<69:10:52, 32.00s/it]Train iteration:   0%|          | 28/7812 [14:46<68:26:46, 31.66s/it]
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 1/7812 [00:28<61:58:03, 28.56s/it]Train iteration:   0%|          | 2/7812 [00:57<62:25:21, 28.77s/it]Train iteration:   0%|          | 3/7812 [01:29<65:20:28, 30.12s/it]Train iteration:   0%|          | 4/7812 [02:01<67:20:35, 31.05s/it]Train iteration:   0%|          | 5/7812 [02:32<67:04:05, 30.93s/it]Train iteration:   0%|          | 6/7812 [03:01<65:41:58, 30.30s/it]Train iteration:   0%|          | 7/7812 [03:33<66:44:15, 30.78s/it]Train iteration:   0%|          | 8/7812 [04:05<67:46:47, 31.27s/it]Train iteration:   0%|          | 9/7812 [04:37<68:04:37, 31.41s/it]Train iteration:   0%|          | 10/7812 [05:06<66:32:54, 30.71s/it]Train iteration:   0%|          | 11/7812 [05:38<67:12:00, 31.01s/it]Train iteration:   0%|          | 12/7812 [06:10<68:03:49, 31.41s/it]Train iteration:   0%|          | 13/7812 [06:42<68:25:59, 31.59s/it]Train iteration:   0%|          | 14/7812 [07:12<67:08:30, 31.00s/it]Train iteration:   0%|          | 15/7812 [07:44<68:13:47, 31.50s/it]Train iteration:   0%|          | 16/7812 [08:17<68:59:31, 31.86s/it]Train iteration:   0%|          | 17/7812 [08:49<69:17:56, 32.00s/it]Train iteration:   0%|          | 18/7812 [09:18<67:24:48, 31.14s/it]Train iteration:   0%|          | 19/7812 [09:50<67:59:51, 31.41s/it]Train iteration:   0%|          | 20/7812 [10:24<69:36:38, 32.16s/it]Train iteration:   0%|          | 21/7812 [10:55<68:44:24, 31.76s/it]Train iteration:   0%|          | 22/7812 [11:25<67:19:46, 31.12s/it]Train iteration:   0%|          | 23/7812 [11:57<68:07:36, 31.49s/it]Train iteration:   0%|          | 24/7812 [12:28<67:49:42, 31.35s/it]Train iteration:   0%|          | 25/7812 [12:59<67:20:59, 31.14s/it]Train iteration:   0%|          | 26/7812 [13:33<69:11:18, 31.99s/it]Train iteration:   0%|          | 27/7812 [14:03<68:04:45, 31.48s/it]Train iteration:   0%|          | 28/7812 [14:36<69:15:24, 32.03s/it]Train iteration:   0%|          | 28/7812 [14:36<67:42:58, 31.32s/it]
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 1/7812 [00:28<61:56:22, 28.55s/it]Train iteration:   0%|          | 2/7812 [01:00<66:32:14, 30.67s/it]Train iteration:   0%|          | 3/7812 [01:29<64:56:36, 29.94s/it]Train iteration:   0%|          | 4/7812 [02:01<66:36:37, 30.71s/it]Train iteration:   0%|          | 5/7812 [02:32<66:27:32, 30.65s/it]Train iteration:   0%|          | 6/7812 [03:04<67:48:37, 31.27s/it]Train iteration:   0%|          | 7/7812 [03:33<66:23:18, 30.62s/it]Train iteration:   0%|          | 8/7812 [04:05<67:15:00, 31.02s/it]Train iteration:   0%|          | 9/7812 [04:36<66:57:26, 30.89s/it]Train iteration:   0%|          | 10/7812 [05:09<68:11:05, 31.46s/it]Train iteration:   0%|          | 11/7812 [05:38<66:42:21, 30.78s/it]Train iteration:   0%|          | 12/7812 [06:10<67:32:09, 31.17s/it]Train iteration:   0%|          | 13/7812 [06:40<66:56:58, 30.90s/it]Train iteration:   0%|          | 14/7812 [07:13<68:07:03, 31.45s/it]Train iteration:   0%|          | 15/7812 [07:42<66:43:51, 30.81s/it]Train iteration:   0%|          | 16/7812 [08:15<67:39:00, 31.24s/it]Train iteration:   0%|          | 17/7812 [08:45<67:05:32, 30.99s/it]Train iteration:   0%|          | 18/7812 [09:18<68:25:51, 31.61s/it]Train iteration:   0%|          | 19/7812 [09:52<69:52:23, 32.28s/it]Train iteration:   0%|          | 20/7812 [10:22<68:39:09, 31.72s/it]Train iteration:   0%|          | 21/7812 [10:54<68:39:45, 31.73s/it]Train iteration:   0%|          | 22/7812 [11:26<68:55:12, 31.85s/it]Train iteration:   0%|          | 23/7812 [11:56<67:30:23, 31.20s/it]Train iteration:   0%|          | 24/7812 [12:26<67:01:22, 30.98s/it]Train iteration:   0%|          | 25/7812 [13:01<69:16:04, 32.02s/it]Train iteration:   0%|          | 26/7812 [13:33<69:20:28, 32.06s/it]Train iteration:   0%|          | 27/7812 [14:04<68:33:31, 31.70s/it]Train iteration:   0%|          | 28/7812 [14:37<69:17:43, 32.05s/it]Train iteration:   0%|          | 28/7812 [14:37<67:44:01, 31.33s/it]
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 1/7812 [00:29<64:31:23, 29.74s/it]Train iteration:   0%|          | 2/7812 [01:01<66:45:08, 30.77s/it]Train iteration:   0%|          | 3/7812 [01:31<65:50:58, 30.36s/it]Train iteration:   0%|          | 4/7812 [02:03<67:48:57, 31.27s/it]Train iteration:   0%|          | 5/7812 [02:35<67:59:00, 31.35s/it]Train iteration:   0%|          | 6/7812 [03:08<69:03:35, 31.85s/it]Train iteration:   0%|          | 7/7812 [03:37<67:38:09, 31.20s/it]Train iteration:   0%|          | 8/7812 [04:10<68:40:24, 31.68s/it]Train iteration:   0%|          | 9/7812 [04:42<68:30:22, 31.61s/it]Train iteration:   0%|          | 10/7812 [05:14<69:15:13, 31.96s/it]Train iteration:   0%|          | 11/7812 [05:44<67:56:14, 31.35s/it]Train iteration:   0%|          | 12/7812 [06:17<69:02:50, 31.87s/it]Train iteration:   0%|          | 13/7812 [06:48<68:20:54, 31.55s/it]Train iteration:   0%|          | 14/7812 [07:22<69:52:05, 32.26s/it]Train iteration:   0%|          | 15/7812 [07:54<69:54:27, 32.28s/it]Train iteration:   0%|          | 16/7812 [08:26<69:38:10, 32.16s/it]Train iteration:   0%|          | 17/7812 [08:59<69:51:29, 32.26s/it]Train iteration:   0%|          | 18/7812 [09:30<69:00:53, 31.88s/it]Train iteration:   0%|          | 19/7812 [10:04<70:30:53, 32.57s/it]Train iteration:   0%|          | 20/7812 [10:34<69:08:53, 31.95s/it]Train iteration:   0%|          | 21/7812 [11:07<69:29:15, 32.11s/it]

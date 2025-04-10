@@ -1,0 +1,37 @@
+Wed Apr  9 21:07:35 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Initializing a BPE tokenizer
+Training the tokenizer
+0it [00:00, ?it/s]768it [00:00, 5380.86it/s]1536it [00:00, 5296.22it/s]2066it [00:00, 4773.84it/s]2560it [00:00, 4707.48it/s]3328it [00:00, 5030.41it/s]3997it [00:00, 5499.87it/s]4608it [00:00, 5321.75it/s]5376it [00:01, 5270.04it/s]5908it [00:01, 4993.79it/s]6409it [00:01, 4938.63it/s]7168it [00:01, 5243.77it/s]7692it [00:01, 5048.02it/s]8448it [00:01, 5202.03it/s]9216it [00:01, 5309.86it/s]9924it [00:01, 5751.90it/s]10507it [00:02, 4614.00it/s]11008it [00:02, 4311.09it/s]11776it [00:02, 4678.22it/s]12544it [00:02, 4934.36it/s]13312it [00:02, 5117.85it/s]14080it [00:02, 5351.75it/s]14623it [00:02, 5295.61it/s]15157it [00:02, 5233.46it/s]15872it [00:03, 5233.63it/s]16397it [00:03, 5202.48it/s]17152it [00:03, 5227.49it/s]17675it [00:03, 4746.42it/s]18176it [00:03, 4649.90it/s]18688it [00:03, 4323.54it/s]19200it [00:03, 4415.59it/s]19712it [00:03, 4358.98it/s]20315it [00:04, 4790.47it/s]20992it [00:04, 4697.11it/s]21504it [00:04, 4625.96it/s]21933it [00:04, 4990.05it/s]
+
+
+
+Saving the tokenizer
+TEST
+Trying to load the tokenizer...
+Success!
+Traceback (most recent call last):
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 147, in <module>
+    calculate_stats(tokenizer, args)
+  File "/home/cfinegan/shared/group4_work/395SharedTask/tokenizer_creation/tokenizer_10m.py", line 78, in calculate_stats
+    text = json.loads(document).strip()
+AttributeError: 'dict' object has no attribute 'strip'
