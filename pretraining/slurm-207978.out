@@ -1,0 +1,662 @@
+Thu Apr 10 19:01:45 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Hello from rank 1 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 2 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 3 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 0 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+RCCL started on device cuda:2
+RCCL started on device cuda:3
+Group initialized? True
+RCCL started on device cuda:0
+RCCL started on device cuda:1
+host: spdr18.cluster, rank: 0, local_rank: 0
+Training for 7,812 steps with 4 GPUs
+In total, the model will be trained on 'steps'(7,812) x 'GPUs'(4) x 'batch_size'(256) x 'seq_len'(128) = 1,023,934,464 subword instances
+Bert(
+  (embedding): Embedding(
+    (word_embedding): Embedding(8192, 384)
+    (word_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+    (dropout): Dropout(p=0.1, inplace=False)
+    (relative_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Encoder(
+    (attention_layers): ModuleList(
+      (0-11): 12 x Attention(
+        (in_proj_qk): Linear(in_features=384, out_features=768, bias=True)
+        (in_proj_vg): Linear(in_features=384, out_features=768, bias=True)
+        (out_proj): Linear(in_features=384, out_features=384, bias=True)
+        (pre_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (post_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (mlp_layers): ModuleList(
+      (0-11): 12 x FeedForward(
+        (mlp): Sequential(
+          (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+          (1): Linear(in_features=384, out_features=2560, bias=False)
+          (2): GeGLU()
+          (3): LayerNorm((1280,), eps=1e-05, elementwise_affine=False)
+          (4): Linear(in_features=1280, out_features=384, bias=False)
+          (5): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (dwa_modules): DWAModules(
+      (alphas): ParameterList(
+          (0): Parameter containing: [torch.float32 of size 2]
+          (1): Parameter containing: [torch.float32 of size 3]
+          (2): Parameter containing: [torch.float32 of size 4]
+          (3): Parameter containing: [torch.float32 of size 5]
+          (4): Parameter containing: [torch.float32 of size 6]
+          (5): Parameter containing: [torch.float32 of size 7]
+          (6): Parameter containing: [torch.float32 of size 8]
+          (7): Parameter containing: [torch.float32 of size 9]
+          (8): Parameter containing: [torch.float32 of size 10]
+          (9): Parameter containing: [torch.float32 of size 11]
+          (10): Parameter containing: [torch.float32 of size 12]
+          (11): Parameter containing: [torch.float32 of size 13]
+          (12): Parameter containing: [torch.float32 of size 14]
+          (13): Parameter containing: [torch.float32 of size 15]
+          (14): Parameter containing: [torch.float32 of size 16]
+          (15): Parameter containing: [torch.float32 of size 17]
+          (16): Parameter containing: [torch.float32 of size 18]
+          (17): Parameter containing: [torch.float32 of size 19]
+          (18): Parameter containing: [torch.float32 of size 20]
+          (19): Parameter containing: [torch.float32 of size 21]
+          (20): Parameter containing: [torch.float32 of size 22]
+          (21): Parameter containing: [torch.float32 of size 23]
+          (22): Parameter containing: [torch.float32 of size 24]
+          (23): Parameter containing: [torch.float32 of size 25]
+      )
+    )
+  )
+  (classifier): MaskClassifier(
+    (nonlinearity): Sequential(
+      (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (1): Linear(in_features=384, out_features=384, bias=True)
+      (2): GELU(approximate='none')
+      (3): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (4): Dropout(p=0.1, inplace=False)
+      (5): Linear(in_features=384, out_features=8192, bias=True)
+    )
+  )
+)
+NUMBER OF PARAMETERS: 29892164
+
+Parameters without weight decay:
+embedding.relative_layer_norm.weight
+embedding.relative_layer_norm.bias
+transformer.attention_layers.0.in_proj_qk.bias
+transformer.attention_layers.0.in_proj_vg.bias
+transformer.attention_layers.0.out_proj.bias
+transformer.attention_layers.1.in_proj_qk.bias
+transformer.attention_layers.1.in_proj_vg.bias
+transformer.attention_layers.1.out_proj.bias
+transformer.attention_layers.2.in_proj_qk.bias
+transformer.attention_layers.2.in_proj_vg.bias
+transformer.attention_layers.2.out_proj.bias
+transformer.attention_layers.3.in_proj_qk.bias
+transformer.attention_layers.3.in_proj_vg.bias
+transformer.attention_layers.3.out_proj.bias
+transformer.attention_layers.4.in_proj_qk.bias
+transformer.attention_layers.4.in_proj_vg.bias
+transformer.attention_layers.4.out_proj.bias
+transformer.attention_layers.5.in_proj_qk.bias
+transformer.attention_layers.5.in_proj_vg.bias
+transformer.attention_layers.5.out_proj.bias
+transformer.attention_layers.6.in_proj_qk.bias
+transformer.attention_layers.6.in_proj_vg.bias
+transformer.attention_layers.6.out_proj.bias
+transformer.attention_layers.7.in_proj_qk.bias
+transformer.attention_layers.7.in_proj_vg.bias
+transformer.attention_layers.7.out_proj.bias
+transformer.attention_layers.8.in_proj_qk.bias
+transformer.attention_layers.8.in_proj_vg.bias
+transformer.attention_layers.8.out_proj.bias
+transformer.attention_layers.9.in_proj_qk.bias
+transformer.attention_layers.9.in_proj_vg.bias
+transformer.attention_layers.9.out_proj.bias
+transformer.attention_layers.10.in_proj_qk.bias
+transformer.attention_layers.10.in_proj_vg.bias
+transformer.attention_layers.10.out_proj.bias
+transformer.attention_layers.11.in_proj_qk.bias
+transformer.attention_layers.11.in_proj_vg.bias
+transformer.attention_layers.11.out_proj.bias
+classifier.nonlinearity.1.bias
+classifier.nonlinearity.5.bias
+
+Parameters with weight decay:
+embedding.relative_embedding
+embedding.word_embedding.weight
+transformer.attention_layers.0.in_proj_qk.weight
+transformer.attention_layers.0.in_proj_vg.weight
+transformer.attention_layers.0.out_proj.weight
+transformer.attention_layers.1.in_proj_qk.weight
+transformer.attention_layers.1.in_proj_vg.weight
+transformer.attention_layers.1.out_proj.weight
+transformer.attention_layers.2.in_proj_qk.weight
+transformer.attention_layers.2.in_proj_vg.weight
+transformer.attention_layers.2.out_proj.weight
+transformer.attention_layers.3.in_proj_qk.weight
+transformer.attention_layers.3.in_proj_vg.weight
+transformer.attention_layers.3.out_proj.weight
+transformer.attention_layers.4.in_proj_qk.weight
+transformer.attention_layers.4.in_proj_vg.weight
+transformer.attention_layers.4.out_proj.weight
+transformer.attention_layers.5.in_proj_qk.weight
+transformer.attention_layers.5.in_proj_vg.weight
+transformer.attention_layers.5.out_proj.weight
+transformer.attention_layers.6.in_proj_qk.weight
+transformer.attention_layers.6.in_proj_vg.weight
+transformer.attention_layers.6.out_proj.weight
+transformer.attention_layers.7.in_proj_qk.weight
+transformer.attention_layers.7.in_proj_vg.weight
+transformer.attention_layers.7.out_proj.weight
+transformer.attention_layers.8.in_proj_qk.weight
+transformer.attention_layers.8.in_proj_vg.weight
+transformer.attention_layers.8.out_proj.weight
+transformer.attention_layers.9.in_proj_qk.weight
+transformer.attention_layers.9.in_proj_vg.weight
+transformer.attention_layers.9.out_proj.weight
+transformer.attention_layers.10.in_proj_qk.weight
+transformer.attention_layers.10.in_proj_vg.weight
+transformer.attention_layers.10.out_proj.weight
+transformer.attention_layers.11.in_proj_qk.weight
+transformer.attention_layers.11.in_proj_vg.weight
+transformer.attention_layers.11.out_proj.weight
+transformer.mlp_layers.0.mlp.1.weight
+transformer.mlp_layers.0.mlp.4.weight
+transformer.mlp_layers.1.mlp.1.weight
+transformer.mlp_layers.1.mlp.4.weight
+transformer.mlp_layers.2.mlp.1.weight
+transformer.mlp_layers.2.mlp.4.weight
+transformer.mlp_layers.3.mlp.1.weight
+transformer.mlp_layers.3.mlp.4.weight
+transformer.mlp_layers.4.mlp.1.weight
+transformer.mlp_layers.4.mlp.4.weight
+transformer.mlp_layers.5.mlp.1.weight
+transformer.mlp_layers.5.mlp.4.weight
+transformer.mlp_layers.6.mlp.1.weight
+transformer.mlp_layers.6.mlp.4.weight
+transformer.mlp_layers.7.mlp.1.weight
+transformer.mlp_layers.7.mlp.4.weight
+transformer.mlp_layers.8.mlp.1.weight
+transformer.mlp_layers.8.mlp.4.weight
+transformer.mlp_layers.9.mlp.1.weight
+transformer.mlp_layers.9.mlp.4.weight
+transformer.mlp_layers.10.mlp.1.weight
+transformer.mlp_layers.10.mlp.4.weight
+transformer.mlp_layers.11.mlp.1.weight
+transformer.mlp_layers.11.mlp.4.weight
+transformer.dwa_modules.alphas.0
+transformer.dwa_modules.alphas.1
+transformer.dwa_modules.alphas.2
+transformer.dwa_modules.alphas.3
+transformer.dwa_modules.alphas.4
+transformer.dwa_modules.alphas.5
+transformer.dwa_modules.alphas.6
+transformer.dwa_modules.alphas.7
+transformer.dwa_modules.alphas.8
+transformer.dwa_modules.alphas.9
+transformer.dwa_modules.alphas.10
+transformer.dwa_modules.alphas.11
+transformer.dwa_modules.alphas.12
+transformer.dwa_modules.alphas.13
+transformer.dwa_modules.alphas.14
+transformer.dwa_modules.alphas.15
+transformer.dwa_modules.alphas.16
+transformer.dwa_modules.alphas.17
+transformer.dwa_modules.alphas.18
+transformer.dwa_modules.alphas.19
+transformer.dwa_modules.alphas.20
+transformer.dwa_modules.alphas.21
+transformer.dwa_modules.alphas.22
+transformer.dwa_modules.alphas.23
+classifier.nonlinearity.1.weight
+
+<s> ary Ĝ <mask> Ġan Ġinteresting Ġgroup <mask> Ġletters Ġwritten Ġby ĠS hed d <mask> <mask> <mask> Ġcup ĠMars ĠCon <mask> ĠH amps hire Ġand ĠMass ach us et ts . ĠA Ġbrief Ġnote Ġpen ned Ġin Ġ1 8 5 9 <mask> <mask> Ġby <mask> <mask> Ġof Ġintroduction , <mask> <mask> Ġon ĠS hed d <mask> <mask> alf Ġby Ġseveral Ġcitizens Ġof ĠEn field <mask> <s> <mask> <mask> Ġpointed Ġout Ġearlier Ġin Ġthis Ġblog Ġand Ġnow Ġin Ġmy <mask> <mask> <mask> <mask> Se ven ĠChristian reg ations Ġin Ġa ĠRoman ĠC ru ci ble <mask> Ġthat Ġmany ĠG ra ec o -R oman ventional Ġpsych roduce Ġalso Ġbelieved Ġin Ġpost m or <mask> <mask> <mask> <mask> Ġthe Ġafter life . ĠYou Ġmight Ġnot Ġbe <mask> <mask> <mask> <mask>
+
+1 683 232 4 373 2368 1564 4 4371 3147 476 361 770 83 4 4 4 5165 7591 1600 4 422 6090 6727 304 7266 601 324 322 1156 29 363 5388 4464 4234 2200 306 514 39 36 40 4 4 476 4 4 307 7669 27 4 4 341 361 770 83 4 4 1716 476 1852 4574 307 2236 5307 4 1 4 4 5830 524 3445 306 446 7506 304 794 306 534 4 4 4 4 5284 564 4807 3301 612 306 273 5207 379 680 471 637 4 339 815 509 380 1031 94 8139 3389 7354 3069 4985 761 3603 306 2035 92 288 4 4 4 4 278 865 4200 29 983 860 452 332 4 4 4 4
+
+-100 Ġcollection Ġincludes -100 -100 -100 Ġof -100 -100 -100 -100 -100 -100 Ġto Ġhis Ġwife Ġand Ġchildren Ġin ĠNew -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġis Ġfollowed -100 Ġa Ġletter -100 -100 -100 Ġsign ed -100 -100 -100 -100 's Ġbeh -100 -100 -100 -100 -100 -100 -100 . -100 ĠI Ġhave -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġrecent Ġcomment ary Ġ( -100 -100 ĠCong -100 -100 -100 -100 -100 -100 -100 -100 -100 ) -100 -100 -100 -100 -100 -100 -100 -100 Ġp ag ans -100 -100 -100 -100 -100 -100 tem Ġpun ishment Ġin -100 -100 -100 -100 -100 -100 -100 -100 Ġaware , Ġhowever , Ġthat
+
+tensor(0.2969)
+[Epoch 0] Global step: 0, Local step: 0/7
+[Epoch 0] Fetched batch with mask_p: 0.3065
+Train iteration:   0%|          | 0/7812 [00:00<?, ?it/s]/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py:244: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py:244: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py:244: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py:244: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
+/home/cfinegan/shared/group4_work/395SharedTask/pretraining/model_logging.py:51: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"activations_std/{self.id_to_name[m_id]}": a.std().item()
+[Epoch 0] Backward done - Loss: 9.1893, Accuracy: 0.0000, Z-Loss: 84.2763
+[Epoch 0] Accumulating gradients... (Step 1/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 2, Local step: 1/7
+[Epoch 0] Fetched batch with mask_p: 0.3081
+[Epoch 0] Backward done - Loss: 9.1804, Accuracy: 0.0000, Z-Loss: 84.2751
+[Epoch 0] Accumulating gradients... (Step 2/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 4, Local step: 2/7
+[Epoch 0] Fetched batch with mask_p: 0.3074
+[Epoch 0] Backward done - Loss: 9.1415, Accuracy: 0.0002, Z-Loss: 84.2747
+[Epoch 0] Accumulating gradients... (Step 3/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 6, Local step: 3/7
+[Epoch 0] Fetched batch with mask_p: 0.3124
+[Epoch 0] Backward done - Loss: 9.0943, Accuracy: 0.0006, Z-Loss: 84.2518
+[Epoch 0] Accumulating gradients... (Step 4/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 8, Local step: 4/7
+[Epoch 0] Fetched batch with mask_p: 0.3068
+[Epoch 0] Backward done - Loss: 9.0246, Accuracy: 0.0063, Z-Loss: 84.2260
+[Epoch 0] Accumulating gradients... (Step 5/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 10, Local step: 5/7
+[Epoch 0] Fetched batch with mask_p: 0.3092
+[Epoch 0] Backward done - Loss: 8.9521, Accuracy: 0.0203, Z-Loss: 84.1846
+[Epoch 0] Accumulating gradients... (Step 6/7)
+[Epoch 0] Performing optimizer step
+[Epoch 0] Global step: 12, Local step: 6/7
+[Epoch 0] Fetched batch with mask_p: 0.3074
+[Epoch 0] Backward done - Loss: 8.8737, Accuracy: 0.0310, Z-Loss: 84.1365
+[Epoch 0] Accumulating gradients... (Step 7/7)
+[Epoch 0] Performing optimizer step
+Train iteration:   0%|          | 1/7812 [00:16<35:35:55, 16.41s/it]Train iteration:   0%|          | 2/7812 [00:18<17:23:26,  8.02s/it]Train iteration:   0%|          | 3/7812 [00:20<11:37:33,  5.36s/it]Train iteration:   0%|          | 4/7812 [00:23<9:00:07,  4.15s/it] Train iteration:   0%|          | 5/7812 [00:25<7:29:36,  3.46s/it]Train iteration:   0%|          | 6/7812 [00:27<6:27:21,  2.98s/it]Train iteration:   0%|          | 7/7812 [00:27<4:46:28,  2.20s/it]Train iteration:   0%|          | 7/7812 [00:27<8:38:55,  3.99s/it]
+[Epoch 1] Global step: 14, Local step: 0/8
+[Epoch 1] Fetched batch with mask_p: 0.3043
+[Epoch 1] Backward done - Loss: 8.8273, Accuracy: 0.0276, Z-Loss: 84.0720
+[Epoch 1] Accumulating gradients... (Step 1/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 16, Local step: 1/8
+[Epoch 1] Fetched batch with mask_p: 0.3045
+[Epoch 1] Backward done - Loss: 8.7285, Accuracy: 0.0399, Z-Loss: 83.9835
+[Epoch 1] Accumulating gradients... (Step 2/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 18, Local step: 2/8
+[Epoch 1] Fetched batch with mask_p: 0.3050
+[Epoch 1] Backward done - Loss: 8.6484, Accuracy: 0.0473, Z-Loss: 83.8648
+[Epoch 1] Accumulating gradients... (Step 3/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 20, Local step: 3/8
+[Epoch 1] Fetched batch with mask_p: 0.3102
+[Epoch 1] Backward done - Loss: 8.5667, Accuracy: 0.0471, Z-Loss: 83.6982
+[Epoch 1] Accumulating gradients... (Step 4/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 22, Local step: 4/8
+[Epoch 1] Fetched batch with mask_p: 0.3053
+[Epoch 1] Backward done - Loss: 8.4770, Accuracy: 0.0478, Z-Loss: 83.4985
+[Epoch 1] Accumulating gradients... (Step 5/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 24, Local step: 5/8
+[Epoch 1] Fetched batch with mask_p: 0.3048
+[Epoch 1] Backward done - Loss: 8.3971, Accuracy: 0.0515, Z-Loss: 83.2467
+[Epoch 1] Accumulating gradients... (Step 6/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 26, Local step: 6/8
+[Epoch 1] Fetched batch with mask_p: 0.3045
+[Epoch 1] Backward done - Loss: 8.3175, Accuracy: 0.0499, Z-Loss: 82.9543
+[Epoch 1] Accumulating gradients... (Step 7/8)
+[Epoch 1] Performing optimizer step
+[Epoch 1] Global step: 28, Local step: 7/8
+[Epoch 1] Fetched batch with mask_p: 0.3069
+[Epoch 1] Backward done - Loss: 8.2518, Accuracy: 0.0555, Z-Loss: 82.6248
+[Epoch 1] Accumulating gradients... (Step 8/8)
+[Epoch 1] Performing optimizer step
+Train iteration:   0%|          | 14/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 15/7812 [00:01<3:40:45,  1.70s/it]Train iteration:   0%|          | 16/7812 [00:03<4:13:15,  1.95s/it]Train iteration:   0%|          | 17/7812 [00:05<4:11:52,  1.94s/it]Train iteration:   0%|          | 18/7812 [00:07<4:08:51,  1.92s/it]Train iteration:   0%|          | 19/7812 [00:09<4:06:34,  1.90s/it]Train iteration:   0%|          | 20/7812 [00:11<4:05:13,  1.89s/it]Train iteration:   0%|          | 21/7812 [00:13<4:03:34,  1.88s/it]Train iteration:   0%|          | 22/7812 [00:13<3:08:34,  1.45s/it]Train iteration:   0%|          | 22/7812 [00:13<3:43:21,  1.72s/it]
+[Epoch 2] Global step: 30, Local step: 0/7
+[Epoch 2] Fetched batch with mask_p: 0.3029
+[Epoch 2] Backward done - Loss: 8.1764, Accuracy: 0.0545, Z-Loss: 82.2723
+[Epoch 2] Accumulating gradients... (Step 1/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 32, Local step: 1/7
+[Epoch 2] Fetched batch with mask_p: 0.3066
+[Epoch 2] Backward done - Loss: 8.1281, Accuracy: 0.0529, Z-Loss: 81.9279
+[Epoch 2] Accumulating gradients... (Step 2/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 34, Local step: 2/7
+[Epoch 2] Fetched batch with mask_p: 0.3073
+[Epoch 2] Backward done - Loss: 8.0869, Accuracy: 0.0533, Z-Loss: 81.6093
+[Epoch 2] Accumulating gradients... (Step 3/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 36, Local step: 3/7
+[Epoch 2] Fetched batch with mask_p: 0.3030
+[Epoch 2] Backward done - Loss: 8.0338, Accuracy: 0.0545, Z-Loss: 81.2441
+[Epoch 2] Accumulating gradients... (Step 4/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 38, Local step: 4/7
+[Epoch 2] Fetched batch with mask_p: 0.3034
+[Epoch 2] Backward done - Loss: 7.8850, Accuracy: 0.0632, Z-Loss: 80.8823
+[Epoch 2] Accumulating gradients... (Step 5/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 40, Local step: 5/7
+[Epoch 2] Fetched batch with mask_p: 0.3071
+[Epoch 2] Backward done - Loss: 7.8488, Accuracy: 0.0593, Z-Loss: 80.4830
+[Epoch 2] Accumulating gradients... (Step 6/7)
+[Epoch 2] Performing optimizer step
+[Epoch 2] Global step: 42, Local step: 6/7
+[Epoch 2] Fetched batch with mask_p: 0.3036
+[Epoch 2] Backward done - Loss: 7.7835, Accuracy: 0.0591, Z-Loss: 80.0914
+[Epoch 2] Accumulating gradients... (Step 7/7)
+[Epoch 2] Performing optimizer step
+Train iteration:   0%|          | 30/7812 [00:00<?, ?it/s]Train iteration:   0%|          | 31/7812 [00:02<4:26:50,  2.06s/it]Train iteration:   0%|          | 32/7812 [00:04<4:24:51,  2.04s/it]Train iteration:   0%|          | 33/7812 [00:06<4:22:09,  2.02s/it]Train iteration:   0%|          | 34/7812 [00:07<4:12:48,  1.95s/it]Train iteration:   0%|          | 35/7812 [00:09<4:12:10,  1.95s/it]Train iteration:   0%|          | 36/7812 [00:11<4:08:38,  1.92s/it]Train iteration:   0%|          | 37/7812 [00:12<3:10:50,  1.47s/it]Train iteration:   0%|          | 37/7812 [00:12<3:47:26,  1.76s/it]
+[Epoch 3] Global step: 44, Local step: 0/7
+[Epoch 3] Fetched batch with mask_p: 0.3048
+[Epoch 3] Backward done - Loss: 7.7322, Accuracy: 0.0592, Z-Loss: 79.7422
+[Epoch 3] Accumulating gradients... (Step 1/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 46, Local step: 1/7
+[Epoch 3] Fetched batch with mask_p: 0.3028
+[Epoch 3] Backward done - Loss: 7.6946, Accuracy: 0.0593, Z-Loss: 79.3129
+[Epoch 3] Accumulating gradients... (Step 2/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 48, Local step: 2/7
+[Epoch 3] Fetched batch with mask_p: 0.3078
+[Epoch 3] Backward done - Loss: 7.6339, Accuracy: 0.0579, Z-Loss: 78.9398
+[Epoch 3] Accumulating gradients... (Step 3/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 50, Local step: 3/7
+[Epoch 3] Fetched batch with mask_p: 0.3023
+[Epoch 3] Backward done - Loss: 7.5371, Accuracy: 0.0638, Z-Loss: 78.5957
+[Epoch 3] Accumulating gradients... (Step 4/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 52, Local step: 4/7
+[Epoch 3] Fetched batch with mask_p: 0.3025
+[Epoch 3] Backward done - Loss: 7.4473, Accuracy: 0.0668, Z-Loss: 78.2109
+[Epoch 3] Accumulating gradients... (Step 5/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 54, Local step: 5/7
+[Epoch 3] Fetched batch with mask_p: 0.3030
+[Epoch 3] Backward done - Loss: 7.4517, Accuracy: 0.0649, Z-Loss: 77.8623
+[Epoch 3] Accumulating gradients... (Step 6/7)
+[Epoch 3] Performing optimizer step
+[Epoch 3] Global step: 56, Local step: 6/7
+[Epoch 3] Fetched batch with mask_p: 0.3045
+[Epoch 3] Backward done - Loss: 7.3559, Accuracy: 0.0644, Z-Loss: 77.5887
+[Epoch 3] Accumulating gradients... (Step 7/7)
+[Epoch 3] Performing optimizer step
+Train iteration:   1%|          | 44/7812 [00:00<?, ?it/s]Train iteration:   1%|          | 45/7812 [00:02<4:25:14,  2.05s/it]Train iteration:   1%|          | 46/7812 [00:04<4:20:09,  2.01s/it]Train iteration:   1%|          | 47/7812 [00:06<4:23:06,  2.03s/it]Train iteration:   1%|          | 48/7812 [00:07<4:13:17,  1.96s/it]Train iteration:   1%|          | 49/7812 [00:09<4:06:43,  1.91s/it]Train iteration:   1%|          | 50/7812 [00:11<4:10:03,  1.93s/it]Train iteration:   1%|          | 51/7812 [00:12<3:11:48,  1.48s/it]Train iteration:   1%|          | 51/7812 [00:12<3:47:07,  1.76s/it]
+[Epoch 4] Global step: 58, Local step: 0/7
+[Epoch 4] Fetched batch with mask_p: 0.3029
+[Epoch 4] Backward done - Loss: 7.3078, Accuracy: 0.0651, Z-Loss: 77.2914
+[Epoch 4] Accumulating gradients... (Step 1/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 60, Local step: 1/7
+[Epoch 4] Fetched batch with mask_p: 0.3076
+[Epoch 4] Backward done - Loss: 7.2511, Accuracy: 0.0691, Z-Loss: 77.1365
+[Epoch 4] Accumulating gradients... (Step 2/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 62, Local step: 2/7
+[Epoch 4] Fetched batch with mask_p: 0.3045
+[Epoch 4] Backward done - Loss: 7.2118, Accuracy: 0.0716, Z-Loss: 77.1005
+[Epoch 4] Accumulating gradients... (Step 3/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 64, Local step: 3/7
+[Epoch 4] Fetched batch with mask_p: 0.3054
+[Epoch 4] Backward done - Loss: 7.2023, Accuracy: 0.0674, Z-Loss: 76.8693
+[Epoch 4] Accumulating gradients... (Step 4/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 66, Local step: 4/7
+[Epoch 4] Fetched batch with mask_p: 0.3040
+[Epoch 4] Backward done - Loss: 7.1455, Accuracy: 0.0716, Z-Loss: 77.1233
+[Epoch 4] Accumulating gradients... (Step 5/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 68, Local step: 5/7
+[Epoch 4] Fetched batch with mask_p: 0.3044
+[Epoch 4] Backward done - Loss: 7.0993, Accuracy: 0.0713, Z-Loss: 77.0192
+[Epoch 4] Accumulating gradients... (Step 6/7)
+[Epoch 4] Performing optimizer step
+[Epoch 4] Global step: 70, Local step: 6/7
+[Epoch 4] Fetched batch with mask_p: 0.3034
+[Epoch 4] Backward done - Loss: 7.0810, Accuracy: 0.0713, Z-Loss: 77.4227
+[Epoch 4] Accumulating gradients... (Step 7/7)
+[Epoch 4] Performing optimizer step
+Train iteration:   1%|          | 58/7812 [00:00<?, ?it/s]Train iteration:   1%|          | 59/7812 [00:02<4:19:11,  2.01s/it]Train iteration:   1%|          | 60/7812 [00:03<4:09:49,  1.93s/it]Train iteration:   1%|          | 61/7812 [00:05<4:06:54,  1.91s/it]Train iteration:   1%|          | 62/7812 [00:07<4:09:05,  1.93s/it]Train iteration:   1%|          | 63/7812 [00:09<4:13:36,  1.96s/it]Train iteration:   1%|          | 64/7812 [00:11<4:16:59,  1.99s/it]Train iteration:   1%|          | 65/7812 [00:12<3:16:23,  1.52s/it]Train iteration:   1%|          | 65/7812 [00:12<3:47:49,  1.76s/it]
+[Epoch 5] Global step: 72, Local step: 0/7
+[Epoch 5] Fetched batch with mask_p: 0.3027
+[Epoch 5] Backward done - Loss: 7.0000, Accuracy: 0.0778, Z-Loss: 77.7152
+[Epoch 5] Accumulating gradients... (Step 1/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 74, Local step: 1/7
+[Epoch 5] Fetched batch with mask_p: 0.3033
+[Epoch 5] Backward done - Loss: 7.0488, Accuracy: 0.0737, Z-Loss: 78.0335
+[Epoch 5] Accumulating gradients... (Step 2/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 76, Local step: 2/7
+[Epoch 5] Fetched batch with mask_p: 0.3024
+[Epoch 5] Backward done - Loss: 6.9224, Accuracy: 0.0833, Z-Loss: 78.6812
+[Epoch 5] Accumulating gradients... (Step 3/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 78, Local step: 3/7
+[Epoch 5] Fetched batch with mask_p: 0.3060
+[Epoch 5] Backward done - Loss: 6.8983, Accuracy: 0.0820, Z-Loss: 78.7646
+[Epoch 5] Accumulating gradients... (Step 4/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 80, Local step: 4/7
+[Epoch 5] Fetched batch with mask_p: 0.3020
+[Epoch 5] Backward done - Loss: 7.0259, Accuracy: 0.0765, Z-Loss: 78.7966
+[Epoch 5] Accumulating gradients... (Step 5/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 82, Local step: 5/7
+[Epoch 5] Fetched batch with mask_p: 0.3058
+[Epoch 5] Backward done - Loss: 6.8250, Accuracy: 0.0904, Z-Loss: 79.8310
+[Epoch 5] Accumulating gradients... (Step 6/7)
+[Epoch 5] Performing optimizer step
+[Epoch 5] Global step: 84, Local step: 6/7
+[Epoch 5] Fetched batch with mask_p: 0.3067
+[Epoch 5] Backward done - Loss: 6.9325, Accuracy: 0.0777, Z-Loss: 79.4375
+[Epoch 5] Accumulating gradients... (Step 7/7)
+[Epoch 5] Performing optimizer step
+Train iteration:   1%|          | 72/7812 [00:00<?, ?it/s]Train iteration:   1%|          | 73/7812 [00:01<3:50:46,  1.79s/it]Train iteration:   1%|          | 74/7812 [00:03<3:54:28,  1.82s/it]Train iteration:   1%|          | 75/7812 [00:05<3:55:53,  1.83s/it]Train iteration:   1%|          | 76/7812 [00:07<3:59:04,  1.85s/it]Train iteration:   1%|          | 77/7812 [00:09<4:09:36,  1.94s/it]Train iteration:   1%|          | 78/7812 [00:11<4:13:01,  1.96s/it]Train iteration:   1%|          | 79/7812 [00:12<3:13:47,  1.50s/it]Train iteration:   1%|          | 79/7812 [00:12<3:41:15,  1.72s/it]
+[Epoch 6] Global step: 86, Local step: 0/7
+[Epoch 6] Fetched batch with mask_p: 0.3030
+[Epoch 6] Backward done - Loss: 6.9644, Accuracy: 0.0814, Z-Loss: 79.9445
+[Epoch 6] Accumulating gradients... (Step 1/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 88, Local step: 1/7
+[Epoch 6] Fetched batch with mask_p: 0.3018
+[Epoch 6] Backward done - Loss: 6.8790, Accuracy: 0.0830, Z-Loss: 79.9919
+[Epoch 6] Accumulating gradients... (Step 2/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 90, Local step: 2/7
+[Epoch 6] Fetched batch with mask_p: 0.3028
+[Epoch 6] Backward done - Loss: 6.8331, Accuracy: 0.0916, Z-Loss: 79.0605
+[Epoch 6] Accumulating gradients... (Step 3/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 92, Local step: 3/7
+[Epoch 6] Fetched batch with mask_p: 0.3030
+[Epoch 6] Backward done - Loss: 6.8468, Accuracy: 0.0991, Z-Loss: 81.9537
+[Epoch 6] Accumulating gradients... (Step 4/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 94, Local step: 4/7
+[Epoch 6] Fetched batch with mask_p: 0.3064
+[Epoch 6] Backward done - Loss: 6.8398, Accuracy: 0.0955, Z-Loss: 78.3362
+[Epoch 6] Accumulating gradients... (Step 5/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 96, Local step: 5/7
+[Epoch 6] Fetched batch with mask_p: 0.3037
+[Epoch 6] Backward done - Loss: 6.7482, Accuracy: 0.0994, Z-Loss: 81.5860
+[Epoch 6] Accumulating gradients... (Step 6/7)
+[Epoch 6] Performing optimizer step
+[Epoch 6] Global step: 98, Local step: 6/7
+[Epoch 6] Fetched batch with mask_p: 0.3033
+[Epoch 6] Backward done - Loss: 6.7576, Accuracy: 0.0939, Z-Loss: 80.5230
+[Epoch 6] Accumulating gradients... (Step 7/7)
+[Epoch 6] Performing optimizer step
+Train iteration:   1%|          | 86/7812 [00:00<?, ?it/s]Train iteration:   1%|          | 87/7812 [00:01<4:03:32,  1.89s/it]Train iteration:   1%|          | 88/7812 [00:03<4:10:56,  1.95s/it]Train iteration:   1%|          | 89/7812 [00:05<4:12:53,  1.96s/it]Train iteration:   1%|          | 90/7812 [00:07<4:14:03,  1.97s/it]Train iteration:   1%|          | 91/7812 [00:09<4:12:16,  1.96s/it]Train iteration:   1%|          | 92/7812 [00:11<4:15:02,  1.98s/it]Train iteration:   1%|          | 93/7812 [00:12<3:15:20,  1.52s/it]Train iteration:   1%|          | 93/7812 [00:12<3:47:28,  1.77s/it]
+[Epoch 7] Global step: 100, Local step: 0/7
+[Epoch 7] Fetched batch with mask_p: 0.3013
+[Epoch 7] Backward done - Loss: 6.7970, Accuracy: 0.0931, Z-Loss: 79.4326
+[Epoch 7] Accumulating gradients... (Step 1/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 102, Local step: 1/7
+[Epoch 7] Fetched batch with mask_p: 0.3028
+[Epoch 7] Backward done - Loss: 6.7430, Accuracy: 0.0984, Z-Loss: 80.8437
+[Epoch 7] Accumulating gradients... (Step 2/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 104, Local step: 2/7
+[Epoch 7] Fetched batch with mask_p: 0.3058
+[Epoch 7] Backward done - Loss: 6.5920, Accuracy: 0.1087, Z-Loss: 81.1309
+[Epoch 7] Accumulating gradients... (Step 3/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 106, Local step: 3/7
+[Epoch 7] Fetched batch with mask_p: 0.3032
+[Epoch 7] Backward done - Loss: 6.6689, Accuracy: 0.1064, Z-Loss: 80.9206
+[Epoch 7] Accumulating gradients... (Step 4/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 108, Local step: 4/7
+[Epoch 7] Fetched batch with mask_p: 0.3019
+[Epoch 7] Backward done - Loss: 6.6116, Accuracy: 0.1082, Z-Loss: 81.6683
+[Epoch 7] Accumulating gradients... (Step 5/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 110, Local step: 5/7
+[Epoch 7] Fetched batch with mask_p: 0.3035
+[Epoch 7] Backward done - Loss: 6.5787, Accuracy: 0.1138, Z-Loss: 82.0889
+[Epoch 7] Accumulating gradients... (Step 6/7)
+[Epoch 7] Performing optimizer step
+[Epoch 7] Global step: 112, Local step: 6/7
+[Epoch 7] Fetched batch with mask_p: 0.3050
+[Epoch 7] Backward done - Loss: 6.5514, Accuracy: 0.1156, Z-Loss: 82.2748
+[Epoch 7] Accumulating gradients... (Step 7/7)
+[Epoch 7] Performing optimizer step
+Train iteration:   1%|▏         | 100/7812 [00:00<?, ?it/s]Train iteration:   1%|▏         | 101/7812 [00:17<37:06:17, 17.32s/it]Train iteration:   1%|▏         | 102/7812 [00:19<17:44:25,  8.28s/it]Train iteration:   1%|▏         | 103/7812 [00:21<11:35:53,  5.42s/it]Train iteration:   1%|▏         | 104/7812 [00:23<8:48:22,  4.11s/it] Train iteration:   1%|▏         | 105/7812 [00:25<7:06:26,  3.32s/it]Train iteration:   1%|▏         | 106/7812 [00:27<6:02:09,  2.82s/it]Train iteration:   1%|▏         | 107/7812 [00:27<4:27:28,  2.08s/it]Train iteration:   1%|▏         | 107/7812 [00:27<8:28:39,  3.96s/it]
+[Epoch 8] Global step: 114, Local step: 0/7
+[Epoch 8] Fetched batch with mask_p: 0.3033
+[Epoch 8] Backward done - Loss: 6.5118, Accuracy: 0.1105, Z-Loss: 82.4562
+[Epoch 8] Accumulating gradients... (Step 1/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 116, Local step: 1/7
+[Epoch 8] Fetched batch with mask_p: 0.3029
+[Epoch 8] Backward done - Loss: 6.5450, Accuracy: 0.1089, Z-Loss: 84.4262
+[Epoch 8] Accumulating gradients... (Step 2/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 118, Local step: 2/7
+[Epoch 8] Fetched batch with mask_p: 0.3045
+[Epoch 8] Backward done - Loss: 6.5005, Accuracy: 0.1195, Z-Loss: 80.8993
+[Epoch 8] Accumulating gradients... (Step 3/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 120, Local step: 3/7
+[Epoch 8] Fetched batch with mask_p: 0.3020
+[Epoch 8] Backward done - Loss: 6.5819, Accuracy: 0.1161, Z-Loss: 87.7021
+[Epoch 8] Accumulating gradients... (Step 4/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 122, Local step: 4/7
+[Epoch 8] Fetched batch with mask_p: 0.3046
+[Epoch 8] Backward done - Loss: 6.4055, Accuracy: 0.1223, Z-Loss: 86.3128
+[Epoch 8] Accumulating gradients... (Step 5/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 124, Local step: 5/7
+[Epoch 8] Fetched batch with mask_p: 0.3025
+[Epoch 8] Backward done - Loss: 6.4426, Accuracy: 0.1179, Z-Loss: 83.3176
+[Epoch 8] Accumulating gradients... (Step 6/7)
+[Epoch 8] Performing optimizer step
+[Epoch 8] Global step: 126, Local step: 6/7
+[Epoch 8] Fetched batch with mask_p: 0.3046
+[Epoch 8] Backward done - Loss: 6.4421, Accuracy: 0.1180, Z-Loss: 83.3582
+[Epoch 8] Accumulating gradients... (Step 7/7)
+[Epoch 8] Performing optimizer step
+Train iteration:   1%|▏         | 114/7812 [00:00<?, ?it/s]Train iteration:   1%|▏         | 115/7812 [00:01<4:07:09,  1.93s/it]Train iteration:   1%|▏         | 116/7812 [00:03<4:16:15,  2.00s/it]Train iteration:   1%|▏         | 117/7812 [00:06<4:18:02,  2.01s/it]Train iteration:   2%|▏         | 118/7812 [00:07<4:14:33,  1.99s/it]Train iteration:   2%|▏         | 119/7812 [00:10<4:19:18,  2.02s/it]Train iteration:   2%|▏         | 120/7812 [00:11<4:12:11,  1.97s/it]Train iteration:   2%|▏         | 121/7812 [00:12<3:13:32,  1.51s/it]Train iteration:   2%|▏         | 121/7812 [00:12<3:48:14,  1.78s/it]
+[Epoch 9] Global step: 128, Local step: 0/7
+[Epoch 9] Fetched batch with mask_p: 0.3020
+[Epoch 9] Backward done - Loss: 6.4388, Accuracy: 0.1155, Z-Loss: 84.7971
+[Epoch 9] Accumulating gradients... (Step 1/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 130, Local step: 1/7
+[Epoch 9] Fetched batch with mask_p: 0.3011
+[Epoch 9] Backward done - Loss: 6.3512, Accuracy: 0.1229, Z-Loss: 84.4064
+[Epoch 9] Accumulating gradients... (Step 2/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 132, Local step: 2/7
+[Epoch 9] Fetched batch with mask_p: 0.3024
+[Epoch 9] Backward done - Loss: 6.2767, Accuracy: 0.1278, Z-Loss: 86.1779
+[Epoch 9] Accumulating gradients... (Step 3/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 134, Local step: 3/7
+[Epoch 9] Fetched batch with mask_p: 0.3024
+[Epoch 9] Backward done - Loss: 6.3005, Accuracy: 0.1237, Z-Loss: 84.9299
+[Epoch 9] Accumulating gradients... (Step 4/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 136, Local step: 4/7
+[Epoch 9] Fetched batch with mask_p: 0.3030
+[Epoch 9] Backward done - Loss: 6.2246, Accuracy: 0.1304, Z-Loss: 88.1070
+[Epoch 9] Accumulating gradients... (Step 5/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 138, Local step: 5/7
+[Epoch 9] Fetched batch with mask_p: 0.3091
+[Epoch 9] Backward done - Loss: 6.3135, Accuracy: 0.1228, Z-Loss: 86.9692
+[Epoch 9] Accumulating gradients... (Step 6/7)
+[Epoch 9] Performing optimizer step
+[Epoch 9] Global step: 140, Local step: 6/7
+[Epoch 9] Fetched batch with mask_p: 0.3010
+[Epoch 9] Backward done - Loss: 6.1141, Accuracy: 0.1399, Z-Loss: 87.4821
+[Epoch 9] Accumulating gradients... (Step 7/7)
+[Epoch 9] Performing optimizer step
+Train iteration:   2%|▏         | 128/7812 [00:00<?, ?it/s]Train iteration:   2%|▏         | 129/7812 [00:01<3:49:39,  1.79s/it]Train iteration:   2%|▏         | 130/7812 [00:03<4:03:21,  1.90s/it]Train iteration:   2%|▏         | 131/7812 [00:05<4:13:17,  1.98s/it]Train iteration:   2%|▏         | 132/7812 [00:07<4:19:34,  2.03s/it]Train iteration:   2%|▏         | 133/7812 [00:09<4:19:13,  2.03s/it]Train iteration:   2%|▏         | 134/7812 [00:11<4:04:23,  1.91s/it]Train iteration:   2%|▏         | 135/7812 [00:12<3:08:11,  1.47s/it]Train iteration:   2%|▏         | 135/7812 [00:12<3:43:19,  1.75s/it]
+[Epoch 10] Global step: 142, Local step: 0/7
+[Epoch 10] Fetched batch with mask_p: 0.3019
+[Epoch 10] Backward done - Loss: 6.1879, Accuracy: 0.1328, Z-Loss: 88.1841
+[Epoch 10] Accumulating gradients... (Step 1/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 144, Local step: 1/7
+[Epoch 10] Fetched batch with mask_p: 0.3017
+[Epoch 10] Backward done - Loss: 6.1446, Accuracy: 0.1372, Z-Loss: 86.2950
+[Epoch 10] Accumulating gradients... (Step 2/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 146, Local step: 2/7
+[Epoch 10] Fetched batch with mask_p: 0.3036
+[Epoch 10] Backward done - Loss: 6.0594, Accuracy: 0.1444, Z-Loss: 90.5035
+[Epoch 10] Accumulating gradients... (Step 3/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 148, Local step: 3/7
+[Epoch 10] Fetched batch with mask_p: 0.3052
+[Epoch 10] Backward done - Loss: 6.0628, Accuracy: 0.1363, Z-Loss: 88.0827
+[Epoch 10] Accumulating gradients... (Step 4/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 150, Local step: 4/7
+[Epoch 10] Fetched batch with mask_p: 0.3005
+[Epoch 10] Backward done - Loss: 6.0788, Accuracy: 0.1399, Z-Loss: 88.4397
+[Epoch 10] Accumulating gradients... (Step 5/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 152, Local step: 5/7
+[Epoch 10] Fetched batch with mask_p: 0.3024
+[Epoch 10] Backward done - Loss: 6.0162, Accuracy: 0.1377, Z-Loss: 89.8465
+[Epoch 10] Accumulating gradients... (Step 6/7)
+[Epoch 10] Performing optimizer step
+[Epoch 10] Global step: 154, Local step: 6/7
+[Epoch 10] Fetched batch with mask_p: 0.3023
+[Epoch 10] Backward done - Loss: 6.0705, Accuracy: 0.1426, Z-Loss: 88.6921
+[Epoch 10] Accumulating gradients... (Step 7/7)
+[Epoch 10] Performing optimizer step
+Train iteration:   2%|▏         | 142/7812 [00:00<?, ?it/s]Train iteration:   2%|▏         | 143/7812 [00:01<4:05:35,  1.92s/it]Train iteration:   2%|▏         | 144/7812 [00:04<4:21:37,  2.05s/it]Train iteration:   2%|▏         | 145/7812 [00:06<4:23:12,  2.06s/it]Train iteration:   2%|▏         | 146/7812 [00:08<4:17:30,  2.02s/it]Train iteration:   2%|▏         | 147/7812 [00:10<4:13:51,  1.99s/it]Train iteration:   2%|▏         | 148/7812 [00:12<4:16:14,  2.01s/it]Train iteration:   2%|▏         | 149/7812 [00:12<3:16:18,  1.54s/it]Train iteration:   2%|▏         | 149/7812 [00:12<3:50:26,  1.80s/it]
+[Epoch 11] Global step: 156, Local step: 0/7
+[Epoch 11] Fetched batch with mask_p: 0.3017
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 207978 ON spdr18 CANCELLED AT 2025-04-10T19:05:19 ***

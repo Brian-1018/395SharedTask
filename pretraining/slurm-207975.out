@@ -1,0 +1,278 @@
+Thu Apr 10 18:45:20 EDT 2025
+I ran on:
+SLURM_NODELIST=spdr18
+cd to target directory
+setting up conda
+no change     /usr/local/sw/anaconda/anaconda3/condabin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda
+no change     /usr/local/sw/anaconda/anaconda3/bin/conda-env
+no change     /usr/local/sw/anaconda/anaconda3/bin/activate
+no change     /usr/local/sw/anaconda/anaconda3/bin/deactivate
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.sh
+no change     /usr/local/sw/anaconda/anaconda3/etc/fish/conf.d/conda.fish
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/Conda.psm1
+no change     /usr/local/sw/anaconda/anaconda3/shell/condabin/conda-hook.ps1
+no change     /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /usr/local/sw/anaconda/anaconda3/etc/profile.d/conda.csh
+no change     /home/dl5ja/.bashrc
+No action taken.
+checking pip installs
+WARNING: No metadata found in /usr/local/sw/anaconda/anaconda3/lib/python3.9/site-packages
+minicons==0.3.22
+Hello from rank 2 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 1 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 3 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Hello from rank 0 of 4 on spdr18.cluster where there are 4 allocated GPUs per node.
+Dataset type: masked
+Group initialized? True
+RCCL started on device cuda:0
+RCCL started on device cuda:2
+RCCL started on device cuda:3
+RCCL started on device cuda:1
+host: spdr18.cluster, rank: 0, local_rank: 0
+Training for 7,812 steps with 4 GPUs
+In total, the model will be trained on 'steps'(7,812) x 'GPUs'(4) x 'batch_size'(256) x 'seq_len'(128) = 1,023,934,464 subword instances
+Bert(
+  (embedding): Embedding(
+    (word_embedding): Embedding(8192, 384)
+    (word_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+    (dropout): Dropout(p=0.1, inplace=False)
+    (relative_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Encoder(
+    (attention_layers): ModuleList(
+      (0-11): 12 x Attention(
+        (in_proj_qk): Linear(in_features=384, out_features=768, bias=True)
+        (in_proj_vg): Linear(in_features=384, out_features=768, bias=True)
+        (out_proj): Linear(in_features=384, out_features=384, bias=True)
+        (pre_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (post_layer_norm): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (mlp_layers): ModuleList(
+      (0-11): 12 x FeedForward(
+        (mlp): Sequential(
+          (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+          (1): Linear(in_features=384, out_features=2560, bias=False)
+          (2): GeGLU()
+          (3): LayerNorm((1280,), eps=1e-05, elementwise_affine=False)
+          (4): Linear(in_features=1280, out_features=384, bias=False)
+          (5): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (dwa_modules): DWAModules(
+      (alphas): ParameterList(
+          (0): Parameter containing: [torch.float32 of size 2]
+          (1): Parameter containing: [torch.float32 of size 3]
+          (2): Parameter containing: [torch.float32 of size 4]
+          (3): Parameter containing: [torch.float32 of size 5]
+          (4): Parameter containing: [torch.float32 of size 6]
+          (5): Parameter containing: [torch.float32 of size 7]
+          (6): Parameter containing: [torch.float32 of size 8]
+          (7): Parameter containing: [torch.float32 of size 9]
+          (8): Parameter containing: [torch.float32 of size 10]
+          (9): Parameter containing: [torch.float32 of size 11]
+          (10): Parameter containing: [torch.float32 of size 12]
+          (11): Parameter containing: [torch.float32 of size 13]
+          (12): Parameter containing: [torch.float32 of size 14]
+          (13): Parameter containing: [torch.float32 of size 15]
+          (14): Parameter containing: [torch.float32 of size 16]
+          (15): Parameter containing: [torch.float32 of size 17]
+          (16): Parameter containing: [torch.float32 of size 18]
+          (17): Parameter containing: [torch.float32 of size 19]
+          (18): Parameter containing: [torch.float32 of size 20]
+          (19): Parameter containing: [torch.float32 of size 21]
+          (20): Parameter containing: [torch.float32 of size 22]
+          (21): Parameter containing: [torch.float32 of size 23]
+          (22): Parameter containing: [torch.float32 of size 24]
+          (23): Parameter containing: [torch.float32 of size 25]
+      )
+    )
+  )
+  (classifier): MaskClassifier(
+    (nonlinearity): Sequential(
+      (0): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (1): Linear(in_features=384, out_features=384, bias=True)
+      (2): GELU(approximate='none')
+      (3): LayerNorm((384,), eps=1e-05, elementwise_affine=False)
+      (4): Dropout(p=0.1, inplace=False)
+      (5): Linear(in_features=384, out_features=8192, bias=True)
+    )
+  )
+)
+NUMBER OF PARAMETERS: 29892164
+
+Parameters without weight decay:
+embedding.relative_layer_norm.weight
+embedding.relative_layer_norm.bias
+transformer.attention_layers.0.in_proj_qk.bias
+transformer.attention_layers.0.in_proj_vg.bias
+transformer.attention_layers.0.out_proj.bias
+transformer.attention_layers.1.in_proj_qk.bias
+transformer.attention_layers.1.in_proj_vg.bias
+transformer.attention_layers.1.out_proj.bias
+transformer.attention_layers.2.in_proj_qk.bias
+transformer.attention_layers.2.in_proj_vg.bias
+transformer.attention_layers.2.out_proj.bias
+transformer.attention_layers.3.in_proj_qk.bias
+transformer.attention_layers.3.in_proj_vg.bias
+transformer.attention_layers.3.out_proj.bias
+transformer.attention_layers.4.in_proj_qk.bias
+transformer.attention_layers.4.in_proj_vg.bias
+transformer.attention_layers.4.out_proj.bias
+transformer.attention_layers.5.in_proj_qk.bias
+transformer.attention_layers.5.in_proj_vg.bias
+transformer.attention_layers.5.out_proj.bias
+transformer.attention_layers.6.in_proj_qk.bias
+transformer.attention_layers.6.in_proj_vg.bias
+transformer.attention_layers.6.out_proj.bias
+transformer.attention_layers.7.in_proj_qk.bias
+transformer.attention_layers.7.in_proj_vg.bias
+transformer.attention_layers.7.out_proj.bias
+transformer.attention_layers.8.in_proj_qk.bias
+transformer.attention_layers.8.in_proj_vg.bias
+transformer.attention_layers.8.out_proj.bias
+transformer.attention_layers.9.in_proj_qk.bias
+transformer.attention_layers.9.in_proj_vg.bias
+transformer.attention_layers.9.out_proj.bias
+transformer.attention_layers.10.in_proj_qk.bias
+transformer.attention_layers.10.in_proj_vg.bias
+transformer.attention_layers.10.out_proj.bias
+transformer.attention_layers.11.in_proj_qk.bias
+transformer.attention_layers.11.in_proj_vg.bias
+transformer.attention_layers.11.out_proj.bias
+classifier.nonlinearity.1.bias
+classifier.nonlinearity.5.bias
+
+Parameters with weight decay:
+embedding.relative_embedding
+embedding.word_embedding.weight
+transformer.attention_layers.0.in_proj_qk.weight
+transformer.attention_layers.0.in_proj_vg.weight
+transformer.attention_layers.0.out_proj.weight
+transformer.attention_layers.1.in_proj_qk.weight
+transformer.attention_layers.1.in_proj_vg.weight
+transformer.attention_layers.1.out_proj.weight
+transformer.attention_layers.2.in_proj_qk.weight
+transformer.attention_layers.2.in_proj_vg.weight
+transformer.attention_layers.2.out_proj.weight
+transformer.attention_layers.3.in_proj_qk.weight
+transformer.attention_layers.3.in_proj_vg.weight
+transformer.attention_layers.3.out_proj.weight
+transformer.attention_layers.4.in_proj_qk.weight
+transformer.attention_layers.4.in_proj_vg.weight
+transformer.attention_layers.4.out_proj.weight
+transformer.attention_layers.5.in_proj_qk.weight
+transformer.attention_layers.5.in_proj_vg.weight
+transformer.attention_layers.5.out_proj.weight
+transformer.attention_layers.6.in_proj_qk.weight
+transformer.attention_layers.6.in_proj_vg.weight
+transformer.attention_layers.6.out_proj.weight
+transformer.attention_layers.7.in_proj_qk.weight
+transformer.attention_layers.7.in_proj_vg.weight
+transformer.attention_layers.7.out_proj.weight
+transformer.attention_layers.8.in_proj_qk.weight
+transformer.attention_layers.8.in_proj_vg.weight
+transformer.attention_layers.8.out_proj.weight
+transformer.attention_layers.9.in_proj_qk.weight
+transformer.attention_layers.9.in_proj_vg.weight
+transformer.attention_layers.9.out_proj.weight
+transformer.attention_layers.10.in_proj_qk.weight
+transformer.attention_layers.10.in_proj_vg.weight
+transformer.attention_layers.10.out_proj.weight
+transformer.attention_layers.11.in_proj_qk.weight
+transformer.attention_layers.11.in_proj_vg.weight
+transformer.attention_layers.11.out_proj.weight
+transformer.mlp_layers.0.mlp.1.weight
+transformer.mlp_layers.0.mlp.4.weight
+transformer.mlp_layers.1.mlp.1.weight
+transformer.mlp_layers.1.mlp.4.weight
+transformer.mlp_layers.2.mlp.1.weight
+transformer.mlp_layers.2.mlp.4.weight
+transformer.mlp_layers.3.mlp.1.weight
+transformer.mlp_layers.3.mlp.4.weight
+transformer.mlp_layers.4.mlp.1.weight
+transformer.mlp_layers.4.mlp.4.weight
+transformer.mlp_layers.5.mlp.1.weight
+transformer.mlp_layers.5.mlp.4.weight
+transformer.mlp_layers.6.mlp.1.weight
+transformer.mlp_layers.6.mlp.4.weight
+transformer.mlp_layers.7.mlp.1.weight
+transformer.mlp_layers.7.mlp.4.weight
+transformer.mlp_layers.8.mlp.1.weight
+transformer.mlp_layers.8.mlp.4.weight
+transformer.mlp_layers.9.mlp.1.weight
+transformer.mlp_layers.9.mlp.4.weight
+transformer.mlp_layers.10.mlp.1.weight
+transformer.mlp_layers.10.mlp.4.weight
+transformer.mlp_layers.11.mlp.1.weight
+transformer.mlp_layers.11.mlp.4.weight
+transformer.dwa_modules.alphas.0
+transformer.dwa_modules.alphas.1
+transformer.dwa_modules.alphas.2
+transformer.dwa_modules.alphas.3
+transformer.dwa_modules.alphas.4
+transformer.dwa_modules.alphas.5
+transformer.dwa_modules.alphas.6
+transformer.dwa_modules.alphas.7
+transformer.dwa_modules.alphas.8
+transformer.dwa_modules.alphas.9
+transformer.dwa_modules.alphas.10
+transformer.dwa_modules.alphas.11
+transformer.dwa_modules.alphas.12
+transformer.dwa_modules.alphas.13
+transformer.dwa_modules.alphas.14
+transformer.dwa_modules.alphas.15
+transformer.dwa_modules.alphas.16
+transformer.dwa_modules.alphas.17
+transformer.dwa_modules.alphas.18
+transformer.dwa_modules.alphas.19
+transformer.dwa_modules.alphas.20
+transformer.dwa_modules.alphas.21
+transformer.dwa_modules.alphas.22
+transformer.dwa_modules.alphas.23
+classifier.nonlinearity.1.weight
+
+<s> ary Ĝ <mask> Ġan Ġinteresting Ġgroup <mask> Ġletters Ġwritten Ġby ĠS hed d <mask> <mask> <mask> Ġcup ĠMars ĠCon <mask> ĠH amps hire Ġand ĠMass ach us et ts . ĠA Ġbrief Ġnote Ġpen ned Ġin Ġ1 8 5 9 <mask> <mask> Ġby <mask> <mask> Ġof Ġintroduction , <mask> <mask> Ġon ĠS hed d <mask> <mask> alf Ġby Ġseveral Ġcitizens Ġof ĠEn field <mask> <s> <mask> <mask> Ġpointed Ġout Ġearlier Ġin Ġthis Ġblog Ġand Ġnow Ġin Ġmy <mask> <mask> <mask> <mask> Se ven ĠChristian reg ations Ġin Ġa ĠRoman ĠC ru ci ble <mask> Ġthat Ġmany ĠG ra ec o -R oman ventional Ġpsych roduce Ġalso Ġbelieved Ġin Ġpost m or <mask> <mask> <mask> <mask> Ġthe Ġafter life . ĠYou Ġmight Ġnot Ġbe <mask> <mask> <mask> <mask>
+
+1 683 232 4 373 2368 1564 4 4371 3147 476 361 770 83 4 4 4 5165 7591 1600 4 422 6090 6727 304 7266 601 324 322 1156 29 363 5388 4464 4234 2200 306 514 39 36 40 4 4 476 4 4 307 7669 27 4 4 341 361 770 83 4 4 1716 476 1852 4574 307 2236 5307 4 1 4 4 5830 524 3445 306 446 7506 304 794 306 534 4 4 4 4 5284 564 4807 3301 612 306 273 5207 379 680 471 637 4 339 815 509 380 1031 94 8139 3389 7354 3069 4985 761 3603 306 2035 92 288 4 4 4 4 278 865 4200 29 983 860 452 332 4 4 4 4
+
+-100 Ġcollection Ġincludes -100 -100 -100 Ġof -100 -100 -100 -100 -100 -100 Ġto Ġhis Ġwife Ġand Ġchildren Ġin ĠNew -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġis Ġfollowed -100 Ġa Ġletter -100 -100 -100 Ġsign ed -100 -100 -100 -100 's Ġbeh -100 -100 -100 -100 -100 -100 -100 . -100 ĠI Ġhave -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 Ġrecent Ġcomment ary Ġ( -100 -100 ĠCong -100 -100 -100 -100 -100 -100 -100 -100 -100 ) -100 -100 -100 -100 -100 -100 -100 -100 Ġp ag ans -100 -100 -100 -100 -100 -100 tem Ġpun ishment Ġin -100 -100 -100 -100 -100 -100 -100 -100 Ġaware , Ġhowever , Ġthat
+
+tensor(0.2969)
+host: spdr18.cluster, rank: 2, local_rank: 2
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 486, in <module>
+[rank2]:     global_step = training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimizer, scheduler, global_step, epoch, args)
+[rank2]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 237, in training_epoch
+[rank2]:     input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+[rank2]: TypeError: cannot unpack non-iterable NoneType object
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 486, in <module>
+[rank0]:     global_step = training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimizer, scheduler, global_step, epoch, args)
+[rank0]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 237, in training_epoch
+[rank0]:     input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+[rank0]: TypeError: cannot unpack non-iterable NoneType object
+host: spdr18.cluster, rank: 3, local_rank: 3
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 486, in <module>
+[rank3]:     global_step = training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimizer, scheduler, global_step, epoch, args)
+[rank3]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 237, in training_epoch
+[rank3]:     input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+[rank3]: TypeError: cannot unpack non-iterable NoneType object
+host: spdr18.cluster, rank: 1, local_rank: 1
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 486, in <module>
+[rank1]:     global_step = training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimizer, scheduler, global_step, epoch, args)
+[rank1]:   File "/home/cfinegan/shared/group4_work/395SharedTask/pretraining/train_10m_extralog.py", line 237, in training_epoch
+[rank1]:     input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+[rank1]: TypeError: cannot unpack non-iterable NoneType object
+[rank0]:[W410 18:45:48.971954926 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+srun: error: spdr18: task 2: Exited with exit code 1
+srun: error: spdr18: tasks 1,3: Exited with exit code 1
+srun: error: spdr18: task 0: Exited with exit code 1

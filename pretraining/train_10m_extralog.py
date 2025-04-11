@@ -210,7 +210,9 @@ def prepare_model_and_optimizer(args):
 
 
 def get_batch(dataloader, device, global_step):
-    dataloader._dataset.set_global_step(global_step)
+    # only update global step on datasets that support it
+    if hasattr(dataloader._dataset, "set_global_step"):
+        dataloader._dataset.set_global_step(global_step)
     batch = next(dataloader)
     input_ids, target_ids, attention_mask, mask_p = [t.pin_memory().to(device, non_blocking=True) for t in batch]
     input_ids, target_ids = input_ids.t(), target_ids.t()
@@ -226,12 +228,12 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
     # calculate the number of steps to perform in this epoch
     num_steps = min(len(train_dataloader), (args.max_steps - global_step) * args.accumulate_steps)
 
-    # initialize the dataloader and the metrics
-    train_dataloader = iter(train_dataloader)
+    # initialize the dataloader iterator and keep the original dataloader intact
+    train_iter = iter(train_dataloader)
     total_loss, total_accuracy, total_z_loss, total_mask_p, total_grad_norm = 0.0, 0.0, 0.0, 0.0, 0.0
 
     # get the first batch
-    input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+    input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_iter, args.device, global_step)
 
     # iterate over the steps
     for local_step in tqdm(range(num_steps), desc="Train iteration", initial=global_step, total=args.max_steps, disable=not is_main_process()):
@@ -247,7 +249,7 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
 
         # get the next batch
         if local_step < num_steps - 1:
-            input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_dataloader, args.device, global_step)
+            input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_iter, args.device, global_step)
 
         # calculate the weight for the loss (either token-weighted or not)
         if args.token_weighted_loss:
@@ -270,10 +272,14 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
 
         # gradient accumulation -- if we have accumulated enough gradients, we can perform the optimizer step; otherwise, we just continue and backpropagate through the next batch
         if (local_step + 1) % args.accumulate_steps != 0:
-            if is_main_process():
-                print(f"[Epoch {epoch}] Accumulating gradients... (Step {local_step + 1}/{num_steps})", flush=True)
-            continue
-
+                if is_main_process():
+                    print(f"[Epoch {epoch}] Accumulating gradients... (Step {local_step + 1}/{num_steps})", flush=True)
+                optimizer.step()
+                scheduler.step()
+                global_step += 1
+                optimizer.zero_grad(set_to_none=True)
+        else:
+            pass
         # clip the gradients
         total_grad_norm += nn.utils.clip_grad_norm_(model.parameters(), args.max_gradient) * weight
 
