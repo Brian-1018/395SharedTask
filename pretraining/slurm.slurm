@@ -122,8 +122,8 @@ cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 srun python train_10m_extralog.py \
     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-    --name="run_001_4_10_2025_babylm_10M" \
-    --hybrid_denominator=1
+    --name="NEW_run_001_4_10_2025_babylm_10M" \
+    --hybrid_denominator=1 
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
