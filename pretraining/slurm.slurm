@@ -4,12 +4,12 @@
 # You can name your jobs however you like; it is a good
 # idea to make the name recognizeable in the first few 
 # characters.
-#SBATCH --job-name=GROUP4_EVAL
+#SBATCH --job-name=GROUP4_TRAIN
 
 # This is usually the right value -- most of the time
 # you are running one program at a time no matter how
 # many cores you are using.
-#SBATCH --ntasks=4
+#SBATCH --ntasks=2
 
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=8-15:00:30
@@ -36,17 +36,17 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-#SBATCH --gres=gpu:tesla_a40:4
+#SBATCH --gres=gpu:tesla_a40:2
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
 #SBATCH --partition=NLP
 
 # Memory requests are in megabytes by default. This is 24 GB.
-#SBATCH --mem=118000
+#SBATCH --mem=96000
 
 # This figure means cores not CPUs. 
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=12
 
 export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
 export MASTER_PORT=9998
@@ -119,11 +119,15 @@ pip freeze | grep minicons
 
 cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
 srun python train_10m_extralog.py \
     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-    --name="NEW_run_001_4_10_2025_babylm_10M" \
-    --hybrid_denominator=1 
+    --name="run_002_4_11_2025_babylm_10M" \
+    --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
+    --hybrid_denominator=1 \
+    --save_every=500
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 

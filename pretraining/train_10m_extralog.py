@@ -398,6 +398,8 @@ def validation_epoch(model, valid_dataloader, epoch, args, commit=False):
 
 def save(model, ema_model, optimizer, scheduler, global_step, epoch, args):
     if is_main_process():
+        os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
+        print(f"[INFO] Saving checkpoint at step {global_step} to {args.output_path}")
         model_to_save = model.module if hasattr(model, 'module') else model  # Only save the model itself
         torch.save(model_to_save.state_dict(), args.output_path)
         torch.save(ema_model.state_dict(), args.output_path.replace(".bin", "_ema.bin"))
@@ -476,6 +478,8 @@ def load_datasets(args, tokenizer, epoch, global_step, train_dataloader, valid_d
 
 if __name__ == "__main__":
     args = parse_arguments()
+    os.makedirs(args.output_dir, exist_ok=True)
+    print(f"[INFO] Checkpoints will be saved to {args.output_dir}")
 
     tokenizer = Tokenizer.from_file(args.tokenizer_path)
     setup_training(args, tokenizer)
