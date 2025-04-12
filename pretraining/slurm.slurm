@@ -57,6 +57,8 @@ export RANK=$SLURM_PROCID
 
 export WANDB_MODE=disabled
 
+#Test
+
 # Print the start date/time
 date
 
