@@ -9,7 +9,7 @@
 # This is usually the right value -- most of the time
 # you are running one program at a time no matter how
 # many cores you are using.
-#SBATCH --ntasks=2
+#SBATCH --ntasks=8
 
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=8-15:00:30
@@ -36,17 +36,17 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-#SBATCH --gres=gpu:tesla_a100:2
+#SBATCH --gres=gpu:tesla_a40:8
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
-#SBATCH --partition=ML
+#SBATCH --partition=sci
 
 # Memory requests are in megabytes by default. This is 24 GB.
 #SBATCH --mem=256000
 
 # This figure means cores not CPUs. 
-#SBATCH --cpus-per-task=19
+#SBATCH --cpus-per-task=5
 
 export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
 export MASTER_PORT=9998
@@ -55,7 +55,7 @@ export MASTER_PORT=9998
 export WORLD_SIZE=$SLURM_NTASKS
 export RANK=$SLURM_PROCID
 
-export WANDB_MODE=offline
+export WANDB_MODE=disabled
 
 # Print the start date/time
 date
@@ -125,11 +125,11 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 srun python train_10m_extralog.py \
     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-    --name="run_004_4_11_2025_babylm_10M" \
+    --name="run_005_4_11_2025_babylm_10M" \
     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
-    --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_004_4_11_2025_babylm_10M_state_dict.bin" \
+    --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_005_4_11_2025_babylm_10M_state_dict.bin" \
     --hybrid_denominator=1 \
-    --save_every=500 
+    --save_every=150 
 
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
@@ -183,8 +183,8 @@ date
 # #SBATCH --cpus-per-task=7
 # #SBATCH --mem=96000
 # #SBATCH --ntasks=1
-# #SBATCH --gres=gpu:tesla_a40:2
-# #SBATCH --partition=NLP
+# #SBATCH --gres=gpu:tesla_a40:
+# #SBATCH --partition=sci
 # #SBATCH --output=bert-%j.out
 
 # #SBATCH --mail-user=damien.liebov@richmond.edu

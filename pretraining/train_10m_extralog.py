@@ -424,19 +424,19 @@ def save(model, ema_model, optimizer, scheduler, global_step, epoch, args):
 def load_datasets(args, tokenizer, epoch, global_step, train_dataloader, valid_dataloader):
     train_seed = args.seed + get_rank() + epoch * get_world_size()
 
-    # if (global_step + 1) / args.max_steps >= 0.9:
-    #     seq_length = args.seq_length * 4
-    #     global_batch_size = args.global_batch_size // 4
-    # elif (global_step + 1) / args.max_steps >= 0.7:
-    #     seq_length = args.seq_length * 2
-    #     global_batch_size = args.global_batch_size // 2
-    # else:
-    #     seq_length = args.seq_length
-    #     global_batch_size = args.global_batch_size
-        # disable dynamic sequence-length growth to avoid OOM at end of training
+    if (global_step + 1) / args.max_steps >= 0.9:
+        seq_length = args.seq_length * 4
+        global_batch_size = args.global_batch_size // 4
+    elif (global_step + 1) / args.max_steps >= 0.7:
+        seq_length = args.seq_length * 2
+        global_batch_size = args.global_batch_size // 2
+    else:
+        seq_length = args.seq_length
+        global_batch_size = args.global_batch_size
+    #     disable dynamic sequence-length growth to avoid OOM at end of training
     
-    seq_length = args.seq_length
-    global_batch_size = args.global_batch_size
+    # seq_length = args.seq_length
+    # global_batch_size = args.global_batch_size
 
     if train_dataloader is None or train_dataloader.dataset.seq_length != seq_length:
         if args.dataset_type == "masked":
