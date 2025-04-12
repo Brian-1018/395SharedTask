@@ -68,6 +68,7 @@ def parse_arguments():
     parser.add_argument('--n_special_tokens', default=16, type=int, help="Number of special tokens.")
     parser.add_argument('--z_loss_weight', default=1e-4, type=float, help="Weight for the z loss.")
     parser.add_argument('--token_weighted_loss', default=False, action=argparse.BooleanOptionalAction, help="Use token weighted loss.")
+    parser.add_argument('--use_gradient_checkpointing', action='store_true', help="Enable gradient checkpointing to reduce GPU memory usage")
     args = parser.parse_args()
 
     args.output_path = f"{args.output_dir}/{args.name}.bin"
@@ -116,8 +117,8 @@ def setup_training(args, tokenizer):
     if is_main_process():
         wandb.init(
             name=args.name,
-            project="bablylm-2024-group4",
-            entity="dliebov"
+            project="BabyLM-v2",
+            entity="nor-ret"
         )
 
 
@@ -141,6 +142,12 @@ def prepare_model_and_optimizer(args):
         print(f"NUMBER OF PARAMETERS: {n_params}\n", flush=True)
 
     model.to(args.device)
+    if getattr(args, 'use_gradient_checkpointing', False):
+        from torch.utils.checkpoint import checkpoint
+        for layer in model.transformer.attention_layers:
+            layer.forward = lambda *inputs, orig_layer=layer.forward: checkpoint(orig_layer, *inputs)
+        for layer in model.transformer.mlp_layers:
+            layer.forward = lambda *inputs, orig_layer=layer.forward: checkpoint(orig_layer, *inputs)
 
     no_decay = ['bias', 'layer_norm']
     decay_params = [(n, p) for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)]
@@ -192,11 +199,6 @@ def prepare_model_and_optimizer(args):
         static_graph=True
     )
 
-    try:
-        model.module.gradient_checkpointing_enable()  # Added to fix memory issues
-    except AttributeError:
-        pass
-
     ema_model: nn.Module = copy.deepcopy(model.module)
     for param in ema_model.parameters():
         param.requires_grad = False
@@ -240,23 +242,22 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
     # get the first batch
     input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_iter, args.device, global_step)
 
-    # iterate over the steps
     for local_step in tqdm(range(num_steps), desc="Train iteration", initial=global_step, total=args.max_steps, disable=not is_main_process()):
         if is_main_process():
             print(f"[Epoch {epoch}] Global step: {global_step}, Local step: {local_step}/{num_steps}", flush=True)
         input_ids, attention_mask, target_ids, mask_p = input_ids_, attention_mask_, target_ids_, mask_p_
         if is_main_process():
             print(f"[Epoch {epoch}] Fetched batch with mask_p: {mask_p.item():.4f}", flush=True)
-        # forward pass, do a more detailed check of the model every 100 steps
+        # forward pass (with autocast for mixed precision)
         with torch.cuda.amp.autocast(args.mixed_precision, dtype=torch.bfloat16):
             with ModelLogger(enable=global_step % 100 == 0, module=model):
                 loss, accuracy, z_loss, num_tokens = model(input_ids, attention_mask, target_ids)
 
-        # get the next batch
+        # get the next batch if available
         if local_step < num_steps - 1:
             input_ids_, attention_mask_, target_ids_, mask_p_ = get_batch(train_iter, args.device, global_step)
 
-        # calculate the weight for the loss (either token-weighted or not)
+        # compute the weight for the loss (accounting for accumulation)
         if args.token_weighted_loss:
             total_tokens = torch.tensor(num_tokens, device=args.device, dtype=torch.long)
             torch.distributed.all_reduce(total_tokens, torch.distributed.ReduceOp.SUM)
@@ -269,38 +270,37 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
         if is_main_process():
             print(f"[Epoch {epoch}] Backward done - Loss: {loss.item():.4f}, Accuracy: {accuracy:.4f}, Z-Loss: {z_loss.item():.4f}", flush=True)
 
-        # add the tracked metrics (for gradient accumulation)
+        # accumulate metrics for logging
         total_loss += loss.detach() * weight
         total_accuracy += accuracy * weight
         total_z_loss += z_loss * weight
         total_mask_p += mask_p * weight
 
-        # gradient accumulation -- if we have accumulated enough gradients, we can perform the optimizer step; otherwise, we just continue and backpropagate through the next batch
-        if (local_step + 1) % args.accumulate_steps != 0:
-                if is_main_process():
-                    print(f"[Epoch {epoch}] Accumulating gradients... (Step {local_step + 1}/{num_steps})", flush=True)
-                optimizer.step()
-                scheduler.step()
-                global_step += 1
-                optimizer.zero_grad(set_to_none=True)
-        else:
-            pass
-        # clip the gradients
-        total_grad_norm += nn.utils.clip_grad_norm_(model.parameters(), args.max_gradient) * weight
+        # Only perform an optimizer (and scheduler) step when the accumulation condition is met.
+        if (local_step + 1) % args.accumulate_steps == 0:
+            total_grad_norm += nn.utils.clip_grad_norm_(model.parameters(), args.max_gradient) * weight
+            optimizer.step()
+            scheduler.step()
+            optimizer.zero_grad(set_to_none=True)
+            global_step += 1  # update global step once per accumulation block
 
-        if is_main_process():
-            print(f"[Epoch {epoch}] Performing optimizer step", flush=True)
-        # optimizer step
-        optimizer.step()
-        scheduler.step()
+            with torch.no_grad():
+                # EMA update
+                for param_q, param_k in zip(model.module.parameters(), ema_model.parameters()):
+                    param_k.data.mul_(args.ema_decay).add_((1.0 - args.ema_decay) * param_q.detach().data)
+
+            if is_main_process():
+                wandb.log({"epoch": epoch, "global_step": global_step}, commit=True)
+
+            if global_step % args.save_every == 0:
+                save(model, ema_model, optimizer, scheduler, global_step, epoch, args)
+
+            if (global_step + 1) % args.validate_every == 0:
+                validation_epoch(model, valid_dataloader, epoch, args)
+                model.train()
 
         with torch.no_grad():
-
-            # EMA update
-            for param_q, param_k in zip(model.module.parameters(), ema_model.parameters()):
-                param_k.data.mul_(args.ema_decay).add_((1.0 - args.ema_decay) * param_q.detach().data)
-
-            # be careful here, not all GPUs work with the same training objective
+            # Compute per-dataset losses for logging
             if args.dataset_type == "masked":
                 total_mlm_loss = total_loss / (args.hybrid_numerator / args.hybrid_denominator)
                 total_clm_loss = torch.zeros_like(total_mlm_loss)
@@ -310,12 +310,11 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
                 total_mlm_loss = torch.zeros_like(total_clm_loss)
                 total_mask_p = torch.zeros_like(total_mask_p)
 
-            # accumulate the metrics across GPUs
+            # Accumulate and average metrics across GPUs
             metrics = torch.stack([total_loss, total_accuracy, total_z_loss, total_mask_p, total_mlm_loss, total_clm_loss])
             torch.distributed.all_reduce(metrics, torch.distributed.ReduceOp.AVG)
             total_loss, total_accuracy, total_z_loss, total_mask_p, total_mlm_loss, total_clm_loss = metrics.tolist()
 
-        # log the metrics
         if is_main_process():
             wandb.log(
                 {
@@ -337,28 +336,10 @@ def training_epoch(model, ema_model, train_dataloader, valid_dataloader, optimiz
                 commit=False
             )
 
-        # zero the accumulated gradients and the metrics
+        # Reset metrics for next accumulation block
         optimizer.zero_grad(set_to_none=True)
         total_loss, total_accuracy, total_z_loss, total_mask_p, total_grad_norm = 0.0, 0.0, 0.0, 0.0, 0.0
 
-
-        # validate the model
-        if (global_step + 1) % args.validate_every == 0:
-            validation_epoch(model, valid_dataloader, epoch, args)
-            model.train()
-
-        # log the stats and commit
-        if is_main_process():
-            wandb.log({"global_step": global_step}, commit=True)
-
-        global_step += 1
-        # checkpoint at correct step
-        if global_step % args.save_every == 0:
-            if is_main_process():
-                print(f"[Epoch {epoch}] Saving checkpoint at global step {global_step}")
-            save(model, ema_model, optimizer, scheduler, global_step, epoch, args)
-
-        # Exiting the training due to hitting max steps
         if global_step >= args.max_steps:
             return global_step
 
@@ -405,6 +386,8 @@ def validation_epoch(model, valid_dataloader, epoch, args, commit=False):
 
 def save(model, ema_model, optimizer, scheduler, global_step, epoch, args):
     if is_main_process():
+        os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
+        print(f"[INFO] Saving checkpoint at step {global_step} to {args.output_path}")
         model_to_save = model.module if hasattr(model, 'module') else model  # Only save the model itself
         torch.save(model_to_save.state_dict(), args.output_path)
         torch.save(ema_model.state_dict(), args.output_path.replace(".bin", "_ema.bin"))
@@ -424,19 +407,15 @@ def save(model, ema_model, optimizer, scheduler, global_step, epoch, args):
 def load_datasets(args, tokenizer, epoch, global_step, train_dataloader, valid_dataloader):
     train_seed = args.seed + get_rank() + epoch * get_world_size()
 
-    # if (global_step + 1) / args.max_steps >= 0.9:
-    #     seq_length = args.seq_length * 4
-    #     global_batch_size = args.global_batch_size // 4
-    # elif (global_step + 1) / args.max_steps >= 0.7:
-    #     seq_length = args.seq_length * 2
-    #     global_batch_size = args.global_batch_size // 2
-    # else:
-    #     seq_length = args.seq_length
-    #     global_batch_size = args.global_batch_size
-        # disable dynamic sequence-length growth to avoid OOM at end of training
-    
-    seq_length = args.seq_length
-    global_batch_size = args.global_batch_size
+    if (global_step + 1) / args.max_steps >= 0.9:
+        seq_length = args.seq_length * 2
+        global_batch_size = args.global_batch_size // 2
+    elif (global_step + 1) / args.max_steps >= 0.7:
+        seq_length = int(args.seq_length * 1.5)
+        global_batch_size = args.global_batch_size
+    else:
+        seq_length = args.seq_length
+        global_batch_size = args.global_batch_size
 
     if train_dataloader is None or train_dataloader.dataset.seq_length != seq_length:
         if args.dataset_type == "masked":
@@ -487,6 +466,8 @@ def load_datasets(args, tokenizer, epoch, global_step, train_dataloader, valid_d
 
 if __name__ == "__main__":
     args = parse_arguments()
+    os.makedirs(args.output_dir, exist_ok=True)
+    print(f"[INFO] Checkpoints will be saved to {args.output_dir}")
 
     tokenizer = Tokenizer.from_file(args.tokenizer_path)
     setup_training(args, tokenizer)
