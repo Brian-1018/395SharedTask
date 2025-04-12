@@ -1,1 +1,3 @@
 pretraining/wandb/
+*.out
+*.bin
