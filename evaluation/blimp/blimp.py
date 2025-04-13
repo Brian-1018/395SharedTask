@@ -183,13 +183,12 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Add to this for different models
-    match args.architecture:
-        case "base":
-            from model import Bert
-        case "extra":
-            from model_extra import Bert
-        case _:
-            raise ValueError(f"The architecture cannot be {args.architecture}, it has to be one of the following: base, extra.")
+    if args.architecture == "base":
+        from model import Bert
+    elif args.architecture == "extra":
+        from model_extra import Bert
+    else:
+        raise ValueError(f"The architecture cannot be {args.architecture}, it has to be one of the following: base, extra.")
 
     task = args.input_path.stem
     args.model_name = args.model_path_or_name.stem

@@ -107,7 +107,7 @@ def get_predictions(model, input_ids, mask_index, top_k=5):
         return top_indices, top_probs
 
 # --- Run inference ---
-input_text = "Do you like cats or <mask>?"
+input_text = "Can you please close the <mask>?"
 input_ids, mask_index = prepare_input(input_text)
 
 # Debug prints

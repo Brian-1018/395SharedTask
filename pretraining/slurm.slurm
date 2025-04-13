@@ -9,7 +9,7 @@
 # This is usually the right value -- most of the time
 # you are running one program at a time no matter how
 # many cores you are using.
-#SBATCH --ntasks=8
+#SBATCH --ntasks=1
 
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=8-15:00:30
@@ -36,26 +36,26 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-#SBATCH --gres=gpu:tesla_a40:8
+# ###### /// SBATCH --gres=gpu:tesla_a40:2
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
 #SBATCH --partition=sci
 
 # Memory requests are in megabytes by default. This is 24 GB.
-#SBATCH --mem=256000
+#SBATCH --mem=128000
 
 # This figure means cores not CPUs. 
-#SBATCH --cpus-per-task=5
+#SBATCH --cpus-per-task=12
 
-export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
-export MASTER_PORT=9998
-# export WORLD_SIZE=1
-# export RANK=0
-export WORLD_SIZE=$SLURM_NTASKS
-export RANK=$SLURM_PROCID
+# export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
+# export MASTER_PORT=9998
+# # export WORLD_SIZE=1
+# # export RANK=0
+# export WORLD_SIZE=$SLURM_NTASKS
+# export RANK=$SLURM_PROCID
 
-export WANDB_MODE=disabled
+# export WANDB_MODE=disabled
 
 #Test
 
@@ -119,20 +119,40 @@ pip freeze | grep minicons
 
 # echo "Tokenization of data complete, moving to next step..."
 
-cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
+# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
-export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+# export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
+# export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-srun python train_10m_extralog.py \
-    --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
-    --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-    --name="run_005_4_11_2025_babylm_10M" \
-    --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
-    --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_005_4_11_2025_babylm_10M_state_dict.bin" \
-    --hybrid_denominator=1 \
-    --save_every=150 
+# srun python train_10m_extralog.py \
+#     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
+#     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
+#     --name="run_005_4_13_2025_babylm_10M" \
+#     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
+#     --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_005_4_11_2025_babylm_10M_state_dict.bin" \
+#     --hybrid_denominator=1 \
+#     --save_every=5 \
+#     --local_batch_size=128 \
+#     --seq_length=96
 
+
+
+echo "Ok Blimp Time! Let's go! / TRAINING RUN 4"
+
+cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/evaluation-pipeline-2024
+# Run BLIMP evaluation
+# srun python evaluation/blimp/blimp.py \
+#     --input_path "/home/dl5ja/shared_cfinegan/evaluation-pipeline-2024/data/blimp" \
+#     --output_dir "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/evaluation/blimp/blimp_results" \
+#     --tokenizer_path "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizers/tokenizer_10M.json" \
+#     --model_path_or_name "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_005_4_13_2025_babylm_10M.bin" \
+#     --config_file "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/configs/small.json" \
+#     --architecture extra \
+#     --backend mlm 
+export CUDA_LAUNCH_BLOCKING=1
+export TF_CPP_MIN_LOG_LEVEL=2
+
+./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/run_004_4_11_2025_babylm_10M
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
@@ -185,8 +205,8 @@ date
 # #SBATCH --cpus-per-task=7
 # #SBATCH --mem=96000
 # #SBATCH --ntasks=1
-# #SBATCH --gres=gpu:tesla_a40:
-# #SBATCH --partition=sci
+# #SBATCH --gres=gpu:tesla_a40:2
+# #SBATCH --partition=NLP
 # #SBATCH --output=bert-%j.out
 
 # #SBATCH --mail-user=damien.liebov@richmond.edu
