@@ -9,7 +9,7 @@
 # This is usually the right value -- most of the time
 # you are running one program at a time no matter how
 # many cores you are using.
-#SBATCH --ntasks=1
+#SBATCH --ntasks=2
 
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=8-15:00:30
@@ -36,7 +36,7 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-# ###### /// SBATCH --gres=gpu:tesla_a40:2
+#SBATCH --gres=gpu:tesla_a40:2
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
@@ -46,7 +46,7 @@
 #SBATCH --mem=128000
 
 # This figure means cores not CPUs. 
-#SBATCH --cpus-per-task=12
+#SBATCH --cpus-per-task=11
 
 # export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
 # export MASTER_PORT=9998
@@ -117,27 +117,27 @@ pip freeze | grep minicons
 #     --train_file="babycosmofine_10M.jsonl" \
 #     --tokenizer_file="tokenizer_10M.json" 
 
-# echo "Tokenization of data complete, moving to next step..."
+# # echo "Tokenization of data complete, moving to next step..."
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
 # export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
 # export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-# srun python train_10m_extralog.py \
+# srun python train_10m_extralog_3.py \
 #     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
 #     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-#     --name="run_005_4_13_2025_babylm_10M" \
+#     --name="modified_03_babylm_10M" \
 #     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
-#     --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_005_4_11_2025_babylm_10M_state_dict.bin" \
+#     --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_halfway_state_dict.bin" \
 #     --hybrid_denominator=1 \
-#     --save_every=5 \
+#     --save_every=15 \
 #     --local_batch_size=128 \
 #     --seq_length=96
 
 
 
-echo "Ok Blimp Time! Let's go! / TRAINING RUN 4"
+echo "Ok Blimp Time! Let's go! / Modified Run 3 "
 
 cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/evaluation-pipeline-2024
 # Run BLIMP evaluation
@@ -151,8 +151,21 @@ cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/evaluation-pipeline-202
 #     --backend mlm 
 export CUDA_LAUNCH_BLOCKING=1
 export TF_CPP_MIN_LOG_LEVEL=2
+export WANDB_MODE=disabled
 
-./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/run_004_4_11_2025_babylm_10M
+./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+
+echo "OK  EWOK TIME! Let's go! / Modified Run 3 "
+
+
+./eval_ewok.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+
+# ./finetune_model.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+
+# ./finetune_model.sh //home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+
+
+
 
 # cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
@@ -205,7 +218,7 @@ date
 # #SBATCH --cpus-per-task=7
 # #SBATCH --mem=96000
 # #SBATCH --ntasks=1
-# #SBATCH --gres=gpu:tesla_a40:2
+# #SBATCH --gres=gpu:tesla_a40:8
 # #SBATCH --partition=NLP
 # #SBATCH --output=bert-%j.out
 

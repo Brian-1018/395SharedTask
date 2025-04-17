@@ -428,6 +428,9 @@ def load_datasets(args, tokenizer, epoch, global_step, train_dataloader, valid_d
         seq_length = args.seq_length * 4
         global_batch_size = args.global_batch_size // 4
     elif (global_step + 1) / args.max_steps >= 0.7:
+        seq_length = args.seq_length * 3
+        global_batch_size = args.global_batch_size // 3
+    elif (global_step + 1) / args.max_steps >= 0.5:
         seq_length = args.seq_length * 2
         global_batch_size = args.global_batch_size // 2
     else:

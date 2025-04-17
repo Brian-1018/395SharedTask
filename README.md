@@ -1,14 +1,17 @@
-<h2 align="center"><b><h3>GPT-BERT with Modified Pre-Training and Curriculum Learning</h3></b></h2>
-<br>
+# GPT-BERT Hybrid Pretraining & Evaluation Pipeline
 
-<p align="center">
-  <b>Authors: Ethan Rodgers-Gates, Brian Ma, Damien Liebov</b>
-</p>
+**Authors**: Ethan Rodgers‑Gates, Brian Ma, Damien Liebov  
+**Course**: CMSC395: Natural Language Processing, University of Richmond
 
-<p align="center">
-  <i>CMSC395: Natural Language Processing, University of Richmond</i>
-</p>
-<br>
+---
+
+## Overview
+
+This repository implements a hybrid GPT‑BERT model (BabyLM 10M), unifying causal and masked language modeling in a single transformer. We apply curriculum learning on the Baby‑cosmo‑fine‑10M dataset and evaluate on BLiMP, GLUE and EWOK benchmarks.
+
+---
+
+## Directory Structure
 
 ---
 
@@ -24,7 +27,44 @@ This repository contains the codebase and documentation for our project. Our mod
 
 ---
 
-## Planned Modifications
+## Running the Pipeline
+
+How to execute the [`run.slurm`](run.slurm) script:
+
+1. Make sure it’s executable
+```
+chmod +x run.slurm
+```
+
+2. Submit to SLURM
+```
+sbatch /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/run.slurm
+```
+
+3. Monitor the Job
+```
+squeue
+```
+
+`run.slurm` will:
+- Create the Tokenizer
+- Tokenize the corpus (splitting into test/train)
+- Pretrain the GPT‑BERT model
+- Evaluate on BLiMP and EWOK
+
+All logs and outputs appear in `slurm-<jobid>.out.`
+
+## Quick Test
+
+Once training and evaluation finish, you can load and test your model:
+
+Testing File for Masked Language Modeling:
+ [MLM Testing](testing/testing.py)
+Testing File for Text Generation:
+ [Text Generation Testing](/testing/testing2.py)
+
+
+<!-- ## Planned Modifications
 
 1. **Curriculum Learning Integration:**  
   We are implementing two pipelines for curriculum learning:
@@ -108,7 +148,7 @@ $ python scripts/run_tokenizer.py
 **Run Weighted deep mutual learning (WDML) training script for num_peers = 4**
 ```
 $ python scripts/train_WML.py
-``` -->
+``` --> 
 
 ## Citation
 <!-- Informal Version:

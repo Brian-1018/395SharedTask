@@ -1,12 +1,37 @@
+import argparse
+import os
 import torch
 from transformers import BertConfig, BertForMaskedLM, PreTrainedTokenizerFast
 from tokenizers import Tokenizer
-import os
+
+# === COMMAND LINE ARGUMENTS ===
+parser = argparse.ArgumentParser(
+    description="Convert BabyLM model and tokenizer to HuggingFace format"
+)
+parser.add_argument(
+    "--tokenizer_path",
+    type=str,
+    default="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizers/tokenizer_10M.json",
+    help="Path to the BabyLM tokenizer JSON file"
+)
+parser.add_argument(
+    "--model_state_path",
+    type=str,
+    default="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_03_babylm_10M_state_dict.bin",
+    help="Path to the BabyLM model state dict (.bin)"
+)
+parser.add_argument(
+    "--output_dir",
+    type=str,
+    default="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M",
+    help="Directory where the HuggingFace model and tokenizer will be saved"
+)
+args = parser.parse_args()
 
 # === PATHS ===
-tokenizer_path = "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizers/tokenizer_10M.json"
-model_state_path = "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/run_004_4_11_2025_babylm_10M_state_dict.bin"
-output_dir = "/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/run_004_4_11_2025_babylm_10M"
+tokenizer_path = args.tokenizer_path
+model_state_path = args.model_state_path
+output_dir = args.output_dir
 
 # === STEP 1: Ensure output directory exists ===
 os.makedirs(output_dir, exist_ok=True)
@@ -26,7 +51,7 @@ config = BertConfig(
 print("Loading state dict from:", model_state_path)
 model = BertForMaskedLM(config)
 checkpoint = torch.load(model_state_path, map_location="cpu")
-state_dict = checkpoint["model"]  # or checkpoint["ema_model"] if you want EMA weights
+state_dict = checkpoint.get("model", checkpoint)
 model.load_state_dict(state_dict, strict=False)
 print("Saving HuggingFace model to:", output_dir)
 model.save_pretrained(output_dir)
