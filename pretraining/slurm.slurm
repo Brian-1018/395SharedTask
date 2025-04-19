@@ -9,7 +9,7 @@
 # This is usually the right value -- most of the time
 # you are running one program at a time no matter how
 # many cores you are using.
-#SBATCH --ntasks=2
+#SBATCH --ntasks=1
 
 # This is ten seconds not ten minutes. Adjust accordingly.
 #SBATCH --time=8-15:00:30
@@ -36,26 +36,26 @@
 # is not required if there is only one type on the node.
 # The final ":1" says, "I want one GPU."
 ###
-#SBATCH --gres=gpu:tesla_a40:2
+#SBATCH --gres=gpu:tesla_a100:1
 
 # basic is the default collection of compute nodes. They
 # each have 52 cores and 384GB of memory.
-#SBATCH --partition=sci
+#SBATCH --partition=ML
 
 # Memory requests are in megabytes by default. This is 24 GB.
 #SBATCH --mem=128000
 
 # This figure means cores not CPUs. 
-#SBATCH --cpus-per-task=11
+#SBATCH --cpus-per-task=32
 
-# export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
-# export MASTER_PORT=9998
-# # export WORLD_SIZE=1
-# # export RANK=0
-# export WORLD_SIZE=$SLURM_NTASKS
-# export RANK=$SLURM_PROCID
+export MASTER_ADDR=$(scontrol show hostnames "$SLURM_NODELIST" | head -n 1)
+export MASTER_PORT=9998
+# export WORLD_SIZE=1
+# export RANK=0
+export WORLD_SIZE=$SLURM_NTASKS
+export RANK=$SLURM_PROCID
 
-# export WANDB_MODE=disabled
+export WANDB_MODE=disabled
 
 #Test
 
@@ -117,17 +117,17 @@ pip freeze | grep minicons
 #     --train_file="babycosmofine_10M.jsonl" \
 #     --tokenizer_file="tokenizer_10M.json" 
 
-# # echo "Tokenization of data complete, moving to next step..."
+echo "Tokenization of data complete, moving to next step..."
 
-# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
+cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
 
-# export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
-# export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-# srun python train_10m_extralog_3.py \
+# srun python train_10m_extralog_5.py \
 #     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
 #     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
-#     --name="modified_03_babylm_10M" \
+#     --name="modified_05_babylm_10M" \
 #     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
 #     --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_halfway_state_dict.bin" \
 #     --hybrid_denominator=1 \
@@ -137,7 +137,15 @@ pip freeze | grep minicons
 
 
 
-echo "Ok Blimp Time! Let's go! / Modified Run 3 "
+# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask
+# python convert_model_to_hf.py \
+#     --model_state_path="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_05_babylm_10M_state_dict.bin" \
+#     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_05_babylm_10M" \
+#     --tokenizer_path="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizers/tokenizer_10M.json"
+# echo "Conversion to HF format complete!"
+
+
+echo "Ok Blimp Time! Let's go! / Modified Run 6 "
 
 cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/evaluation-pipeline-2024
 # Run BLIMP evaluation
@@ -153,12 +161,12 @@ export CUDA_LAUNCH_BLOCKING=1
 export TF_CPP_MIN_LOG_LEVEL=2
 export WANDB_MODE=disabled
 
-./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_05_babylm_10M
 
-echo "OK  EWOK TIME! Let's go! / Modified Run 3 "
+echo "OK  EWOK TIME! Let's go! / Modified Run 5 "
 
 
-./eval_ewok.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+./eval_ewok.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_05_babylm_10M
 
 # ./finetune_model.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
 
@@ -218,8 +226,8 @@ date
 # #SBATCH --cpus-per-task=7
 # #SBATCH --mem=96000
 # #SBATCH --ntasks=1
-# #SBATCH --gres=gpu:tesla_a40:8
-# #SBATCH --partition=NLP
+# #SBATCH --gres=tesla_a100:1
+# #SBATCH --partition=sci
 # #SBATCH --output=bert-%j.out
 
 # #SBATCH --mail-user=damien.liebov@richmond.edu
