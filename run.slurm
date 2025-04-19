@@ -7,12 +7,11 @@
 #SBATCH --ntasks=2                          # Number of tasks (processes)
 #SBATCH --cpus-per-task=11                 # Cores per task
 #SBATCH --gres=gpu:tesla_a40:2             # GPUs per node
-#SBATCH --partition=NLP                    # Partition/queue name
+#SBATCH --partition=NLP                    # Partition
 #SBATCH --mem=128000                       # Memory in MB (128 GB)
 #SBATCH --time=8-15:00:30                  # Time limit (days-hours:minutes:seconds)
 #SBATCH --mail-user=damien.liebov@richmond.edu
-#SBATCH --mail-type=ALL                    # Email on BEGIN, END, FAIL, REQUEUE, etc.
-
+#SBATCH --mail-type=ALL                   # Mail notifications for all events
 ###############################################################################
 #                             Environment Setup                               
 ###############################################################################
@@ -34,8 +33,6 @@ export HF_HOME=/scratch/cfinegan/hf_cache
 # Print start time
 date
 
-# Ensure scratch directory exists
-mkdir -p /scratch/dl5ja
 
 # Display compute nodes
 echo "Running on:"
@@ -51,7 +48,7 @@ echo "Changing to project directory..."
 cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask
 
 ###############################################################################
-#                         Conda & Dependency Checks                           
+#                         Conda & Dependency Check                           
 ###############################################################################
 echo "Initializing Conda..."
 conda init bash
@@ -63,7 +60,8 @@ pip freeze | grep minicons
 #                           STEP 1: TOKENIZER CREATION                        
 ###############################################################################
 # Uncomment to run tokenizer creation:
-# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizer_creation
+
+# cd tokenizer_creation
 # python tokenizer_10m.py
 # echo "Tokenization complete, moving to next step..."
 
@@ -71,7 +69,8 @@ pip freeze | grep minicons
 #                        STEP 2: CORPUS TOKENIZATION                          
 ###############################################################################
 # Uncomment to tokenize the dataset:
-# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/corpus_tokenization
+
+# cd corpus_tokenization
 # python tokenize_corpus_split.py \
 #     --train_file="babycosmofine_10M.jsonl" \
 #     --tokenizer_file="tokenizer_10M.json"
@@ -81,47 +80,58 @@ pip freeze | grep minicons
 #                         STEP 3: MODEL TRAINING                              
 ###############################################################################
 # Uncomment to train the model:
-# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/pretraining
-# export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
-# export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-# srun python train_10m_extralog_3.py \
+
+# cd pretraining
+# export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128 # Helps with CUDA memory fragmentation
+# export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True # Helps with CUDA memory fragmentation
+# srun python train_10m_modified.py \
 #     --train_path="../data/babycosmofine_10M_split_train_tokenized.bin" \
 #     --valid_path="../data/babycosmofine_10M_valid_tokenized.bin" \
 #     --name="modified_03_babylm_10M" \
-#     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints" \
-#     --checkpoint_filename="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_halfway_state_dict.bin" \
+#     --output_dir="../checkpoints" \
 #     --hybrid_denominator=1 \
 #     --save_every=15 \
 #     --local_batch_size=128 \
 #     --seq_length=96
+
+# # --checkpoint_filename="../checkpoints/{CHECKPOINT-NAME}_state_dict].bin" \ # Optional checkpoint filename
 # echo "Model training complete!"
 
 ###############################################################################
 #                       STEP 4: CONVERT TO HF FORMAT                           
 ###############################################################################
 # Uncomment to run conversion to HF format:
-# cd /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/convert_model_to_hf.py
+
+# cd hf_format_models
 # python convert_model_to_hf.py \
-#     --model_state_path="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/checkpoints/modified_halfway_state_dict.bin" \
-#     --output_dir="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M" \
-#     --tokenizer_path="/home/dl5ja/shared_cfinegan/group4_work/395SharedTask/tokenizer_creation/tokenizer_10M.json"
+#     --model_state_path="../checkpoints/modified_halfway_state_dict.bin" \
+#     --output_dir="./modified_03_babylm_10M" \
+#     --tokenizer_path="../tokenizers/tokenizer_10M.json"
 # echo "Conversion to HF format complete!"
 
 ###############################################################################
 #                       STEP 5: BLIMP EVALUATION                              
 ###############################################################################
-# Uncomment to run BLIMP evaluation:
+# Uncomment to run BLiMP evaluation:
+
+# echo "Starting BLiMP evaluation..."
+# cd evaluation-pipeline-2024
 # export CUDA_LAUNCH_BLOCKING=1
 # export TF_CPP_MIN_LOG_LEVEL=2
-# export WANDB_MODE=disabled
-# ./eval_blimp.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+
+# ./eval_blimp.sh ../hf_format_models/modified_03_babylm_10M
 
 ###############################################################################
 #                       STEP 6: EWOK EVALUATION                               
 ###############################################################################
 # Uncomment to run EWOK evaluation:
+
 # echo "Starting EWOK evaluation..."
-# ./eval_ewok.sh /home/dl5ja/shared_cfinegan/group4_work/395SharedTask/hf_format_models/modified_03_babylm_10M
+# cd evaluation-pipeline-2024
+# export CUDA_LAUNCH_BLOCKING=1
+# export TF_CPP_MIN_LOG_LEVEL=2
+
+# ./eval_ewok.sh ../hf_format_models/modified_03_babylm_10M
 
 ###############################################################################
 #                             Job Completion                                  

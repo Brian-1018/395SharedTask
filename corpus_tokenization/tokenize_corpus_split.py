@@ -15,10 +15,10 @@ from pathlib import Path
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_folder", type=Path, default="../data")
-    parser.add_argument("--train_file", type=Path, default="train_100M.jsonl")
+    parser.add_argument("--train_file", type=Path, default="train_10M.jsonl")
     parser.add_argument("--valid_file", type=Path, default=None)
     parser.add_argument("--tokenizer_folder", type=Path, default="../tokenizers")
-    parser.add_argument("--tokenizer_file", type=Path, default="tokenizer_100M.json")
+    parser.add_argument("--tokenizer_file", type=Path, default="tokenizer_10M.json")
     parser.add_argument("--name", type=str, default=None)
     return parser.parse_args()
 
