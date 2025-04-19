@@ -1,1 +1,0 @@
-This folder contains the checkpoints to the pre-trained models.

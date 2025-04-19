@@ -1,1 +1,1 @@
-This folder contains the "training" scripts for the STRICT (100M) and STRICT-SMALL (10M) tokenizers.
+This folder contains the "training" scripts for the STRICT-SMALL (10M) tokenizer.
